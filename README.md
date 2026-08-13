@@ -21,10 +21,26 @@
 ├── index.html              # Основной HTML-файл со встроенными стилями и скриптами
 ├── assets/
 │   └── images/             # Изображения (фоны, аватары, иллюстрации)
+├── logos/                  # Логотипы фракций (PNG, 512×512px)
+│   ├── dolg_logo.png       # Логотип «Долг»
+│   ├── svoboda_logo.png    # Логотип «Свобода»
+│   ├── bandits_logo.png    # Логотип бандитов
+│   ├── mercs_logo.png      # Логотип наёмников
+│   ├── military_logo.png   # Логотип военных
+│   └── clearsky_logo.png   # Логотип «Чистое небо»
+├── banners/                # Баннеры фракций (JPG/PNG, 600×200px)
+│   ├── dolg_banner.jpg     # Баннер «Долг»
+│   ├── svoboda_banner.jpg  # Баннер «Свобода»
+│   ├── bandits_banner.jpg  # Баннер бандитов
+│   ├── mercs_banner.jpg    # Баннер наёмников
+│   ├── military_banner.jpg # Баннер военных
+│   └── clearsky_banner.jpg # Баннер «Чистое небо»
 └── .github/
     └── workflows/
         └── deploy-pages.yml  # Конфигурация GitHub Actions для деплоя
 ```
+
+> **Важно:** Файлы логотипов и баннеров должны быть размещены в папках `logos/` и `banners/` соответственно. Подробные требования к изображениям описаны в файле [FRACTION_IMAGES.md](FRACTION_IMAGES.md). Если файлы не найдены, автоматически отобразятся SVG-заглушки с цветами фракций.
 
 ## 🚀 Развёртывание
 
