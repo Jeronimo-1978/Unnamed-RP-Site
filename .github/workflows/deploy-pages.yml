@@ -7,7 +7,7 @@ on:
       - jeronimo-1978-pomoshch-s-saytom
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
