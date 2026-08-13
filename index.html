@@ -1,0 +1,1875 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unnamed RP — портал допуска · Arma Reforger · ChernobylZone</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0d08;--panel:rgba(9,12,6,.55);--panel2:rgba(12,16,8,.58);--line:#242e1b;--line2:#3d4d2c;--paper:#d9d5c4;--dim:#9d9a83;--mut:#6f7560;--amber:#b6903c;--amber-d:#5f4a1c;--phos:#7fb861;--red:#c4523f;--cyan:#5da8ba;--bor:rgba(84,24,24,.30);--bor-l:rgba(122,42,42,.42);--disp:'Russo One',sans-serif;--body:'Manrope',sans-serif;--mono:'JetBrains Mono',monospace}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--paper);font-family:var(--body);font-size:15px;line-height:1.55;overflow-x:hidden}
+::selection{background:var(--amber);color:#11150d}
+::-webkit-scrollbar{width:10px;height:10px}::-webkit-scrollbar-track{background:#0d120a}::-webkit-scrollbar-thumb{background:#2c3a22;border:2px solid #0d120a}
+.bg-photo,.bg-shade,.bg-grain,.bg-vig{position:fixed;inset:0;pointer-events:none}
+.bg-photo{z-index:0;background:#0b0f09 url('assets/images/stalker_bg.jpg') center/cover no-repeat;filter:saturate(.75) contrast(1.05) brightness(.5)}
+.bg-shade{z-index:0;background:linear-gradient(180deg,rgba(8,11,6,.88),rgba(8,11,6,.7) 42%,rgba(8,11,6,.92))}
+.bg-grain{z-index:0;opacity:.22;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0.6 0 0 0 0 0.62 0 0 0 0 0.5 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E")}
+.bg-vig{z-index:0;background:radial-gradient(ellipse at 50% 20%,transparent 40%,rgba(4,7,3,.65) 100%)}
+#boot{position:fixed;inset:0;z-index:200;background:var(--bg);display:flex;align-items:center;justify-content:center;transition:opacity .5s}#boot.done{opacity:0;pointer-events:none}
+.boot-box{font-family:var(--mono);font-size:13px;color:var(--phos);width:min(500px,86vw)}.boot-box .bl{opacity:0;animation:bootline .05s forwards}
+.boot-box .bl:nth-child(1){animation-delay:.1s}.boot-box .bl:nth-child(2){animation-delay:.45s}.boot-box .bl:nth-child(3){animation-delay:.8s}.boot-box .bl:nth-child(4){animation-delay:1.1s;color:var(--amber)}
+@keyframes bootline{to{opacity:1}}
+header{position:sticky;top:0;z-index:50;padding:10px 22px;background:linear-gradient(180deg,rgba(9,12,6,0.35),rgba(9,12,6,0.2));backdrop-filter:blur(8px);border-bottom:1px solid rgba(36,46,27,0.35)}
+.hdr-row{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.hdr-logo{display:flex;align-items:center;gap:10px;cursor:pointer;flex:none}
+.hdr-logo .emb{width:34px;height:34px;border:1px solid var(--line2);border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:var(--disp);font-size:12px;color:var(--amber)}
+.hdr-logo b{font-family:var(--disp);font-size:14px;letter-spacing:.08em;color:var(--paper)}
+.hdr-nav{display:flex;gap:2px;background:rgba(12,16,8,.72);border:1px solid var(--line);border-radius:999px;padding:4px;flex-wrap:wrap;justify-content:center}
+.hdr-nav a{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);padding:7px 14px;border:1px solid transparent;border-radius:999px;cursor:pointer;transition:.2s}
+.hdr-nav a:hover{color:var(--paper);transform:scale(1.07);filter:brightness(1.35)}
+.hdr-nav a.cur{background:var(--bor);border-color:var(--bor-l);color:var(--paper)}
+.hdr-userbox{display:flex;align-items:center;gap:9px;background:rgba(12,16,8,.72);border:1px solid var(--line);border-radius:999px;padding:4px 6px 4px 12px;flex:none}
+.logout-q{font-family:var(--mono);font-size:9px;letter-spacing:.12em;color:var(--mut);cursor:pointer;border-bottom:1px dashed transparent;transition:.2s;padding-right:6px}.logout-q:hover{color:var(--dim);border-color:var(--line2)}
+#dev-edge{position:fixed;left:0;top:32%;bottom:32%;width:12px;z-index:95}
+.dev-pill{position:absolute;left:0;top:50%;transform:translate(-110%,-50%);transition:transform .3s ease;white-space:nowrap;background:rgba(12,16,8,.95);border:1px solid var(--line2);border-left:none;border-radius:0 999px 999px 0;padding:9px 16px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);cursor:pointer}.dev-pill:hover{color:var(--amber);border-color:var(--amber)}#dev-edge:hover .dev-pill{transform:translate(0,-50%)}
+.user-chip{display:flex;align-items:center;gap:8px;font-size:11px;cursor:pointer;padding:2px 4px;border-radius:999px;transition:.2s}.user-chip:hover{filter:brightness(1.2)}.user-chip b{font-family:var(--disp);letter-spacing:.05em;font-size:11px}
+.mini-av{width:26px;height:26px;border:1px solid var(--line2);border-radius:50%;display:inline-flex;overflow:hidden;background:#0e130a;flex:none}.mini-av img{width:100%;height:100%;object-fit:cover}
+.bell-wrap{position:relative}.bell{background:none;border:none;color:var(--mut);width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;transition:.2s;border-radius:50%}.bell svg{width:15px;height:15px;fill:currentColor}.bell:hover{color:var(--dim);transform:scale(1.1);filter:brightness(1.3)}
+#bell-cnt{position:absolute;top:0;right:0;min-width:14px;height:14px;background:#42261f;color:#c99f92;font-style:normal;font-family:var(--mono);font-size:9px;display:none;align-items:center;justify-content:center;border-radius:7px;padding:0 3px}
+.bell-drop{position:absolute;right:0;top:38px;width:340px;max-height:420px;overflow-y:auto;background:rgba(12,16,8,.97);border:1px solid var(--line2);border-radius:12px;box-shadow:0 14px 40px rgba(0,0,0,.55);display:none;z-index:70}.bell-drop.on{display:block;animation:viewin .2s}
+.bd-head{display:flex;justify-content:space-between;align-items:center;padding:10px 13px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--mut)}
+.bd-head button{background:none;border:1px solid var(--line);border-radius:999px;color:var(--mut);font-family:var(--mono);font-size:9px;letter-spacing:.1em;padding:4px 10px;cursor:pointer;text-transform:uppercase;transition:.2s}.bd-head button:hover{color:var(--red);border-color:var(--red);transform:scale(1.06)}
+.nt{padding:11px 13px;border-bottom:1px solid var(--line);border-left:2px solid var(--line2);font-size:12px;color:var(--dim);cursor:pointer;transition:.15s}.nt:hover{background:rgba(255,255,255,.03)}.nt.un{background:rgba(182,144,60,.05)}
+.nt.ok{border-left-color:var(--phos)}.nt.warn{border-left-color:var(--amber)}.nt.bad{border-left-color:var(--red)}.nt.app{border-left-color:var(--cyan)}
+.nt-t{color:var(--paper);font-size:12.5px}.nt-d{font-family:var(--mono);font-size:9.5px;color:var(--mut);margin-top:4px}.nt-btns{display:flex;gap:8px;margin-top:8px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--disp);font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:11px 24px;border:1px solid transparent;border-radius:999px;cursor:pointer;text-decoration:none;transition:transform .2s,filter .2s,box-shadow .2s,background .2s,border-color .2s,color .2s}
+.btn:hover{transform:translateY(-2px) scale(1.05);filter:brightness(1.2)}.btn:active{transform:scale(.98)}
+.btn-primary{background:var(--amber);color:#14180d;box-shadow:0 3px 0 var(--amber-d)}
+.btn-ghost{background:rgba(16,20,11,.6);color:var(--dim);border-color:var(--line2)}.btn-ghost:hover{border-color:var(--amber);color:var(--amber)}
+.btn-danger{background:var(--red);color:#fff;box-shadow:0 3px 0 #6e2c20}
+.btn-phos{background:#28401f;color:var(--phos);border:1px solid #3f5c30}
+.btn-sm{padding:7px 15px;font-size:10px}
+.btn:disabled{opacity:.35;cursor:not-allowed;transform:none!important;filter:none!important;box-shadow:none!important}
+.btn-disc svg{width:17px;height:17px;fill:var(--mut);transition:fill .25s,transform .25s}.btn-disc:hover{border-color:#5865F2;color:var(--paper)}.btn-disc:hover svg{fill:#5865F2;transform:scale(1.2)}
+.chip{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:4px 9px;border:1px solid;border-radius:999px}
+.chip.ok{color:var(--phos);border-color:#37502b;background:rgba(127,184,97,.06)}.chip.warn{color:var(--amber);border-color:#5d4a1e;background:rgba(182,144,60,.07)}.chip.bad{color:var(--red);border-color:#5e281e;background:rgba(196,82,63,.07)}.chip.mute{color:var(--mut);border-color:var(--line);background:rgba(111,117,96,.06)}.chip.cy{color:var(--cyan);border-color:#284953;background:rgba(93,168,186,.06)}
+main{position:relative;z-index:1}.view{display:none;min-height:calc(100vh - 120px)}.view.active{display:block;animation:viewin .35s ease}
+@keyframes viewin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.panel{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);position:relative;backdrop-filter:blur(5px);border-radius:14px}
+.adm .panel{overflow:hidden}
+.corners::before,.corners::after{content:'';position:absolute;width:14px;height:14px;border:1px solid var(--line2);z-index:2}
+.corners::before{top:-1px;left:-1px;border-right:none;border-bottom:none}.corners::after{bottom:-1px;right:-1px;border-left:none;border-top:none}
+.p-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line)}.p-head h2{font-family:var(--disp);font-size:14px;letter-spacing:.1em;color:var(--dim)}
+.p-body{padding:18px}.lbl{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--mut)}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s ease}.reveal.in{opacity:1;transform:none}
+input,select,textarea{width:100%;background:rgba(9,12,6,.85);border:1px solid var(--line);border-radius:10px;color:var(--paper);font-family:var(--mono);font-size:13px;padding:11px 13px;outline:none;transition:.2s}
+input:focus,select:focus,textarea:focus{border-color:var(--amber);box-shadow:0 0 0 3px rgba(182,144,60,.1)}
+input::placeholder,textarea::placeholder{color:#4c5240}textarea{resize:vertical;min-height:70px}
+input[type=range]{accent-color:var(--amber);padding:4px 0;background:none;border:none}input[type=checkbox]{width:auto}input[type=color]{padding:4px;height:38px}
+input[type=date]{width:auto}
+.fld{margin-bottom:14px}.fld label{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:6px}
+.fld .hint,.hint{font-size:11px;color:var(--mut);margin-top:4px}
+.copy{font-family:var(--mono);font-size:9px;letter-spacing:.1em;color:var(--mut);background:none;border:1px solid var(--line);border-radius:8px;padding:3px 7px;cursor:pointer;transition:.2s}.copy:hover{color:var(--amber);border-color:var(--amber);transform:scale(1.08)}
+.kv{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 0;border-bottom:1px dashed var(--line);font-size:13px}.kv:last-child{border-bottom:none}
+.kv .k{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--mut)}.kv .v{font-family:var(--mono);font-size:12.5px;display:flex;align-items:center;gap:8px;word-break:break-all}.kv .v.hi{color:var(--amber)}
+.home-sec{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;padding:90px 0 70px}.home-sec.sec-1{align-items:flex-start;padding:36px 0 70px}
+.sec-bg{position:absolute;inset:-6%;background-color:#0a0d08;background-position:center;background-size:cover;background-repeat:no-repeat;filter:saturate(.8) contrast(1.05) brightness(.55);animation:kbsec 42s ease-in-out infinite alternate}
+.sec-1 .sec-bg{background-image:url('assets/images/stalker_bg.jpg')}.sec-2 .sec-bg{background-image:url('assets/images/home_bg2.jpg');animation-duration:50s}.sec-3 .sec-bg{background-image:url('assets/images/home_bg3.jpg');animation-duration:58s}
+@keyframes kbsec{from{transform:scale(1.03)}to{transform:scale(1.15) translate(-2.2%,1.6%)}}
+.sec-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,10,6,.66),rgba(8,10,6,.42) 45%,rgba(8,10,6,.82))}
+.sec-1 .sec-shade{animation:glowpulse 6s ease-in-out infinite}@keyframes glowpulse{0%,100%{opacity:1}50%{opacity:.78}}
+.sec-fade{position:absolute;left:0;right:0;height:160px;z-index:2;pointer-events:none}.sec-fade.top{top:0;background:linear-gradient(180deg,rgba(10,13,8,.96),transparent)}.sec-fade.bottom{bottom:0;background:linear-gradient(0deg,rgba(10,13,8,.96),transparent)}
+.fx{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.fx .fog{position:absolute;inset:-25%;background:radial-gradient(52% 30% at 28% 66%,rgba(214,192,150,.13),transparent 70%),radial-gradient(46% 26% at 72% 38%,rgba(214,192,150,.10),transparent 70%),radial-gradient(38% 22% at 50% 80%,rgba(214,192,150,.08),transparent 70%);animation:fogmove 26s ease-in-out infinite alternate}
+@keyframes fogmove{from{transform:translateX(-6%)}to{transform:translateX(6%) translateY(-3%)}}
+.fx .embers{position:absolute;inset:0;background-image:radial-gradient(3px 3px at 12% 86%,rgba(255,150,70,.85),transparent 60%),radial-gradient(2px 2px at 26% 92%,rgba(255,120,40,.7),transparent 60%),radial-gradient(3px 3px at 41% 88%,rgba(255,160,80,.8),transparent 60%),radial-gradient(2px 2px at 58% 94%,rgba(255,120,40,.7),transparent 60%),radial-gradient(3px 3px at 71% 86%,rgba(255,150,70,.8),transparent 60%),radial-gradient(2px 2px at 84% 92%,rgba(255,110,40,.65),transparent 60%),radial-gradient(2px 2px at 93% 84%,rgba(255,140,60,.6),transparent 60%),radial-gradient(2px 2px at 50% 98%,rgba(255,130,50,.7),transparent 60%);animation:ember 7s linear infinite}
+@keyframes ember{to{background-position:30px -220px,-24px -190px,16px -240px,-14px -200px,22px -180px,12px -230px,18px -170px,10px -210px}}
+.fx .ash{position:absolute;inset:0;opacity:.5;background-image:radial-gradient(1.5px 1.5px at 15% 20%,rgba(210,205,190,.35),transparent 60%),radial-gradient(1px 1px at 35% 45%,rgba(210,205,190,.3),transparent 60%),radial-gradient(1.5px 1.5px at 55% 15%,rgba(210,205,190,.28),transparent 60%),radial-gradient(1px 1px at 75% 60%,rgba(210,205,190,.3),transparent 60%),radial-gradient(1px 1px at 90% 30%,rgba(210,205,190,.25),transparent 60%),radial-gradient(1px 1px at 45% 75%,rgba(210,205,190,.28),transparent 60%);animation:ashfall 30s linear infinite}
+@keyframes ashfall{to{background-position:70px 120vh,-50px 110vh,90px 130vh,-70px 100vh,60px 120vh,40px 115vh}}
+.fx .scan{position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.022) 0 1px,transparent 1px 3px);animation:scanflicker 9s steps(1) infinite}
+@keyframes scanflicker{0%,91%{opacity:.55}92%{opacity:.95}93%{opacity:.35}94%{opacity:.8}95%,100%{opacity:.55}}
+.fx .glitch{position:absolute;left:0;right:0;height:12%;top:-20%;background:linear-gradient(180deg,transparent,rgba(255,255,255,.035),transparent);animation:glitchmove 11s linear infinite}
+@keyframes glitchmove{0%,72%{top:-20%}92%{top:120%}100%{top:120%}}
+.sec-inner{position:relative;z-index:3;width:100%;max-width:1240px;margin:0 auto;padding:0 26px}.sec-inner.wide{max-width:1420px}.sec-inner.edge{max-width:none;padding:0 26px}
+.hero-inner{display:flex;justify-content:space-between;align-items:flex-start;gap:34px}.hero-left{max-width:680px}
+.hero-title{font-family:var(--disp);font-size:clamp(48px,7.5vw,104px);line-height:.95;text-transform:uppercase;text-shadow:0 4px 30px rgba(0,0,0,.65)}
+.hero-title em{font-style:normal;color:var(--amber);text-shadow:0 0 44px rgba(182,144,60,.35)}
+.hero-title .ln{display:block;overflow:hidden}.hero-title .ln>span{display:block;transform:translateY(110%);animation:lnup .9s cubic-bezier(.2,.7,.2,1) forwards}.hero-title .ln:nth-child(2)>span{animation-delay:.15s}
+@keyframes lnup{to{transform:translateY(0)}}
+.hero-desc{max-width:520px;color:var(--dim);font-size:14.5px;line-height:1.7;margin-top:18px;opacity:0;animation:fadeup .8s .4s ease forwards}
+.hero-btns{display:flex;gap:14px;margin-top:28px;flex-wrap:wrap;opacity:0;animation:fadeup .8s .55s ease forwards}.hero-btns .btn{padding:15px 34px;font-size:13px}
+@keyframes fadeup{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.srv-card{border:1px solid var(--line2);border-radius:14px;background:rgba(10,13,8,.8);backdrop-filter:blur(8px);padding:14px 16px;font-family:var(--mono);box-shadow:0 24px 70px rgba(0,0,0,.5);width:288px;flex:none;margin-top:60px;opacity:0;animation:cardin .9s .3s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes cardin{from{opacity:0;transform:translateX(46px)}to{opacity:1;transform:none}}
+.srv-card .sc-head{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:9px;letter-spacing:.14em;color:var(--dim);padding-bottom:10px;border-bottom:1px solid var(--line);text-transform:uppercase}
+.sc-ping{color:var(--phos)}.sc-state{display:flex;align-items:center;gap:9px;padding:9px 0;border-bottom:1px dashed rgba(51,64,42,.55)}.sc-state b{font-size:11px;letter-spacing:.18em}
+.sc-row{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:10.5px;color:var(--mut);padding:8px 0;border-bottom:1px dashed rgba(51,64,42,.55)}.sc-row:last-child{border-bottom:none}.sc-row b{color:var(--paper);font-weight:500}.sc-row .cp{cursor:pointer;transition:.15s}.sc-row .cp:hover{color:var(--amber)}
+.sc-bar{height:3px;background:#1a2113;border-radius:2px;margin-top:6px;overflow:hidden}.sc-bar i{display:block;height:100%;background:var(--amber);border-radius:2px;transition:width 1s}
+.online-chip{margin:26px auto 0;display:flex;align-items:center;gap:16px;border:1px solid var(--line2);border-radius:12px;background:rgba(10,13,8,.72);padding:12px 20px;font-family:var(--mono);width:fit-content}
+.online-chip .n{font-size:21px;color:var(--paper)}.online-chip .n span{color:var(--mut);font-size:13px}.online-chip .t{font-size:9px;letter-spacing:.22em;color:var(--mut);text-transform:uppercase;line-height:1.7}
+.scroll-hint{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:3;width:22px;height:34px;border:1px solid var(--line2);border-radius:12px;display:flex;justify-content:center;opacity:.7}
+.scroll-hint i{width:3px;height:7px;background:var(--dim);border-radius:2px;margin-top:6px;animation:wheel 1.6s infinite}
+@keyframes wheel{0%{opacity:1;transform:translateY(0)}70%{opacity:0;transform:translateY(10px)}100%{opacity:0}}
+.sec-head{margin-bottom:30px}
+.sec-kicker{font-family:var(--mono);font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:#8f7a45;display:flex;align-items:center;gap:12px;margin-bottom:12px}.sec-kicker::before{content:'';width:34px;height:1px;background:#8f7a45}
+.sec-title{font-family:var(--disp);font-size:clamp(26px,4vw,44px);letter-spacing:.04em;text-transform:uppercase;color:var(--paper);text-shadow:0 3px 20px rgba(0,0,0,.6)}
+.guide-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.g-card{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:18px;background:rgba(9,12,6,.74);padding:32px 28px 26px;backdrop-filter:blur(6px);transition:transform .25s,border-color .25s;display:flex;flex-direction:column;min-height:250px}
+.g-card:hover{transform:translateY(-5px);border-color:var(--line2)}
+.g-num{position:absolute;right:10px;top:-26px;font-family:var(--disp);font-size:132px;line-height:1;color:rgba(217,213,196,.05);pointer-events:none;user-select:none;transition:color .35s,transform .35s}
+.g-card:hover .g-num{color:rgba(122,36,28,.17);transform:scale(1.1)}
+.g-card h3{font-family:var(--disp);font-size:16px;letter-spacing:.05em;margin-bottom:9px;color:var(--paper)}.g-card p{font-size:13px;color:var(--mut);margin-bottom:18px;flex:1}.g-card .btn{align-self:flex-start}
+.sec-3 .sec-head{margin-top:76px}
+.soc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.soc-card{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:18px;background:rgba(9,12,6,.74);padding:32px 28px;display:flex;flex-direction:column;gap:6px;text-decoration:none;transition:transform .25s,border-color .25s;backdrop-filter:blur(6px)}
+.soc-card:hover{transform:translateY(-5px);border-color:var(--line2)}
+.soc-card .wm{position:absolute;right:-18px;bottom:-20px;width:140px;height:140px;fill:rgba(217,213,196,.05);pointer-events:none;transition:fill .35s,opacity .35s,transform .35s}
+.soc-card:hover .wm{fill:var(--brand);opacity:.4;transform:scale(1.08)}
+.soc-card b{font-family:var(--disp);font-size:17px;color:var(--paper);letter-spacing:.04em}.soc-card span{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+.lore-wrap{max-width:1200px;margin:0 auto;padding:34px 28px 90px;position:relative;z-index:1}
+.lore-title{font-family:var(--disp);font-size:clamp(34px,6vw,76px);text-transform:uppercase;line-height:1;margin:10px 0 18px;text-shadow:0 4px 30px rgba(0,0,0,.6)}
+.lore-title em{font-style:normal;color:var(--amber);text-shadow:0 0 40px rgba(182,144,60,.3)}
+.lore-sub{max-width:660px;color:var(--dim);font-size:14px;line-height:1.7}
+.lore-meta{display:flex;gap:26px;font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--mut);margin:20px 0 44px;flex-wrap:wrap}.lore-meta b{color:var(--amber)}
+#view-lore .lore-bgfx{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.lore-blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.5;mix-blend-mode:screen}
+.lore-blob.b1{width:60vw;height:60vw;left:-10vw;top:-10vw;background:radial-gradient(circle,#3a1410,transparent 70%);animation:blob1 26s ease-in-out infinite alternate}
+.lore-blob.b2{width:55vw;height:55vw;right:-12vw;top:20vh;background:radial-gradient(circle,#16240f,transparent 70%);animation:blob2 32s ease-in-out infinite alternate}
+.lore-blob.b3{width:50vw;height:50vw;left:20vw;bottom:-15vw;background:radial-gradient(circle,#05070a,transparent 70%);animation:blob3 38s ease-in-out infinite alternate}
+@keyframes blob1{to{transform:translate(8vw,6vh) scale(1.15)}}@keyframes blob2{to{transform:translate(-6vw,8vh) scale(1.1)}}@keyframes blob3{to{transform:translate(5vw,-6vh) scale(1.2)}}
+.lore-sparks{position:absolute;inset:0;background-image:radial-gradient(2px 2px at 12% 30%,rgba(255,150,70,.7),transparent 60%),radial-gradient(1.5px 1.5px at 28% 70%,rgba(255,120,40,.6),transparent 60%),radial-gradient(2px 2px at 47% 20%,rgba(255,160,80,.65),transparent 60%),radial-gradient(1.5px 1.5px at 63% 80%,rgba(255,110,40,.55),transparent 60%),radial-gradient(2px 2px at 80% 40%,rgba(255,150,70,.6),transparent 60%),radial-gradient(1.5px 1.5px at 90% 65%,rgba(255,130,50,.5),transparent 60%);animation:sparkrise 9s linear infinite}
+@keyframes sparkrise{to{background-position:24px -200px,-18px -180px,14px -220px,-12px -190px,20px -210px,-16px -170px}}
+.lore-static{position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.02) 0 1px,transparent 1px 3px);animation:loreflick 8s steps(1) infinite;opacity:.6}
+@keyframes loreflick{0%,90%{opacity:.5}92%{opacity:.85}94%{opacity:.35}96%{opacity:.7}98%,100%{opacity:.5}}
+.tl{position:relative;max-width:1120px;margin:0 auto}
+.tl-road{position:absolute;top:0;bottom:0;left:50%;width:240px;transform:translateX(-50%);pointer-events:none}
+.tl-row{display:grid;grid-template-columns:1fr 84px 1fr;align-items:center;margin-bottom:56px;position:relative}
+.tl-node{grid-column:2;justify-self:center;width:46px;height:46px;border-radius:50%;border:1px solid var(--amber);background:rgba(9,12,6,.92);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;color:var(--amber);box-shadow:0 0 0 7px rgba(182,144,60,.07),0 0 24px rgba(182,144,60,.15);position:relative;z-index:2}
+.tl-side{min-width:0}
+.tl-card{border:1px solid var(--line);border-radius:14px;background:rgba(9,12,6,.8);padding:24px;backdrop-filter:blur(6px)}
+.tl-card .y{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.22em;color:var(--amber);border:1px solid #5d4a1e;border-radius:999px;padding:4px 10px;margin-bottom:12px;text-transform:uppercase}
+.tl-card h3{font-family:var(--disp);font-size:20px;letter-spacing:.03em;margin-bottom:10px;text-transform:uppercase}
+.tl-card p{color:var(--dim);font-size:13.5px;line-height:1.75}
+.tl-img{border:1px solid var(--line);border-radius:14px;overflow:hidden;position:relative;box-shadow:0 18px 50px rgba(0,0,0,.45)}
+.tl-img img{width:100%;height:280px;object-fit:cover;display:block;filter:saturate(.8) contrast(1.06) brightness(.85)}
+.tl-img::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.02) 0 1px,transparent 1px 3px),linear-gradient(180deg,transparent 60%,rgba(8,11,6,.55));pointer-events:none}
+.fac-wrap{max-width:1280px;margin:0 auto;padding:34px 28px 70px}
+.fac-grid2{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px;margin-top:26px}
+.fac-card2{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:rgba(9,12,6,.78);backdrop-filter:blur(6px);transition:transform .25s,border-color .25s;display:flex;flex-direction:column}
+.fac-card2:hover{transform:translateY(-5px);border-color:var(--fc)}
+.fc2-head{position:relative;padding:26px 20px 34px;display:flex;align-items:center;justify-content:center}
+.fc2-head .chip{position:absolute;top:12px;right:12px}
+.fc2-logo{width:88px;height:88px;border-radius:50%;border:2px solid var(--fc);background:#0e130a;display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+.fc2-logo img{width:82%;height:82%;object-fit:contain}
+.fc2-body{padding:0 20px 20px;display:flex;flex-direction:column;gap:10px;flex:1}
+.fc2-body h3{font-family:var(--disp);font-size:18px}.fc2-body p{font-size:12.5px;color:var(--mut);line-height:1.6;flex:1}
+.fc2-meta{display:flex;gap:14px;font-family:var(--mono);font-size:10px;color:var(--dim);letter-spacing:.08em}
+.fc2-actions{display:flex;gap:8px}
+.lead-wrap{max-width:1100px;margin:0 auto;padding:34px 28px 70px}
+.lead-hero{display:flex;gap:20px;align-items:center;padding:22px;border-radius:14px}
+.fc-logo2{border-radius:50%;background:#0e130a;border:2px solid var(--line2);display:flex;align-items:center;justify-content:center;overflow:hidden;width:72px;height:72px;flex:none}
+.fc-logo2 img{width:82%;height:82%;object-fit:contain}
+.fc-lead{font-family:var(--mono);font-size:10px;color:var(--mut);letter-spacing:.1em;display:flex;align-items:center;gap:6px}
+.leader-link{display:inline-flex;align-items:center;gap:8px;color:var(--cyan);cursor:pointer;text-decoration:underline dotted;transition:.15s}.leader-link:hover{color:#fff}
+.lead-tabs{display:flex;gap:6px;margin:22px 0 0;flex-wrap:wrap}
+.lead-tab{font-family:var(--disp);font-size:11px;letter-spacing:.1em;padding:11px 18px;background:rgba(9,12,6,.7);border:1px solid var(--line);border-bottom:none;color:var(--mut);cursor:pointer;transition:.2s;text-transform:uppercase}
+.lead-tab.on{color:var(--amber);background:var(--panel2);border-color:var(--line2);box-shadow:inset 0 2px 0 var(--amber)}
+.lead-panel{display:none}.lead-panel.on{display:block;animation:viewin .3s}
+.mem-row{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line)}.mem-row:last-child{border-bottom:none}
+.mem-row .nm{font-weight:700;font-size:13px}.mem-row .mt{margin-left:auto;display:flex;gap:8px;align-items:center}
+.news-wrap{max-width:920px;margin:0 auto;padding:34px 28px 70px}
+.news-full{background:rgba(9,12,6,.42);border-radius:16px}
+.news-full .news-item{padding:18px 20px;border-bottom:1px solid var(--line);border-radius:12px;margin:6px;border:1px solid rgba(36,46,27,.6);background:rgba(12,16,8,.35)}
+.news-full .news-item:hover{background:rgba(182,144,60,.05)}
+.news-item .n-meta{display:flex;gap:10px;align-items:center;margin-bottom:8px;flex-wrap:wrap}
+.news-item .n-date{font-family:var(--mono);font-size:10px;color:var(--mut);letter-spacing:.12em}
+.news-item h3{font-family:var(--disp);font-size:16px;letter-spacing:.04em;margin-bottom:5px;color:var(--paper)}
+.news-item p{color:var(--dim)}
+.news-rich{color:var(--dim);font-size:13px;line-height:1.65}.news-rich p{margin:0 0 6px}.news-rich h3,.news-rich h4{font-family:var(--disp);color:var(--paper);margin:10px 0 6px}
+.news-rich ul,.news-rich ol{padding-left:20px;margin:4px 0 8px}.news-rich blockquote{border-left:2px solid var(--amber);padding-left:10px;color:var(--mut);margin:6px 0}
+.news-ph{aspect-ratio:16/9;background:#0a0e07;display:flex;align-items:center;justify-content:center;border:1px solid var(--line);margin-bottom:12px;overflow:hidden;border-radius:10px}
+.news-ph img{display:block;margin:auto;max-width:100%;max-height:100%;object-fit:contain}
+.car{position:relative;aspect-ratio:16/9;background:#0a0e07;border:1px solid var(--line);margin-bottom:12px;overflow:hidden;border-radius:10px}
+.car-track{display:flex;height:100%;transition:transform .35s ease}.car-sl{min-width:100%;height:100%;display:flex;align-items:center;justify-content:center}.car-sl img{max-width:100%;max-height:100%;object-fit:contain}
+.car-btn{position:absolute;top:50%;transform:translateY(-50%);width:34px;height:44px;background:rgba(9,12,6,.8);border:1px solid var(--line2);color:var(--dim);font-size:20px;cursor:pointer;transition:.2s;z-index:2}.car-btn:hover{color:var(--amber);border-color:var(--amber)}.car-btn.l{left:0}.car-btn.r{right:0}
+.car-cnt{position:absolute;right:8px;bottom:8px;font-family:var(--mono);font-size:10px;color:var(--dim);background:rgba(9,12,6,.85);padding:3px 7px;border:1px solid var(--line)}
+.vid-prev{position:relative;display:block;margin-top:12px;border:1px solid var(--line);overflow:hidden;border-radius:10px}
+.vid-prev img{width:100%;display:block;aspect-ratio:16/9;object-fit:cover;filter:saturate(.85) brightness(.85)}
+.vid-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:34px;color:#fff;text-shadow:0 0 24px #000;background:rgba(0,0,0,.3);transition:.2s}.vid-prev:hover .vid-play{background:rgba(182,144,60,.25);font-size:40px}
+.news-video{display:inline-flex;margin-top:12px}
+.nw-bar{display:flex;gap:4px;flex-wrap:wrap;align-items:center;margin-bottom:8px}
+.nw-bar button{min-width:28px;height:28px;padding:0 8px;background:#0e130a;border:1px solid var(--line);border-radius:6px;color:var(--dim);cursor:pointer;font-size:12px;font-family:var(--mono);transition:.15s}
+.nw-bar button:hover{color:var(--amber);border-color:var(--amber)}
+.nw-bar select{width:auto;height:28px;padding:0 8px;font-size:11px;border-radius:6px}
+#nw-ed{min-height:150px;background:rgba(9,12,6,.85);border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:13px;color:var(--paper);outline:none;overflow-y:auto;max-height:300px}
+#nw-ed:focus{border-color:var(--amber)}#nw-ed:empty:before{content:attr(data-ph);color:#4c5240}
+.nw-thumbs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.nw-th{position:relative;width:72px;height:46px;border:1px solid var(--line);border-radius:8px;display:flex;align-items:center;justify-content:center;background:#0a0e07;cursor:pointer}
+.nw-th img{width:100%;height:100%;object-fit:cover}
+.nw-th button{position:absolute;top:-7px;right:-7px;width:16px;height:16px;background:var(--red);color:#fff;border:none;border-radius:50%;font-size:9px;cursor:pointer;line-height:1}
+.nw-th.add{color:var(--mut);font-size:18px;transition:.2s}.nw-th.add:hover{color:var(--amber);border-color:var(--amber)}
+.ied-wrap{position:relative;border-radius:10px;overflow:hidden}
+.ied-grid{position:absolute;inset:0;pointer-events:none;border:1px solid rgba(255,255,255,.45);background-image:linear-gradient(rgba(255,255,255,.25) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.25) 1px,transparent 1px);background-size:33.333% 33.333%}
+#ied-canvas{width:100%;display:block;background:#0a0e07;cursor:grab}#ied-canvas:active{cursor:grabbing}
+.rules-wrap{max-width:1240px;margin:0 auto;padding:34px 28px 70px}
+.rules-lead{color:var(--dim);font-size:14px;max-width:640px}
+.rules-meta{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--mut);margin:14px 0 26px}
+.rules-layout{display:grid;grid-template-columns:300px 1fr;gap:26px;align-items:start}
+.rules-side{position:sticky;top:86px;max-height:calc(100vh - 110px);overflow-y:auto;border-radius:14px}
+.rule-search{position:relative;padding:14px 14px 10px}.rule-search input{padding-right:34px}
+.rule-search span{position:absolute;right:26px;top:50%;transform:translateY(-30%);font-family:var(--mono);font-size:10px;color:var(--mut);border:1px solid var(--line);border-radius:5px;padding:1px 6px}
+.rc-item{display:flex;align-items:center;gap:11px;width:100%;text-align:left;background:none;border:none;border-left:2px solid transparent;color:var(--dim);padding:11px 16px;cursor:pointer;transition:.2s;font-family:var(--body);font-size:13px;font-weight:600}
+.rc-item:hover{background:rgba(255,255,255,.03);color:var(--paper)}.rc-item.on{background:rgba(182,144,60,.07);border-left-color:var(--amber);color:var(--paper)}
+.rc-ic{width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:8px;background:rgba(9,12,6,.6);font-size:14px}
+.rc-t{flex:1}.rc-cnt{font-family:var(--mono);font-size:9px;color:var(--mut);border:1px solid var(--line);border-radius:999px;padding:2px 7px}
+.rt-head{display:flex;align-items:center;gap:16px;margin-bottom:6px}
+.rt-ic{width:52px;height:52px;flex:none;display:flex;align-items:center;justify-content:center;border:1px solid var(--amber);border-radius:12px;background:rgba(182,144,60,.08);font-size:22px}
+.rt-head h1{font-family:var(--disp);font-size:clamp(24px,3.4vw,40px);letter-spacing:.03em;text-transform:uppercase}
+.rd-count{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--amber);margin:0 0 18px 68px}
+.rd-tools{display:flex;gap:10px;align-items:center;margin-bottom:16px}
+.rd-idx{margin-left:auto;font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--mut);text-transform:uppercase}
+.rd{border:1px solid var(--line);border-radius:12px;background:rgba(9,12,6,.6);margin-bottom:12px;overflow:hidden;transition:border-color .2s}.rd:hover{border-color:var(--line2)}
+.rd summary{list-style:none;display:flex;align-items:center;gap:14px;padding:16px 18px;cursor:pointer}.rd summary::-webkit-details-marker{display:none}
+.rd-num{font-family:var(--mono);font-size:10px;color:var(--mut);border:1px solid var(--line);border-radius:6px;padding:3px 7px}
+.rd-t{font-weight:700;font-size:14px;color:var(--paper)}.rd-arr{margin-left:auto;color:var(--amber);transition:transform .25s}.rd[open] .rd-arr{transform:rotate(180deg)}
+.rd-items{padding:2px 20px 16px 46px}
+.rule-item{display:flex;gap:12px;padding:8px 0;border-bottom:1px dashed var(--line);font-size:13.5px;color:var(--dim)}.rule-item:last-child{border-bottom:none}
+.rule-item .ri-n{font-family:var(--mono);font-size:10px;color:var(--amber);flex:none;width:26px;padding-top:3px}
+.auth-layout{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 90px)}
+.auth-rail{border-right:1px solid var(--line);padding:26px 20px;display:flex;flex-direction:column;gap:22px;background:rgba(9,12,6,.55)}
+.back-link{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);display:inline-flex;gap:8px;align-items:center;cursor:pointer;padding:10px 14px;border:1px solid var(--line);border-radius:999px;transition:.2s;width:fit-content}
+.back-link:hover{color:var(--amber);border-color:var(--amber);transform:translateX(-4px)}
+.stamp{border:1px solid var(--line2);padding:16px;transform:rotate(-2deg);font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);line-height:2}.stamp b{color:var(--amber);display:block;font-size:12px}
+.auth-center{display:flex;align-items:center;justify-content:center;padding:44px 28px}
+.auth-panels{display:grid;grid-template-columns:1fr 1.15fr;gap:26px;width:min(920px,100%)}
+.auth-note{font-size:11px;color:var(--mut);margin-top:12px;text-align:center}.auth-note a{color:var(--cyan);cursor:pointer;text-decoration:underline}
+.prof-wrap{max-width:960px;margin:0 auto;padding:34px 28px 60px}
+.pf-banner{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;border:1px solid var(--line2);background:rgba(182,144,60,.06);padding:10px 14px;margin-bottom:18px;font-size:13px}
+.pf-bannerimg{position:relative;height:180px;background:#0a0e07;border-bottom:1px solid var(--line);overflow:hidden;display:flex;align-items:center;justify-content:center}
+.pf-bannerimg img{width:100%;height:100%;object-fit:cover;object-position:center;filter:saturate(.8) contrast(1.05)}
+.pf-bannerimg .bn-btn{position:absolute;right:10px;bottom:10px}
+.pf-top{display:flex;gap:24px;padding:24px 22px 14px;flex-wrap:wrap}
+.ava-frame{width:164px;height:164px;position:relative;overflow:hidden;border:1px solid var(--line2);border-radius:14px;background:#0e130a}
+.ava-frame img{width:100%;height:100%;object-fit:cover;filter:saturate(.8) contrast(1.06)}
+.ava-scan{position:absolute;left:0;right:0;height:26px;background:linear-gradient(180deg,transparent,rgba(127,184,97,.12),transparent);animation:scan 3.2s linear infinite;pointer-events:none}
+@keyframes scan{from{top:-30px}to{top:110%}}
+.pf-ava{width:164px;flex:none}.pf-info{flex:1;min-width:260px}
+.pf-name{font-family:var(--disp);font-size:26px;letter-spacing:.03em}.pf-sub{color:var(--mut);font-size:13px;margin-top:6px}
+.pf-ids{display:grid;grid-template-columns:1fr 1fr;gap:0 30px;padding:6px 22px 12px}
+.pf-actions{display:flex;gap:10px;flex-wrap:wrap;padding:6px 22px 24px;border-top:1px dashed var(--line2)}
+.pf-tabs2{display:flex;gap:6px;padding:0 22px;flex-wrap:wrap}
+.pf-tab2{font-family:var(--disp);font-size:11px;letter-spacing:.1em;padding:11px 18px;background:rgba(9,12,6,.7);border:1px solid var(--line);border-bottom:none;color:var(--mut);cursor:pointer;transition:.2s;text-transform:uppercase}
+.pf-tab2.on{color:var(--amber);background:var(--panel2);border-color:var(--line2);box-shadow:inset 0 2px 0 var(--amber)}
+.pf-panel2{display:none;border-top:1px solid var(--line)}.pf-panel2.on{display:block;animation:viewin .3s}
+.soc-row{display:flex;gap:10px;align-items:center;padding:9px 0;border-bottom:1px dashed var(--line);font-size:13px}.soc-row:last-child{border-bottom:none}
+.soc-row .sk{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);width:90px;flex:none}.soc-row a{color:var(--cyan)}
+.nc-warn{border:1px solid var(--red);background:rgba(196,82,63,.06);padding:13px;font-size:12.5px;color:var(--dim);line-height:1.6}.nc-warn b{color:var(--red)}
+.note-item{border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:8px;background:rgba(12,16,8,.4)}
+.al-wrap{min-height:calc(100vh - 90px);display:flex;align-items:center;justify-content:center;padding:40px 24px;background:radial-gradient(ellipse at 50% 40%,rgba(196,82,63,.04),transparent 60%)}
+.al-box{width:min(430px,100%)}.al-box .p-body{padding:26px}
+.al-ic{width:52px;height:52px;border:1px solid var(--red);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:22px;color:var(--red)}
+.adm{display:grid;grid-template-columns:210px 1fr;min-height:calc(100vh - 90px)}
+.adm-side{border-right:1px solid var(--line);background:rgba(9,12,6,.6);padding:14px 0;display:flex;flex-direction:column}
+.adm-op{padding:0 14px 14px;border-bottom:1px solid var(--line);margin-bottom:10px}.adm-op .lbl{margin-bottom:8px}
+.adm-op .op-line{display:flex;align-items:center;gap:10px;margin-bottom:8px}.adm-op b{font-family:var(--disp);font-size:12px}
+.adm-tab{display:flex;align-items:center;gap:9px;width:100%;text-align:left;background:none;border:none;border-left:2px solid transparent;color:var(--dim);font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:11px 14px;cursor:pointer;transition:.2s}
+.adm-tab:hover{color:var(--paper);background:rgba(255,255,255,.03)}
+.adm-tab.on{color:var(--amber);border-left-color:var(--amber);background:rgba(182,144,60,.05)}
+.adm-tab .ico{font-size:12px;width:16px;text-align:center}
+.adm-tab.lock{opacity:.4;cursor:not-allowed}
+.adm-main{padding:22px;overflow-x:auto}
+.adm-panel{display:none}.adm-panel.on{display:block;animation:viewin .3s}
+.adm-head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:16px;flex-wrap:wrap}
+.adm-head h2{font-family:var(--disp);font-size:19px;letter-spacing:.06em;color:var(--dim)}
+.adm-stats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px;width:100%}
+.stat-chip{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--mono);font-size:10px;letter-spacing:.1em;padding:10px 14px;border:1px solid var(--line);border-radius:999px;background:rgba(12,16,8,.5);color:var(--dim);cursor:pointer;transition:.2s}
+.stat-chip:hover{border-color:var(--amber);color:var(--paper)}
+.stat-chip.ok{color:var(--phos);border-color:#37502b}.stat-chip.bad{color:var(--red);border-color:#5e281e}
+.adm-cols{display:grid;grid-template-columns:var(--admcols,1.35fr) 8px 1fr;gap:0 0;align-items:stretch}
+.resizer{cursor:col-resize;background:var(--line);border-radius:4px;width:8px;transition:background .2s}
+.resizer:hover{background:var(--amber)}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th{font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);text-align:left;padding:10px 12px;border-bottom:1px solid var(--line2)}
+td{padding:10px 12px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:12px}
+tbody tr{cursor:pointer;transition:background .15s}tbody tr:hover{background:rgba(182,144,60,.04)}
+tbody tr.sel{background:rgba(182,144,60,.08);box-shadow:inset 2px 0 0 var(--amber)}
+tr.grp td{background:rgba(182,144,60,.06);color:var(--amber);font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;cursor:default;padding:8px 12px}
+tr.grp.bad td{background:rgba(196,82,63,.07);color:var(--red)}
+.log-type{font-family:var(--mono);font-size:10px;letter-spacing:.08em;padding:3px 7px;border:1px solid}
+.det-sec{border-top:1px dashed var(--line2);padding:14px 0}.det-sec .lbl{margin-bottom:10px;display:block}
+.det-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.det-row.small .btn{padding:5px 10px;font-size:9px}
+.det-row.small input{width:110px;padding:6px 8px;font-size:11px}
+.det-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.det-head .nm-link{font-family:var(--disp);font-size:18px;color:var(--paper);cursor:pointer;text-decoration:underline dotted}
+.det-head .nm-link:hover{color:var(--amber)}
+.det-head .edge{margin-left:auto;display:flex;gap:6px}
+.det-bal{font-family:var(--disp);font-size:26px;color:var(--amber);margin:4px 0}
+.det-fac{font-family:var(--disp);font-size:18px;margin:4px 0}
+.det-sec>.lbl{font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.2em;color:#e3d0a0;display:block;padding:8px 12px;margin-bottom:12px;background:linear-gradient(90deg,rgba(182,144,60,.17),rgba(182,144,60,.02));border-left:3px solid var(--amber);border-radius:0 9px 9px 0;text-shadow:0 1px 2px rgba(0,0,0,.65)}
+.det-row.small select{width:auto;min-width:0;max-width:146px;padding:6px 9px;font-size:10.5px;border-radius:8px}
+.det-bal{font-size:27px}
+.fchip{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);background:rgba(12,16,8,.72);border:1px solid var(--line);border-radius:999px;padding:6px 13px;cursor:pointer;transition:.18s;white-space:nowrap}
+.fchip:hover{color:var(--paper);border-color:var(--line2);transform:translateY(-1px)}
+.fchip.on{color:#14180d;background:var(--amber);border-color:var(--amber);box-shadow:0 2px 0 var(--amber-d);font-weight:700}
+.fchip.all.on{color:var(--paper);background:var(--bor);border-color:var(--bor-l);box-shadow:none}
+.fl-chips{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin:0 0 14px}
+.fl-chips>.lbl{margin-right:4px}
+.chip-chk{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10px;color:var(--dim);border:1px solid var(--line);border-radius:999px;padding:4px 10px;cursor:pointer;transition:.2s}
+.chip-chk:hover{border-color:var(--amber)}
+.chip-chk input{width:auto}
+.chip-row{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.det-empty{color:var(--mut);font-family:var(--mono);font-size:12px;text-align:center;padding:60px 20px}
+.ban-box{border:1px solid var(--red);background:rgba(196,82,63,.06);padding:14px;margin-top:10px;border-radius:10px}
+.fl-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+.fl-row select{width:auto;min-width:150px}.fl-row input{width:auto}
+.fl-row input[type=text]{width:220px}
+.rest-chip{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;padding:4px 8px;border:1px solid;border-radius:999px}
+.rest-chip.no{color:var(--mut);border-color:var(--line);background:rgba(111,117,96,.06)}.rest-chip.done{color:var(--phos);border-color:#37502b;background:rgba(127,184,97,.08)}
+.alog-link{color:var(--amber);text-decoration:underline dotted;cursor:pointer;transition:.15s}.alog-link:hover{color:#fff;background:rgba(182,144,60,.15)}
+.nw-item{display:flex;align-items:center;gap:10px;padding:11px 14px;border-bottom:1px solid var(--line);font-size:12.5px}.nw-item:last-child{border-bottom:none}
+.nw-item .t{flex:1;font-family:var(--body);font-weight:600}
+.pwr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:18px 0}
+.pwr{padding:22px 12px;text-align:center;border:1px solid var(--line2);border-radius:14px;background:var(--panel);cursor:pointer;transition:.2s;font-family:var(--disp);font-size:13px;letter-spacing:.1em;color:var(--dim)}
+.pwr .ico{font-size:26px;display:block;margin-bottom:10px}
+.pwr:hover:not(.dis){transform:translateY(-3px);border-color:var(--amber)}.pwr.dis{opacity:.35;cursor:not-allowed}.pwr.danger:hover:not(.dis){border-color:var(--red)}
+.console{background:#080b06;border:1px solid var(--line);border-radius:10px;font-family:var(--mono);font-size:11.5px;color:var(--phos);padding:14px;height:220px;overflow-y:auto;line-height:1.9}
+.console .sys{color:var(--mut)}.console .warn{color:var(--amber)}.console .err{color:var(--red)}
+footer{border-top:1px solid var(--line);padding:20px 28px;display:flex;justify-content:space-between;gap:14px;font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);flex-wrap:wrap;position:relative;z-index:1}
+footer a{color:var(--dim);text-decoration:none}footer a:hover{color:var(--amber)}
+#demo{position:fixed;left:18px;bottom:18px;z-index:80;display:flex;align-items:center;gap:6px;background:rgba(9,12,6,.9);border:1px solid var(--line2);border-radius:10px;padding:8px 10px;font-family:var(--mono)}
+#demo span{font-size:9px;letter-spacing:.16em;color:var(--mut);margin-right:4px}
+#demo button{background:none;border:1px solid var(--line);border-radius:999px;color:var(--dim);font-family:var(--mono);font-size:9px;letter-spacing:.08em;padding:5px 9px;cursor:pointer;text-transform:uppercase;transition:.2s}
+#demo button:hover{color:var(--amber);border-color:var(--amber);transform:scale(1.08)}
+#toasts{position:fixed;right:20px;bottom:20px;z-index:120;display:flex;flex-direction:column;gap:10px;max-width:380px}
+.toast{background:#12180d;border:1px solid var(--line2);border-left:2px solid var(--phos);border-radius:10px;padding:13px 16px;font-size:13px;animation:tin .3s ease;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+.toast.err{border-left-color:var(--red)}.toast.warn{border-left-color:var(--amber)}
+@keyframes tin{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:none}}
+.modal-bg{position:fixed;inset:0;z-index:150;background:rgba(5,8,4,.8);display:none;align-items:center;justify-content:center;padding:20px}.modal-bg.on{display:flex}
+.modal-box{width:min(440px,100%);background:#12180d;border:1px solid var(--line2);border-radius:14px;animation:viewin .25s}.modal-box.wide{width:min(640px,100%)}
+.modal-box .p-body{padding:24px}.modal-box h3{font-family:var(--disp);font-size:16px;letter-spacing:.06em;margin-bottom:12px;color:var(--dim)}
+.modal-btns{display:flex;gap:10px;justify-content:flex-end;margin-top:6px}
+@media(max-width:1020px){
+.hdr-row{flex-wrap:wrap}.hdr-nav{order:3;width:100%}
+.hero-inner{flex-direction:column;align-items:flex-start}.srv-card{width:100%;margin-top:0}
+.guide-grid,.soc-grid{grid-template-columns:1fr 1fr}
+.rules-layout{grid-template-columns:1fr}.rules-side{position:static;max-height:none}
+.adm-cols{grid-template-columns:1fr}.resizer{display:none}
+.pf-ids{grid-template-columns:1fr}
+.auth-layout{grid-template-columns:1fr}.auth-rail{flex-direction:row;align-items:center;border-right:none;border-bottom:1px solid var(--line)}
+.auth-panels{grid-template-columns:1fr}
+.adm{grid-template-columns:1fr}.adm-side{flex-direction:row;overflow-x:auto;border-right:none;border-bottom:1px solid var(--line);padding:0}
+.adm-op{display:none}.adm-tab{white-space:nowrap;border-left:none;border-bottom:2px solid transparent}.adm-tab.on{border-bottom-color:var(--amber)}
+.home-sec{padding:110px 0 60px}.home-sec.sec-1{padding:60px 0 60px}}
+@media(max-width:900px){.tl-road{display:none}.tl-row{grid-template-columns:44px 1fr;gap:0 14px;margin-bottom:40px}.tl-node{grid-column:1;grid-row:1 / span 3;align-self:start;margin-top:6px}.tl-side{grid-column:2}.tl-side.empty{display:none}.tl-img img{height:200px}}
+@media(max-width:640px){.guide-grid,.soc-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+<symbol id="i-tg" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></symbol>
+<symbol id="i-ds" viewBox="0 0 24 24"><path d="M20.317 4.37a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.865-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.058a.082.082 0 0 0 .031.056 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.291.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.3 12.3 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.06.06 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></symbol>
+<symbol id="i-yt" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></symbol>
+<symbol id="i-bs" viewBox="0 0 24 24"><path d="M2.661 14.337L6.801 0h6.362L11.88 4.444l-.038.077l-3.378 11.733h3.15q-1.982 4.934-3.086 7.733c-5.816-.063-7.442-4.228-6.02-9.155M8.554 24l7.67-11.035h-3.25l2.83-7.073c4.852.508 7.137 4.33 5.791 8.952C20.16 19.81 14.344 24 8.68 24h-.127z"/></symbol>
+</svg>
+<div id="boot"><div class="boot-box">
+  <div class="bl">▸ ИНИЦИАЛИЗАЦИЯ ПОРТАЛА UNNAMED RP...</div>
+  <div class="bl">▸ СВЯЗЬ С СЕРВЕРОМ ARMA REFORGER · ChernobylZone... OK</div>
+  <div class="bl">▸ ЗАГРУЗКА БАЗЫ ДОПУСКОВ И ВАЙТ-ЛИСТА......... OK</div>
+  <div class="bl">▸ СИСТЕМА ГОТОВА. ЗОНА ЖДЁТ.</div>
+</div></div>
+<script>
+setTimeout(function(){var b=document.getElementById('boot');if(b){b.classList.add('done');setTimeout(function(){b.remove()},600)}},1800);
+window.addEventListener('error',function(e){var d=document.getElementById('jserr');if(!d){d=document.createElement('div');d.id='jserr';d.style.cssText='position:fixed;left:0;right:0;bottom:0;z-index:300;background:#3a120c;color:#ffb4a6;font:12px monospace;padding:8px 14px';document.body.appendChild(d)}d.textContent='Ошибка JS: '+e.message});
+</script>
+<div class="bg-photo"></div><div class="bg-shade"></div><div class="bg-grain"></div><div class="bg-vig"></div>
+<div id="dev-edge"><a class="dev-pill" onclick="go('admin-login')">⚙ Для разработчиков</a></div>
+<header>
+  <div class="hdr-row">
+    <a class="hdr-logo" onclick="go('home')"><span class="emb">UR</span><b>UNNAMED RP</b></a>
+    <nav class="hdr-nav" id="nav-links"></nav>
+    <div class="hdr-userbox" id="hdr-user"></div>
+  </div>
+</header>
+<main>
+<section class="view active" id="view-home">
+  <div class="home-sec sec-1">
+    <div class="sec-bg"></div><div class="sec-shade"></div>
+    <div class="fx"><div class="fog"></div><div class="embers"></div><div class="ash"></div><div class="scan"></div><div class="glitch"></div></div>
+    <div class="sec-fade bottom"></div>
+    <div class="sec-inner edge hero-inner">
+      <div class="hero-left">
+        <h1 class="hero-title"><span class="ln"><span>UNNAMED</span></span><span class="ln"><span><em>RP</em></span></span></h1>
+        <p class="hero-desc">RP-сервер по мотивам S.T.A.L.K.E.R. в Arma Reforger. Выживай, объединяйся и пиши собственную историю Зоны.</p>
+        <div class="hero-btns">
+          <a class="btn btn-hero" onclick="document.getElementById('sec-guide').scrollIntoView({behavior:'smooth'})">▸ Начать играть</a>
+          <a class="btn btn-ghost btn-disc" href="https://discord.gg/7qdW6rqhKS" target="_blank"><svg viewBox="0 0 24 24"><use href="#i-ds"/></svg>Наш Discord</a>
+        </div>
+      </div>
+      <div class="srv-card">
+        <div class="sc-head"><span>UNNAMED RP | CHERNOBYLZONE</span><span class="sc-ping" id="sc-ping">—</span></div>
+        <div class="sc-state"><span class="dot" id="sc-dot"></span><b id="sc-state">ОНЛАЙН</b></div>
+        <div class="sc-row"><span>Игроков</span><b id="sc-players">—</b></div>
+        <div class="sc-bar"><i id="srv-bar" style="width:0%"></i></div>
+        <div class="sc-row"><span>Карта</span><b id="sc-map">ChernobylZone</b></div>
+        <div class="sc-row"><span>Аптайм</span><b id="sc-up">—</b></div>
+        <div class="sc-row"><span>Адрес</span><b class="cp" id="sc-ip" title="Скопировать" onclick="copyTxt(server.ip+':'+server.port,'IP и порт скопированы')">—</b></div>
+      </div>
+    </div>
+    <div class="scroll-hint"><i></i></div>
+  </div>
+  <div class="home-sec sec-2" id="sec-guide">
+    <div class="sec-bg"></div><div class="sec-shade"></div>
+    <div class="fx"><div class="fog"></div><div class="ash"></div><div class="scan"></div><div class="glitch"></div></div>
+    <div class="sec-fade top"></div><div class="sec-fade bottom"></div>
+    <div class="sec-inner wide">
+      <div class="sec-head reveal"><div class="sec-kicker">шаг за шагом</div><h2 class="sec-title">Как попасть в Зону</h2></div>
+      <div class="guide-grid">
+        <div class="g-card reveal"><span class="g-num">1</span><h3>Копия Arma Reforger</h3><p>Лицензионная игра — единственный ключ к серверу. Без неё Зона не откроется.</p><a class="btn btn-ghost btn-sm" href="https://store.steampowered.com/app/1874880/Arma_Reforger/" target="_blank">Магазин Steam</a></div>
+        <div class="g-card reveal"><span class="g-num">2</span><h3>Discord проекта</h3><p>Анонсы, связь с администрацией и собеседования на вайт-лист — всё в одном месте.</p><a class="btn btn-ghost btn-sm btn-disc" href="https://discord.gg/7qdW6rqhKS" target="_blank"><svg viewBox="0 0 24 24"><use href="#i-ds"/></svg>Наш Discord</a></div>
+        <div class="g-card reveal"><span class="g-num">3</span><h3>Аккаунт и вайт-лист</h3><p>Портал выдаёт пропуск: регистрация занимает минуту, затем — проверка WL.</p><a class="btn btn-ghost btn-sm" onclick="go('auth')">Регистрация</a></div>
+        <div class="g-card reveal"><span class="g-num">4</span><h3>Правила проекта</h3><p>Зона живёт по закону: знание правил бережёт от банов и лишних конфликтов.</p><a class="btn btn-ghost btn-sm" onclick="go('rules')">Читать правила</a></div>
+      </div>
+    </div>
+  </div>
+  <div class="home-sec sec-3">
+    <div class="sec-bg"></div><div class="sec-shade"></div>
+    <div class="fx"><div class="fog"></div><div class="ash"></div><div class="scan"></div><div class="glitch"></div></div>
+    <div class="sec-fade top"></div>
+    <div class="sec-inner wide">
+      <div class="sec-head reveal"><div class="sec-kicker">мы на связи</div><h2 class="sec-title">Наши соцсети</h2></div>
+      <div class="soc-grid">
+        <a class="soc-card reveal" style="--brand:#229ED9" href="https://t.me/unnamed_rp" target="_blank"><svg class="wm" viewBox="0 0 24 24"><use href="#i-tg"/></svg><b>Telegram</b><span>новости и анонсы</span></a>
+        <a class="soc-card reveal" style="--brand:#5865F2" href="https://discord.gg/7qdW6rqhKS" target="_blank"><svg class="wm" viewBox="0 0 24 24"><use href="#i-ds"/></svg><b>Discord</b><span>связь и вайт-лист</span></a>
+        <a class="soc-card reveal" style="--brand:#FF0000" href="https://youtube.com/@unnamedrp" target="_blank"><svg class="wm" viewBox="0 0 24 24"><use href="#i-yt"/></svg><b>YouTube</b><span>видео и разоблачения</span></a>
+        <a class="soc-card reveal" style="--brand:#F15F2C" href="https://boosty.to/unnamedrp" target="_blank"><svg class="wm" viewBox="0 0 24 24"><use href="#i-bs"/></svg><b>Boosty</b><span>поддержать проект</span></a>
+      </div>
+      <div class="online-chip reveal"><span class="dot"></span><span class="n" id="on-n">— <span>/ 64</span></span><span class="t">сейчас в игре<br><span id="on-time" style="letter-spacing:.08em">обновлено —</span></span></div>
+    </div>
+  </div>
+</section>
+<section class="view" id="view-news">
+  <div class="news-wrap">
+    <div class="sec-kicker">Unnamed RP · лента проекта</div>
+    <h1 class="sec-title" style="font-size:clamp(30px,4.5vw,54px)">НОВОСТИ <span style="color:var(--amber)">ПРОЕКТА</span></h1>
+    <p style="color:var(--mut);margin:12px 0 0">Патчи, наборы, события и разоблачения — всё, чем живёт Зона.</p>
+    <div class="panel news-full" style="margin-top:24px"><div id="news-list"></div></div>
+  </div>
+</section>
+<section class="view" id="view-factions">
+  <div class="fac-wrap">
+    <div class="sec-kicker">Unnamed RP · расстановка сил</div>
+    <h1 class="sec-title" style="font-size:clamp(30px,4.5vw,54px)">ФРАКЦИИ <span style="color:var(--amber)">ЗОНЫ</span></h1>
+    <p style="color:var(--mut);margin:12px 0 0">Выберите группировку — откройте досье, изучите устав и подайте заявку.</p>
+    <div class="fac-grid2" id="fac-grid"></div>
+  </div>
+</section>
+<section class="view" id="view-faction">
+  <div class="lead-wrap">
+    <div class="sec-kicker">Unnamed RP · управление группировкой</div>
+    <h1 class="sec-title" style="font-size:clamp(26px,4vw,44px)">КАБИНЕТ <span style="color:var(--amber)">ЛИДЕРА</span></h1>
+    <div id="lead-sel-wrap" style="display:none;margin:16px 0 0;max-width:320px"><select id="lead-sel" onchange="leadView=this.value;renderFaction()"></select></div>
+    <div class="panel lead-hero" style="margin-top:20px" id="lead-hero"></div>
+    <div class="lead-tabs">
+      <button class="lead-tab on" onclick="leadTabGo('info',this)">Информация</button>
+      <button class="lead-tab" onclick="leadTabGo('rules',this)">Правила фракции</button>
+      <button class="lead-tab" onclick="leadTabGo('members',this)">Участники</button>
+      <button class="lead-tab" onclick="leadTabGo('apps',this)">Заявки</button>
+    </div>
+    <div class="panel">
+      <div class="lead-panel on" id="lp-info"></div>
+      <div class="lead-panel" id="lp-rules"></div>
+      <div class="lead-panel" id="lp-members"></div>
+      <div class="lead-panel" id="lp-apps"></div>
+    </div>
+  </div>
+</section>
+<section class="view" id="view-rules">
+  <div class="rules-wrap">
+    <p class="rules-lead">Полный регламент проекта Unnamed RP. Выберите раздел слева — правила обязательны для всех.</p>
+    <div class="rules-meta" id="rule-stats"></div>
+    <div class="rules-layout">
+      <aside class="rules-side panel">
+        <div class="rule-search"><input id="rule-search" placeholder="Поиск по правилам..." oninput="renderRules()"><span>/</span></div>
+        <div id="rule-cats"></div>
+      </aside>
+      <div class="rules-main">
+        <div class="crumb">ГЛАВНАЯ / ПРАВИЛА / <b id="rule-crumb"></b></div>
+        <div class="rt-head"><span class="rt-ic" id="rule-ic">📜</span><h1 id="rule-title"></h1></div>
+        <div class="rd-count" id="rule-docs-cnt"></div>
+        <div class="rd-tools">
+          <button class="btn btn-ghost btn-sm" onclick="ruleExpand(true)">Развернуть всё</button>
+          <button class="btn btn-ghost btn-sm" onclick="ruleExpand(false)">Свернуть всё</button>
+          <span class="rd-idx" id="rule-idx"></span>
+        </div>
+        <div id="rule-docs"></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="view" id="view-lore">
+  <div class="lore-bgfx"><div class="lore-blob b1"></div><div class="lore-blob b2"></div><div class="lore-blob b3"></div><div class="lore-sparks"></div><div class="lore-static"></div></div>
+  <div class="lore-wrap">
+    <div class="sec-kicker">Unnamed RP · общедоступный архив</div>
+    <h1 class="lore-title">ХРОНОЛОГИЯ <em>ЗОНЫ</em></h1>
+    <p class="lore-sub">От взрыва на Чернобыльской АЭС в 1986 году до последних сводок с периметра. Девять глав, которые сформировали мир Unnamed RP.</p>
+    <div class="lore-meta" id="lore-meta"></div>
+    <div class="tl" id="tl"><div class="tl-road" id="tl-road"></div></div>
+  </div>
+</section>
+<section class="view" id="view-auth">
+  <div class="auth-layout">
+    <aside class="auth-rail">
+      <a class="back-link" onclick="go('home')">← На главную</a>
+      <div class="stamp">Unnamed RP<br><b>ЗОНА ДОПУСКА</b>пропуск оформляется<br>однократно<br>нарушение = отказ</div>
+      <div style="margin-top:auto" class="lbl">пост регистрации</div>
+    </aside>
+    <div class="auth-center">
+      <div class="auth-panels">
+        <div class="panel">
+          <div class="p-head"><h2>◈ ВХОД</h2><span class="chip mute">пропуск действителен</span></div>
+          <div class="p-body">
+            <div class="fld"><label>Arma ID / Steam ID / Email</label><input id="li-id" placeholder="например 100231457 или wolf@zone.net"></div>
+            <div class="fld"><label>Пароль</label><input id="li-pass" type="password" placeholder="••••••"></div>
+            <button class="btn btn-primary" style="width:100%" onclick="doLogin()">Войти на проект</button>
+            <div class="auth-note"><a onclick="openRecovery()">Забыли пароль? Восстановление через почту →</a><br>Демо-пропуск: <b style="color:var(--amber)">100231457</b> / <b style="color:var(--amber)">demo</b></div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="p-head"><h2>◈ РЕГИСТРАЦИЯ ДОПУСКА</h2><span class="chip ok">новый пропуск</span></div>
+          <div class="p-body">
+            <div class="fld"><label>Arma ID *</label><input id="rg-arma" placeholder="числовой идентификатор Arma"></div>
+            <div class="fld"><label>Steam ID *</label><input id="rg-steam" placeholder="Steam64, 17 цифр (7656...)"></div>
+            <div class="fld"><label>Email *</label><input id="rg-mail" type="email" placeholder="для входа и восстановления пароля"></div>
+            <div class="fld"><label>Имя и фамилия персонажа *</label><input id="rg-name" placeholder="например Дмитрий Соколов"></div>
+            <div class="fld"><label>Discord ID *</label><input id="rg-disc" placeholder="только цифры, напр. 284716250319486976"><div class="hint">Именно цифровой ID — чтобы администрация могла вызвать вас через упоминание.</div></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+              <div class="fld"><label>Пароль *</label><input id="rg-pass" type="password" placeholder="мин. 4 символа"></div>
+              <div class="fld"><label>Повтор *</label><input id="rg-pass2" type="password" placeholder="ещё раз"></div>
+            </div>
+            <button class="btn btn-primary" style="width:100%" onclick="doRegister()">Получить допуск</button>
+            <div class="auth-note">Регистрируясь, вы принимаете правила проекта.<br>Аватар и баннер сталкера назначаются автоматически — свои можно загрузить в профиле.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="view" id="view-profile">
+  <div class="prof-wrap">
+    <div class="sec-kicker">Личная карточка допуска · Unnamed RP</div>
+    <div id="pf-banner"></div>
+    <div class="panel">
+      <div class="pf-bannerimg">
+        <img id="pf-bn-img" alt="баннер" onerror="this.onerror=null;this.src=BN_FALLBACK">
+        <button class="btn btn-ghost btn-sm bn-btn" id="pf-bn-btn" onclick="document.getElementById('bn-file').click()">✎ Загрузить баннер</button>
+        <input type="file" id="bn-file" accept="image/*" hidden onchange="uploadBanner(this)">
+      </div>
+      <div class="pf-top">
+        <div class="pf-ava">
+          <div class="ava-frame"><img id="pf-ava-img" alt="аватар" onerror="this.onerror=null;this.src=AV_FALLBACK"><span class="ava-scan"></span></div>
+          <button class="btn btn-ghost btn-sm" id="pf-av-btn" style="width:100%;margin-top:8px" onclick="document.getElementById('av-file').click()">✎ Загрузить своё фото</button>
+          <input type="file" id="av-file" accept="image/*" hidden onchange="uploadAv(this)">
+        </div>
+        <div class="pf-info">
+          <div class="pf-name" id="pf-name">—</div>
+          <div id="pf-chips" style="display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 4px"></div>
+          <div class="pf-sub" id="pf-sub"></div>
+          <div id="pf-wl-note" style="margin-top:10px"></div>
+        </div>
+      </div>
+      <div class="pf-tabs2" id="pf-tabs2"></div>
+      <div id="pft-main" class="pf-panel2"><div class="pf-ids" id="pf-ids"></div></div>
+      <div id="pft-social" class="pf-panel2"><div class="p-body" id="pf-social"></div></div>
+      <div id="pft-char" class="pf-panel2"><div class="p-body" id="pf-char"></div></div>
+      <div class="pf-actions" id="pf-actions"></div>
+    </div>
+  </div>
+</section>
+<section class="view" id="view-admin-login">
+  <div class="al-wrap">
+    <div class="al-box panel">
+      <div class="p-body">
+        <div class="al-ic">⛔</div>
+        <div class="lbl" style="margin-bottom:8px">служебный вход · только персонал</div>
+        <h2 style="font-family:var(--disp);font-size:22px;letter-spacing:.05em;margin-bottom:20px">ВХОД ДЛЯ АДМИНИСТРАЦИИ</h2>
+        <div class="fld"><label>Логин</label><input id="al-login" placeholder="owner / admin / Arma ID администратора"></div>
+        <div class="fld"><label>Пароль</label><input id="al-pass" type="password" placeholder="••••••"></div>
+        <button class="btn btn-danger" style="width:100%" onclick="doAdminLogin()">Пройти контроль</button>
+        <div class="auth-note">Демо: <b style="color:var(--red)">admin/admin</b> · <b style="color:var(--red)">owner/owner</b><br>Учётная запись Владельца не регистрируется через сайт.<br><a onclick="go('auth')">← Обычный вход для игроков</a> · <a onclick="go('home')">На главную</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="view" id="view-admin">
+  <div class="adm">
+    <nav class="adm-side">
+      <div class="adm-op">
+        <div class="lbl">оператор проекта</div>
+        <div class="op-line"><span class="mini-av"><img id="adm-op-av" src="" alt=""></span><b id="adm-op-name">—</b></div>
+        <span class="chip warn" id="adm-op-role">АДМИН</span>
+      </div>
+      <button class="adm-tab on" data-tab="players" onclick="admTab('players',this)"><span class="ico">▣</span>Игроки</button>
+      <button class="adm-tab" data-tab="history" onclick="admTab('history',this)"><span class="ico">≡</span>История действий</button>
+      <button class="adm-tab" data-tab="restore" onclick="admTab('restore',this)"><span class="ico">♻</span>Восстановление</button>
+      <button class="adm-tab" data-tab="news" onclick="admTab('news',this)"><span class="ico">▤</span>Новости</button>
+      <button class="adm-tab" data-tab="factions" id="adm-t-factions" onclick="admTab('factions',this)"><span class="ico">⬡</span>Фракции</button>
+      <button class="adm-tab" data-tab="alogs" id="adm-t-alogs" onclick="admTab('alogs',this)"><span class="ico">◉</span>Логи администрации</button>
+      <button class="adm-tab" data-tab="server" id="adm-t-server" onclick="admTab('server',this)">Управление сервером</button>
+      <div style="margin-top:auto;padding:12px 14px"><button class="btn btn-ghost btn-sm" style="width:100%" onclick="logout()">Выход</button></div>
+    </nav>
+    <div class="adm-main">
+      <div class="adm-stats" id="adm-stats"></div>
+      <div class="adm-panel on" id="tab-players">
+        <div class="adm-head"><h2>УЧЁТ ДОПУЩЕННЫХ</h2><span class="chip mute" id="pl-count">—</span></div>
+        <div class="fl-row">
+          <select id="pl-sub" onchange="renderPlayersTable()"><option value="all">Все в БД</option><option value="online">На сервере</option><option value="wl">Вайт-лист</option><option value="ban">Забаненные</option></select>
+          <input type="text" id="pl-search" placeholder="Поиск: ник / Arma / Steam / Discord" oninput="renderPlayersTable()">
+          <label class="lbl">рег. с</label><input type="date" id="pl-from" onchange="renderPlayersTable()">
+          <label class="lbl">по</label><input type="date" id="pl-to" onchange="renderPlayersTable()">
+        </div>
+        <div class="adm-cols" id="adm-players-cols">
+          <div class="panel">
+            <div class="p-head"><h2 style="font-size:12px">РЕЕСТР ИГРОКОВ</h2><span class="lbl">выберите строку</span></div>
+            <div style="overflow-x:auto"><table>
+              <thead><tr><th>Персонаж</th><th>Роль</th><th>Фракция</th><th>WL</th><th>Баланс</th><th>Статус</th></tr></thead>
+              <tbody id="adm-tbody"></tbody>
+            </table></div>
+          </div>
+          <div class="resizer" id="adm-resizer" title="Потяните, чтобы изменить ширину"></div>
+          <div class="panel">
+            <div class="p-head"><h2 style="font-size:12px">КАРТОЧКА / ДЕЙСТВИЯ</h2></div>
+            <div class="p-body" id="adm-detail"><div class="det-empty">▸ выберите игрока в реестре слева</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="adm-panel" id="tab-history">
+        <div class="adm-head"><h2>ИСТОРИЯ ДЕЙСТВИЙ ИГРОКОВ</h2><span class="chip mute" id="lg-count">—</span></div>
+        <div class="fl-row">
+          <input type="text" id="fl-search" placeholder="Поиск: ник / Arma / Steam / Discord" oninput="renderLogs()">
+          <label class="lbl">с</label><input type="date" id="fl-from" onchange="renderLogs()">
+          <label class="lbl">по</label><input type="date" id="fl-to" onchange="renderLogs()">
+        </div>
+        <div class="fl-chips" id="fl-types"></div>
+        <div class="panel"><div style="overflow-x:auto"><table>
+          <thead><tr><th>Время</th><th>Игрок</th><th>Событие</th><th>Детали</th><th>Вещи</th></tr></thead>
+          <tbody id="log-tbody"></tbody>
+        </table></div></div>
+      </div>
+      <div class="adm-panel" id="tab-restore">
+        <div class="adm-head"><h2>ВОССТАНОВЛЕНИЕ ВЕЩЕЙ</h2><span class="chip ok">только восстановимые</span></div>
+        <div class="fl-row">
+          <input type="text" id="rs-search" placeholder="Поиск: ник / Arma / Steam / Discord" oninput="renderRestore()">
+          <label class="lbl">с</label><input type="date" id="rs-from" onchange="renderRestore()">
+          <label class="lbl">по</label><input type="date" id="rs-to" onchange="renderRestore()">
+        </div>
+        <div class="panel"><div style="overflow-x:auto"><table>
+          <thead><tr><th>Время</th><th>Игрок</th><th>Событие</th><th>Детали</th><th>Действие</th></tr></thead>
+          <tbody id="rs-tbody"></tbody>
+        </table></div></div>
+      </div>
+      <div class="adm-panel" id="tab-news">
+        <div class="adm-head"><h2>НОВОСТНАЯ ЛЕНТА</h2><span class="chip warn">публикация / правка / удаление</span></div>
+        <div class="adm-cols" style="grid-template-columns:1fr 1fr;gap:22px">
+          <div class="panel">
+            <div class="p-head"><h2 style="font-size:12px">ОПУБЛИКОВАННЫЕ</h2><button class="btn btn-primary btn-sm" onclick="nwNew()">+ Новая новость</button></div>
+            <div style="max-height:560px;overflow-y:auto" id="nw-list"></div>
+          </div>
+          <div class="panel">
+            <div class="p-head"><h2 style="font-size:12px" id="nw-head">РЕДАКТОР</h2></div>
+            <div class="p-body">
+              <div class="fld"><label>Тип новости</label><select id="nw-tag"><option>ПАТЧ</option><option>НАБОР</option><option>ТЕХРАБОТЫ</option><option>БАНЫ</option><option>СОБЫТИЕ</option><option>ВАЖНОЕ</option><option>БАГ</option><option>ИЗМЕНЕНИЯ</option><option>ОПОВЕЩЕНИЕ</option></select></div>
+              <div class="fld"><label>Заголовок *</label><input id="nw-title" placeholder="Коротко и по делу"></div>
+              <div class="fld"><label>Текст новости (форматирование как в Word)</label>
+                <div class="nw-bar">
+                  <button title="Жирный" onmousedown="event.preventDefault();edCmd('bold')"><b>B</b></button>
+                  <button title="Курсив" onmousedown="event.preventDefault();edCmd('italic')"><i>I</i></button>
+                  <button title="Подчёркнутый" onmousedown="event.preventDefault();edCmd('underline')"><u>U</u></button>
+                  <button title="Зачёркнутый" onmousedown="event.preventDefault();edCmd('strikeThrough')"><s>S</s></button>
+                  <button title="Список" onmousedown="event.preventDefault();edCmd('insertUnorderedList')">•—</button>
+                  <button title="Нумерованный список" onmousedown="event.preventDefault();edCmd('insertOrderedList')">1.</button>
+                  <button title="По левому краю" onmousedown="event.preventDefault();edCmd('justifyLeft')">⇤</button>
+                  <button title="По центру" onmousedown="event.preventDefault();edCmd('justifyCenter')">⇔</button>
+                  <button title="По правому краю" onmousedown="event.preventDefault();edCmd('justifyRight')">⇥</button>
+                  <button title="Цитата" onmousedown="event.preventDefault();edCmd('formatBlock','blockquote')">❝</button>
+                  <button title="Убрать форматирование" onmousedown="event.preventDefault();edCmd('removeFormat')">✕</button>
+                  <select onchange="edCmd('fontName',this.value);this.selectedIndex=0"><option value="" disabled selected>Шрифт</option><option value="Manrope">Manrope</option><option value="Times New Roman">Times New Roman</option><option value="Georgia">Georgia</option><option value="Courier New">Courier New</option><option value="Arial">Arial</option><option value="Verdana">Verdana</option><option value="Russo One">Russo One</option></select>
+                  <select onchange="edCmd('fontSize',this.value);this.selectedIndex=0"><option value="" disabled selected>Размер</option><option value="2">Мелкий</option><option value="3">Обычный</option><option value="5">Крупный</option><option value="6">Очень крупный</option></select>
+                  <select onchange="edCmd('foreColor',this.value);this.selectedIndex=0"><option value="" disabled selected>Цвет</option><option value="#d9d5c4">Белый</option><option value="#b6903c">Янтарный</option><option value="#7fb861">Зелёный</option><option value="#c4523f">Красный</option><option value="#5da8ba">Голубой</option></select>
+                </div>
+                <div id="nw-ed" contenteditable="true" data-ph="Текст новости..."></div>
+              </div>
+              <div class="fld"><label>Ссылка на видео (YouTube) — появится превью</label><input id="nw-video" placeholder="https://youtube.com/watch?v=..."></div>
+              <div class="fld"><label>Изображения (до 5, карусель)</label>
+                <div class="nw-thumbs" id="nw-thumbs"></div>
+                <div class="det-row" style="margin-top:8px"><button class="btn btn-ghost btn-sm" onclick="document.getElementById('nw-photo').click()">📎 Прикрепить фото</button></div>
+                <input type="file" id="nw-photo" accept="image/*" hidden onchange="nwPhotoPick(this)">
+                <div class="hint">Каждое фото открывается в редакторе: масштаб, смещение, сетка обрезки, перетаскивание.</div>
+              </div>
+              <div class="fld"><label>Площадка публикации</label><select id="nw-dest"><option value="both">Сайт + Discord</option><option value="site">Только сайт</option><option value="discord">Только Discord</option></select></div>
+              <div class="det-row">
+                <button class="btn btn-primary btn-sm" id="nw-save" onclick="nwSave()">Опубликовать</button>
+                <button class="btn btn-ghost btn-sm" id="nw-cancel" style="display:none" onclick="nwNew()">Отмена правки</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="adm-panel" id="tab-factions">
+        <div class="adm-head"><h2>УПРАВЛЕНИЕ ФРАКЦИЯМИ</h2><span class="chip bad" id="fac-tab-chip">только Владелец</span></div>
+        <div class="adm-cols" style="grid-template-columns:1fr 1fr;gap:22px">
+          <div class="panel">
+            <div class="p-head"><h2 style="font-size:12px">ГРУППИРОВКИ</h2><button class="btn btn-primary btn-sm" id="fac-new-btn" onclick="facNew()">+ Новая</button></div>
+            <div id="fac-adm-list"></div>
+          </div>
+          <div class="panel">
+            <div class="p-head"><h2 style="font-size:12px" id="fac-mem-head">СОСТАВ ФРАКЦИИ</h2></div>
+            <div id="fac-mem-list"><div class="det-empty">выберите фракцию слева</div></div>
+            <div class="p-body" style="border-top:1px solid var(--line)" id="fac-editor">
+              <div class="p-head" style="padding:0 0 10px;border:none"><h2 style="font-size:12px" id="fac-ed-head">РЕДАКТОР</h2></div>
+              <div class="fld"><label>Название *</label><input id="fac-name"></div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+                <div class="fld"><label>Тег *</label><input id="fac-tag" maxlength="4"></div>
+                <div class="fld"><label>Цвет</label><input id="fac-color" type="color" value="#7fb861"></div>
+              </div>
+              <div class="fld"><label>Лимит игроков</label><input id="fac-limit" type="number" value="30"></div>
+              <div class="fld"><label>Логотип</label>
+                <div style="display:flex;gap:10px;align-items:center">
+                  <span class="fc-logo2" id="fac-logo-prev" style="width:56px;height:56px"></span>
+                  <button class="btn btn-ghost btn-sm" onclick="document.getElementById('fac-logo-file').click()">Загрузить</button>
+                  <input type="file" id="fac-logo-file" hidden accept="image/*" onchange="facLogoPick(this)">
+                </div>
+              </div>
+              <div class="fld"><label>Лор / описание</label><textarea id="fac-lore"></textarea></div>
+              <div class="det-row">
+                <button class="btn btn-primary btn-sm" onclick="facSave()">Сохранить</button>
+                <button class="btn btn-danger btn-sm" id="fac-del" onclick="facDel()">Удалить фракцию</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="adm-panel" id="tab-alogs">
+        <div class="adm-head"><h2>ЛОГИ ДЕЙСТВИЙ АДМИНИСТРАЦИИ</h2><span class="chip bad">только Владелец</span></div>
+        <div class="fl-row">
+          <input type="text" id="al-who" placeholder="Кто (ник админа)" oninput="renderALogs()">
+          <input type="text" id="al-target" placeholder="Кому (ник игрока)" oninput="renderALogs()">
+          <label class="lbl">с</label><input type="date" id="al-from" onchange="renderALogs()">
+          <label class="lbl">по</label><input type="date" id="al-to" onchange="renderALogs()">
+        </div>
+        <div class="fl-chips" id="al-types"></div>
+        <div class="panel"><div style="overflow-x:auto"><table>
+          <thead><tr><th>Время</th><th>Админ</th><th>Кому</th><th>Действие</th></tr></thead>
+          <tbody id="alog-tbody"></tbody>
+        </table></div></div>
+        <div class="auth-note" style="text-align:left;margin-top:10px">Ники кликабельны — переход в профиль игрока.</div>
+      </div>
+      <div class="adm-panel" id="tab-server">
+        <div class="adm-head"><h2>УПРАВЛЕНИЕ СЕРВЕРОМ</h2><span class="chip bad">только Владелец</span></div>
+        <div class="adm-cols" style="grid-template-columns:1fr 1fr;gap:22px">
+          <div class="panel">
+            <div class="p-body">
+              <div class="kv"><span class="k">Состояние</span><span class="v hi" id="sp-status">—</span></div>
+              <div class="kv"><span class="k">Аптайм</span><span class="v" id="sp-uptime">—</span></div>
+              <div class="kv"><span class="k">Игроки</span><span class="v" id="sp-players">—</span></div>
+              <div class="pwr-grid">
+                <div class="pwr" id="pwr-start" onclick="power('start')"><span class="ico">⏻</span>ВКЛЮЧИТЬ</div>
+                <div class="pwr" id="pwr-restart" onclick="power('restart')"><span class="ico">⟳</span>ПЕРЕЗАГРУЗКА</div>
+                <div class="pwr" id="pwr-stop" onclick="power('stop')" style="border-color:#5e281e"><span class="ico">⏼</span>ВЫКЛЮЧИТЬ</div>
+              </div>
+              <div class="auth-note" id="pwr-note" style="text-align:left;margin:0">Команды выполняются на выделенной машине проекта. Все действия фиксируются в логе Владельца.</div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="p-head"><h2 style="font-size:12px">КОНСОЛЬ СЕРВЕРА</h2><span class="dot" id="srv-dot2"></span></div>
+            <div class="console" id="sp-console"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+<footer>
+  <span>UNNAMED RP · портал допуска · ChernobylZone</span>
+  <span><a href="https://t.me/unnamed_rp" target="_blank">Telegram</a> · <a href="https://discord.gg/7qdW6rqhKS" target="_blank">Discord</a> · демо-сборка 2026</span>
+</footer>
+<div id="demo"><span>ДЕМО-ДОПУСК:</span>
+  <button onclick="demoAs('guest')">Гость</button>
+  <button onclick="demoAs('player')">Игрок</button>
+  <button onclick="demoAs('admin')">Админ</button>
+  <button onclick="demoAs('owner')">Владелец</button>
+</div>
+<div id="toasts"></div>
+<div id="modal" class="modal-bg"><div class="modal-box">
+  <div class="p-body"><h3 id="m-title"></h3><p id="m-body" style="color:var(--dim);font-size:13.5px;margin-bottom:18px"></p>
+  <div class="modal-btns"><button class="btn btn-ghost btn-sm" onclick="closeModal()">Отмена</button><button class="btn btn-danger btn-sm" id="m-ok">Подтвердить</button></div></div>
+</div></div>
+<div id="facmodal" class="modal-bg"><div class="modal-box wide"><div class="p-body" id="fac-modal-body"></div></div></div>
+<div id="imgmodal" class="modal-bg"><div class="modal-box" style="width:min(560px,100%)">
+  <div class="p-body"><h3 id="ied-title">РЕДАКТОР ИЗОБРАЖЕНИЯ</h3>
+    <div class="ied-wrap"><canvas id="ied-canvas"></canvas><div class="ied-grid"></div></div>
+    <div class="fld" style="margin-top:14px"><label>Масштаб</label><input type="range" id="ied-zoom" min="100" max="300" value="100" oninput="edZoom(this.value)"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div class="fld"><label>Смещение X</label><input type="range" id="ied-ox" min="-100" max="100" value="0" oninput="edOx(this.value)"></div>
+      <div class="fld"><label>Смещение Y</label><input type="range" id="ied-oy" min="-100" max="100" value="0" oninput="edOy(this.value)"></div>
+    </div>
+    <div class="hint" style="margin-bottom:12px">Тяните изображение мышью для смещения, колесо — масштаб. Сетка — как в обрезке аватара.</div>
+    <div class="modal-btns"><button class="btn btn-ghost btn-sm" onclick="closeImgEd()">Отмена</button><button class="btn btn-primary btn-sm" onclick="saveImgEd()">Сохранить</button></div>
+  </div>
+</div></div>
+<div id="pwmodal" class="modal-bg"><div class="modal-box">
+  <div class="p-body"><h3>СМЕНА ПАРОЛЯ</h3>
+    <div class="fld"><label>Текущий пароль</label><input id="pw-cur" type="password"></div>
+    <div class="fld"><label>Новый пароль</label><input id="pw-new" type="password" placeholder="мин. 4 символа"></div>
+    <div class="fld"><label>Повтор нового</label><input id="pw-new2" type="password"></div>
+    <div class="modal-btns"><button class="btn btn-ghost btn-sm" onclick="closePw()">Отмена</button><button class="btn btn-primary btn-sm" onclick="savePw()">Сохранить</button></div>
+  </div>
+</div></div>
+<div id="rcmodal" class="modal-bg"><div class="modal-box">
+  <div class="p-body"><h3>ВОССТАНОВЛЕНИЕ ПАРОЛЯ</h3>
+    <div id="rc-step1">
+      <p style="color:var(--dim);font-size:12.5px;margin-bottom:14px">Укажите почту, привязанную к пропуску. Код подтверждения придёт уведомлением (демо).</p>
+      <div class="fld"><label>Email</label><input id="rc-email" type="email" placeholder="you@zone.net"></div>
+      <div class="modal-btns"><button class="btn btn-ghost btn-sm" onclick="closeRc()">Отмена</button><button class="btn btn-primary btn-sm" onclick="rcSend()">Отправить код</button></div>
+    </div>
+    <div id="rc-step2" style="display:none">
+      <div class="fld"><label>Код из письма</label><input id="rc-code" placeholder="6 цифр"></div>
+      <div class="fld"><label>Новый пароль</label><input id="rc-pass" type="password"></div>
+      <div class="fld"><label>Повтор</label><input id="rc-pass2" type="password"></div>
+      <div class="modal-btns"><button class="btn btn-ghost btn-sm" onclick="closeRc()">Отмена</button><button class="btn btn-primary btn-sm" onclick="rcSave()">Сменить пароль</button></div>
+    </div>
+  </div>
+</div></div>
+<div id="ncmodal" class="modal-bg"><div class="modal-box" style="width:min(470px,100%)">
+  <div class="p-body"><h3>НОВЫЙ ПЕРСОНАЖ</h3>
+    <div class="nc-warn" style="margin-bottom:16px">⚠ Ваш текущий персонаж <b id="nc-old">—</b> будет <b>полностью обнулён</b>: имя, инвентарь, баланс и фракция. Продолжая, вы добровольно соглашаетесь на обнуление. Действие необратимо.</div>
+    <div class="fld"><label>Фамилия нового персонажа *</label><input id="nc-last" placeholder="например Соколов"></div>
+    <div class="fld"><label>Имя нового персонажа *</label><input id="nc-first" placeholder="например Дмитрий"></div>
+    <label style="display:flex;gap:10px;align-items:flex-start;font-size:12.5px;color:var(--dim);cursor:pointer;margin-bottom:16px">
+      <input type="checkbox" id="nc-consent" style="width:auto;margin-top:3px">Я понимаю и соглашаюсь, что мой текущий персонаж будет полностью обнулён</label>
+    <div class="modal-btns"><button class="btn btn-ghost btn-sm" onclick="closeNc()">Отмена</button><button class="btn btn-danger btn-sm" onclick="ncContinue()">Продолжить</button></div>
+  </div>
+</div></div>
+<script>
+var LS='unnamed_users_v23', LSN='unnamed_news_v8', LSA='unnamed_apps_v3';
+var DEFAULT_AV='assets/images/stalker_avatar.jpg', DEFAULT_BANNER='assets/images/default_banner.jpg';
+var AV_FALLBACK='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96"><rect width="96" height="96" fill="%23141b10"/><text x="48" y="62" font-family="monospace" font-size="30" fill="%23b6903c" text-anchor="middle">UR</text></svg>';
+var BN_FALLBACK='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="960" height="180"><rect width="960" height="180" fill="%23101508"/><g stroke="%2326301a" stroke-width="1" fill="none"><path d="M0 40 C 160 10 320 70 480 40 S 800 10 960 45"/><path d="M0 90 C 160 60 320 120 480 90 S 800 60 960 95"/><path d="M0 140 C 160 110 320 170 480 140 S 800 110 960 145"/></g><text x="24" y="105" font-family="monospace" font-size="20" fill="%23565c45">UNNAMED RP · CHERNOBYLZONE</text></svg>';
+var FACTIONS=[
+ {id:'f2',tag:'ДЛГ',name:'«Долг»',color:'#c4523f',members:18,leaderId:'u2',limit:30,open:true,logo:'https://image.qwenlm.ai/public_source/9f9305d6-182a-4e71-bdd6-e30f43537233/1de045fe8-917a-4a2f-92f0-5ef03d0aecb25750.png',desc:'Военизированная организация, считающая Зону ошибкой природы, которую необходимо уничтожить. Держит блокпосты на Периметре, охраняет конвои и зачищает логова мутантов. Жёсткая иерархия, устав и комендантский час на базе.'},
+ {id:'f3',tag:'СВБ',name:'«Свобода»',color:'#7fb861',members:19,leaderId:'u1',limit:30,open:true,logo:'https://image.qwenlm.ai/public_source/9f9305d6-182a-4e71-bdd6-e30f43537233/2de045fe8-917a-4a2f-92f0-5ef03d0aecb26357.png',desc:'Анархистское движение сталкеров: Зона должна быть открыта для всех. Контролирует исследовательские лагеря и свободную торговлю хабаром. Атмосфера неформальная, но при тревоге каждый берёт оружие.'},
+ {id:'f4',tag:'БНД',name:'Бандиты',color:'#b6903c',members:11,leaderId:'u4',limit:30,open:true,logo:'https://image.qwenlm.ai/public_source/9f9305d6-182a-4e71-bdd6-e30f43537233/5de045fe8-917a-4a2f-92f0-5ef03d0aecb27327.png',desc:'Мелкие банды и контрабандисты Кордона. Живут по понятиям: «тряска» на дорогах, налёты на склады, передел сфер влияния. Держатся группами и не любят чужаков на своей территории.'},
+ {id:'f5',tag:'НМК',name:'Наёмники',color:'#5da8ba',members:9,leaderId:'u5',limit:30,open:true,logo:'https://image.qwenlm.ai/public_source/9f9305d6-182a-4e71-bdd6-e30f43537233/1de045fe8-917a-4a2f-92f0-5ef03d0aecb27017.png',desc:'Профессиональные солдаты удачи. Выполняют контракты: сопровождение грузов, охрана учёных, «деликатные» задачи. Нейтральны ко всем, пока контракт оплачен.'},
+ {id:'f6',tag:'ВС',name:'Военные',color:'#8aa0b8',members:14,leaderId:'u6',limit:30,open:true,logo:'https://image.qwenlm.ai/public_source/9f9305d6-182a-4e71-bdd6-e30f43537233/4de045fe8-917a-4a2f-92f0-5ef03d0aecb28517.png',desc:'Регулярные подразделения на Периметре: блокпосты, патрули, охрана вывоза и режимных объектов. Действуют по уставу и приказу; контакты со сталкерами — только по протоколу досмотра.'},
+ {id:'f7',tag:'ЧН',name:'«Чистое небо»',color:'#7ecbe8',members:8,leaderId:'u8',limit:30,open:true,logo:'https://image.qwenlm.ai/public_source/9f9305d6-182a-4e71-bdd6-e30f43537233/4de045fe8-917a-4a2f-92f0-5ef03d0aecb29447.png',desc:'Научная группировка, изучающая аномалии и природу выбросов. Держит исследовательский лагерь у Дуги, скупает артефакты по повышенному курсу и оплачивает охрану экспедиций.'}
+];
+function facLogo(f,s){s=s||64;return '<svg width="'+s+'" height="'+s+'" viewBox="0 0 64 64"><path d="M32 3 56 12 v20 c0 14-10 24-24 29 C18 56 8 46 8 32 V12 Z" fill="'+f.color+'1a" stroke="'+f.color+'" stroke-width="2"/><text x="32" y="41" font-size="24" text-anchor="middle" fill="'+f.color+'" font-family="monospace">✦</text></svg>';}
+var SEED_NEWS=[
+ {id:'n0',date:'12.08.2026',tag:'ВАЖНОЕ',title:'Разоблачение Мальбороса',text:'Служба безопасности разоблачила игрока «Мальборос»: продажа вайт-листа «вне очереди» и «артефактов за донат». Аккаунт забанен навсегда. Вайт-лист выдаётся только через портал и бесплатно.',html:'',video:'https://www.youtube.com/watch?v=nKd9IHfCPms',photos:['assets/images/news_expose.jpg'],dest:'both'},
+ {id:'n1',date:'11.08.2026',tag:'ПАТЧ',title:'Обновление 1.5.0 «Холодный фронт»',text:'Переработаны спавны фракций, новая техника на Кордоне, исправлены вылеты при посадке в транспорт.',html:'',video:'',photos:['assets/images/news_tech.jpg'],dest:'both'},
+ {id:'n2',date:'10.08.2026',tag:'СОБЫТИЕ',title:'«Чистое небо» выходит в Зону',text:'Научная группировка открывает исследовательский лагерь у Дуги: скупка артефактов, охрана экспедиций — через Наёмников.',html:'',video:'',photos:['assets/images/news_sky.jpg','assets/images/news_tech.jpg'],dest:'both'},
+ {id:'n3',date:'09.08.2026',tag:'НАБОР',title:'«Долг» открывает набор',text:'Требуются бойцы для патрулей Периметра. Собеседования в Discord ежедневно с 19:00 МСК.',html:'',video:'',photos:['assets/images/news_duty.jpg'],dest:'site'},
+ {id:'n4',date:'08.08.2026',tag:'ТЕХРАБОТЫ',title:'Профилактика 14.08 в 03:00 МСК',text:'Плановая перезагрузка и зачистка тестовых построек на Свалке. Сервер недоступен ~40 минут.',html:'',video:'',photos:[],dest:'discord'},
+ {id:'n5',date:'05.08.2026',tag:'БАНЫ',title:'Итоги недели: 12 нарушителей',text:'Основные причины: RDM, метагейминг, обход блокировки. Апелляции — в канале #апелляции.',html:'',video:'',photos:[],dest:'both'}
+];
+var NEWS; try{NEWS=JSON.parse(localStorage.getItem(LSN))||null;}catch(e){NEWS=null;}
+if(!NEWS||!NEWS.length){NEWS=SEED_NEWS;saveNews();}
+function saveNews(){try{localStorage.setItem(LSN,JSON.stringify(NEWS));return true;}catch(e){toast('Не удалось сохранить новости (файл слишком большой)','err');return false;}}
+var TAG_CLS={'ПАТЧ':'ok','НАБОР':'warn','ТЕХРАБОТЫ':'cy','БАНЫ':'bad','СОБЫТИЕ':'warn','ВАЖНОЕ':'bad','БАГ':'bad','ИЗМЕНЕНИЯ':'cy','ОПОВЕЩЕНИЕ':'warn'};
+var DEST_LBL={both:'САЙТ + DISCORD',site:'САЙТ',discord:'DISCORD'};
+var LORE_CHAPTERS=[
+ {year:'1986',title:'Истоки катастрофы',img:'assets/images/lore_1.jpg',text:'О Чернобыле слышал каждый. В ночь на 26 апреля 1986 года четвёртый энергоблок взорвался, и мир выучил слово «фон». Припять опустела за несколько дней, а вокруг станции на карту легла закрытая черта. Для большинства этим история Чернобыля и заканчивалась. Считалось, что за периметром просто опасно: радиация, военные, колючая проволока. Со временем тишина начала рождать слухи.'},
+ {year:'1986–1989',title:'После аварии',img:'assets/images/lore_1b.jpg',text:'Первые странные истории принесли ликвидаторы. Техника, которая глохла без причины. Связь, обрывавшаяся в «чистых» секторах. Тяжёлое самочувствие там, где дозиметр показывал ноль. Мистикой это не называли: странное списывали на болезнь и усталость. В конце восьмидесятых со стороны закрытой территории иногда слышали стрельбу. Лишних вопросов не задавали.'},
+ {year:'1990-е',title:'Зона пускает людей',img:'assets/images/lore_2.jpg',text:'После распада Союза Зону стало некому охранять. Посты сокращали, военные месяцами ждали снабжения — и Зона начала пускать людей. Сначала заходили местные: из покинутых деревень выносили всё, что можно продать. Потом появились те, кто уходил дальше. И те, кто не возвращался. Иногда кто-то возвращался через недели — измученный и молчаливый. Им не верили.'},
+ {year:'1990-е',title:'Слухи',img:'assets/images/lore_3b.jpg',text:'В девяностые Чернобыль стал кормом жёлтой прессы. Животные невероятных размеров, свечение над Припятью, люди, «оставшиеся жить» в мёртвом городе. Большая часть была выдумкой. Правда тонула в фантазиях. Того, кто утверждал, что видел сам, просили доказать. Обычно всё заканчивалось людьми в погонах.'},
+ {year:'Конец 1990-х',title:'Люди у периметра',img:'assets/images/lore_3.jpg',text:'Со временем возле Зоны появились проводники. Контакт шёл через бывших военных, охотников, контрабандистов. Одни действительно знали, как обойти посты. Другие забирали деньги и заводили в лес. Третьи сдавали клиентов военным. У каждого была своя причина идти внутрь.'},
+ {year:'Начало 2000-х',title:'Эпоха форумов',img:'assets/images/lore_4.jpg',text:'С интернетом слухи получили вторую жизнь. Дорога, которая выводит к одному и тому же зданию, как ни иди. Собака, которая движется «неправильно». Компас, перестающий работать. Такие темы мгновенно становились спором. Иногда темы удаляли. Некоторые были уверены: темы убирают по требованию военных.'},
+ {year:'2003',title:'Как искали путь внутрь',img:'assets/images/lore_6.jpg',text:'К 2003 году в сети появились люди, обещавшие провести через периметр. Почти все открытые предложения были мошенничеством. Настоящие контакты передавались через закрытые форумы и ICQ. Человека проверяли неделями. Место перехода сообщали в последний момент. Опытные отвечали: снаряжение не спасёт того, кто не знает дороги.'},
+ {year:'2006',title:'Жизнь внутри',img:'assets/images/lore_5b.jpg',text:'К лету 2006 года отрицать было уже трудно: за периметр регулярно проникали люди. Только в узких кругах говорили, что внутри постоянно находятся сотни нелегалов. Единого сообщества не существовало. Никто не знал Зону целиком. Каждый знал только несколько дорог и пару безопасных мест.'},
+ {year:'Июль 2006',title:'Свечение над Припятью',img:'assets/images/lore_5.jpg',text:'В июль у периметра стало больше военных машин. Ночью над Припятью несколько раз видели слабое свечение. Кто-то слышал продолжительный гул, хотя грозы не было. Официальных сообщений не появилось. Те, кто был внутри, позже писали иное. Но их темы не жили и суток.'}
+];
+var RULE_CATS=[
+ {id:'c1',icon:'📜',title:'Общие правила',docs:[
+  {t:'Правила проекта Unnamed RP',items:['Регистрация на портале означает полное согласие с правилами.','Незнание правил не освобождает от ответственности.','Один игрок — один персонаж на одну учётную запись.','Метагейминг запрещён.','Разделение IC и OOC обязательно.']},
+  {t:'Правила никнеймов',items:['Имя и фамилия — в формате «Имя Фамилия», без спецсимволов.','Запрещены ники, дублирующие имена администрации.','Никнейм в Discord — цифровой ID.']},
+  {t:'Правила вайт-листа и допуска',items:['Вход на сервер только при активном вайт-листе.','Снятие с вайт-листа блокирует вход без обнуления персонажа.','Передача пропуска третьим лицам — перманентный бан.']},
+  {t:'Проверки на софт и читы',items:['Администрация вправе запросить демонстрацию экрана.','Читы, макросы и дюпы — перманентный бан.','Отказ от проверки приравнивается к признанию.']}
+ ]},
+ {id:'c2',icon:'⚔️',title:'Правила боя',docs:[
+  {t:'RDM и спавн-килл',items:['RDM — бан от 180 минут.','Атака в радиусе 300 м от точек появления приравнивается к RDM.','Мародёрство тела до окончания боя (10 минут) запрещено.','Наезд транспортом как начало боя приравнивается к RDM.']},
+  {t:'Мародёрство и лут',items:['Мародёрство тела до окончания боя запрещено.','Личные вещи из сейф-зон фракций без разрешения лидера — изъятие и бан.']},
+  {t:'Штурмы и осады',items:['Штурм базы — только после объявления войны через администрацию.','В штурме не более 8 человек с каждой стороны.']}
+ ]},
+ {id:'c3',icon:'🎙️',title:'Коммуникация',docs:[
+  {t:'Голосовой чат и рации',items:['Голосовой чат обязателен в RP-зонах.','Переговоры по рации — только в формате IC.']},
+  {t:'IC и OOC',items:['Метагейминг запрещён.','OOC-вопросы — в Discord.']},
+  {t:'Токсичность и оскорбления',items:['Оскорбления родственников, дискриминация и травля — бан навсегда.','Реклама сторонних проектов — бан навсегда.']}
+ ]},
+ {id:'c4',icon:'⚖️',title:'Нарушения и наказания',docs:[
+  {t:'Баны и сроки',items:['Бан — с указанием причины и срока.','Сроки суммируются при повторных нарушениях.']},
+  {t:'Апелляции',items:['Апелляции — в Discord в течение 48 часов.','Повторная апелляция по тому же бану не принимается.']},
+  {t:'Обнуление персонажа',items:['Обнуление — при критических нарушениях экономики.','Добровольное обнуление — через портал.']}
+ ]},
+ {id:'c5',icon:'🛡️',title:'Правила группировок',docs:[
+  {t:'Общее для всех группировок',items:['Лидер отвечает за действия членов перед администрацией.','Межфракционные конфликты — только IC.','Переход между группировками — через лидера или администрацию.','Лидер назначается и снимается администрацией проекта.']},
+  {t:'«Долг»',items:['Дисциплина обязательна.','Мародёрство мирных запрещено уставом.','Дезертирство — RP-суд и исключение.']},
+  {t:'«Свобода»',items:['Свобода действий внутри базы, участие в обороне при тревоге.','Рейдерство мирных — нарушение идеологии.']},
+  {t:'Бандиты',items:['Грабёж только с RP-причиной, не чаще раза в 12 часов.','DM ломает концепт фракции и наказывается.']},
+  {t:'Наёмники',items:['Контракт обязателен.','Нейтралитет вне контракта.']},
+  {t:'Военные',items:['Действия только по уставу.','Взятки — исключение с конфискацией.']},
+  {t:'«Чистое небо»',items:['Научный нейтралитет.','Слив данных исследований — исключение.']}
+ ]}
+];
+var ruleCat='c1';
+var SEED=[
+ {id:'u1',charName:'Седой Волк',armaId:'100231457',steamId:'76561198012340921',discord:'284716250319486976',email:'sedoy@zone.net',pass:'demo',role:'player',faction:'f3',balance:4520,reg:'02.08.2026',banned:null,wl:true,online:true,banHistory:[],avatar:{url:DEFAULT_AV},banner:DEFAULT_BANNER,socials:{tg:'',ds:'',vk:'',yt:''},game:{call:'Волк',h:183,w:82,sync:'12.08.2026 21:30'},notifs:[{id:'nt1',ts:Date.now()-26*60000,text:'Вы приняты во фракцию «Свобода»',kind:'ok',read:true,extra:{go:'factions'}},{id:'nt2',ts:Date.now()-5*60000,text:'Новая заявка во фракцию «Свобода»: Казак',kind:'app',read:false,extra:{go:'faction',appId:'ap1'}}]},
+ {id:'u2',charName:'Майор Титов',armaId:'100550213',steamId:'76561198098765100',discord:'301948275610293847',email:'titov@zone.net',pass:'admin',role:'admin',faction:'f2',balance:1200,reg:'20.06.2026',banned:null,wl:true,online:true,banHistory:[],avatar:{url:DEFAULT_AV},banner:DEFAULT_BANNER,socials:{tg:'',ds:'',vk:'',yt:''},game:{call:'Титов',h:180,w:88,sync:'12.08.2026 20:12'},notifs:[{id:'nt3',ts:Date.now()-3*60000,text:'Новая заявка во фракцию «Долг»: Нюша',kind:'app',read:false,extra:{go:'faction',appId:'ap2'}}]},
+ {id:'u3',charName:'Хирург',armaId:'100781234',steamId:'76561198123456789',discord:'419283746510928374',email:'hirurg@zone.net',pass:'demo',role:'player',faction:'f3',balance:8900,reg:'11.07.2026',banned:null,wl:true,online:false,banHistory:[],avatar:{url:DEFAULT_AV},banner:DEFAULT_BANNER,socials:{tg:'',ds:'',vk:'',yt:''},game:{call:'Скальпель',h:178,w:75,sync:'12.08.2026 19:40'},notifs:[]},
+ {id:'u4',charName:'Борода',armaId:'100904811',steamId:'76561198222333444',discord:'528394061728394012',email:'boroda@zone.net',pass:'demo',role:'player',faction:'f4',balance:150,reg:'03.08.2026',banned:{reason:'RDM на спавне мирных',until:'Навсегда',by:'Майор Титов'},wl:false,online:false,banHistory:[{ts:Date.now()-120*60000,act:'БАН',reason:'RDM на спавне мирных',until:'Навсегда',by:'Майор Титов'}],avatar:{url:DEFAULT_AV},banner:DEFAULT_BANNER,socials:{tg:'',ds:'',vk:'',yt:''},game:{call:'Борода',h:176,w:92,sync:'11.08.2026 23:05'},notifs:[{id:'nt4',ts:Date.now()-120*60000,text:'Вы забанены: RDM на спавне мирных · навсегда',kind:'bad',read:false,extra:{go:'profile'}},{id:'nt5',ts:Date.now()-95*60000,text:'Вы исключены из вайт-листа',kind:'bad',read:false,extra:{go:'profile'}}]},
+ {id:'u5',charName:'Лис',armaId:'101002938',steamId:'76561198333444555',discord:'639485017263948501',email:'lis@zone.net',pass:'demo',role:'player',faction:'f5',balance:2130,reg:'15.07.2026',banned:null,wl:true,online:true,banHistory:[],avatar:{url:DEFAULT_AV},banner:DEFAULT_BANNER,socials:{tg:'',ds:'',vk:'',yt:''},game:{call:'Лис',h:174,w:70,sync:'12.08.2026 18:22'},notifs:[]},
+ {id:'u6',charName:'Шрам',armaId:'101111111',steamId:'76561198444555666',discord:'748392015647382910',email:'shram@zone.net',pass:'demo',role:'player',faction:'f6',balance:3400,reg:'21.07.2026',banned:null,wl:true,online:false,banHistory:[],avatar:{url:DEFAULT_AV},banner:DEFAULT_BANNER,socials:{tg:'',ds:'',vk:'',yt:''},game:{call:'Шрам',h:186,w:90,sync:'12.08.2026 17:48'},notifs:[]},
+ {id:'u7',charName:'Клёпа',armaId:'101222222',steamId:'76561198555666777',discord:'859403126758493021',email:'klepa@zone.net',pass:'demo',role:'player',faction:'f7',balance:5200,reg:'30.07.2026',banned:null,wl:true,online:true,banHistory:[],avatar:{url:DEFAULT_AV},banner:DEFAULT_BANNER,socials:{tg:'',ds:'',vk:'',yt:''},game:{call:'Клёпа',h:168,w:61,sync:'12.08.2026 16:31'},notifs:[]},
+ {id:'u8',charName:'Профессор Соколов',armaId:'101333333',steamId:'76561198666777888',discord:'960514237869504132',email:'sokolov@zone.net',pass:'demo',role:'player',faction:'f7',balance:12700,reg:'18.06.2026',banned:null,wl:true,online:false,banHistory:[],avatar:{url:DEFAULT_AV},banner:DEFAULT_BANNER,socials:{tg:'',ds:'',vk:'',yt:''},game:{call:'Соколов',h:172,w:68,sync:'12.08.2026 15:10'},notifs:[]},
+ {id:'u9',charName:'Казак',armaId:'101444444',steamId:'76561198777888999',discord:'171625348970615243',email:'kazak@zone.net',pass:'demo',role:'player',faction:'f2',balance:640,reg:'25.07.2026',banned:null,wl:false,online:false,banHistory:[],avatar:{url:DEFAULT_AV},banner:DEFAULT_BANNER,socials:{tg:'',ds:'',vk:'',yt:''},game:{call:'Казак',h:181,w:84,sync:'10.08.2026 22:14'},notifs:[]},
+ {id:'u10',charName:'Нюша',armaId:'101555555',steamId:'76561198888999000',discord:'282736459081726354',email:'nyusha@zone.net',pass:'demo',role:'player',faction:'f4',balance:90,reg:'01.08.2026',banned:null,wl:false,online:false,banHistory:[],avatar:{url:DEFAULT_AV},banner:DEFAULT_BANNER,socials:{tg:'',ds:'',vk:'',yt:''},game:{call:'Нюша',h:164,w:55,sync:'09.08.2026 20:02'},notifs:[]}
+];
+var OWNER={id:'u0',login:'owner',pass:'owner',charName:'Командир КПП',role:'owner',avatar:{url:DEFAULT_AV},banner:DEFAULT_BANNER,socials:{tg:'',ds:'',vk:'',yt:''},game:{call:'Командир',h:185,w:90,sync:'12.08.2026 21:00'},notifs:[]};
+var ROLE_NAME={player:'Игрок',admin:'Администратор',owner:'Владелец'};
+var USERS; try{USERS=JSON.parse(localStorage.getItem(LS))||null;}catch(e){USERS=null;}
+if(!USERS||!USERS.length){USERS=SEED;saveUsers();}
+function saveUsers(){try{localStorage.setItem(LS,JSON.stringify(USERS));return true;}catch(e){toast('Не удалось сохранить данные (файл слишком большой)','err');return false;}}
+var APPS; try{APPS=JSON.parse(localStorage.getItem(LSA))||null;}catch(e){APPS=null;}
+if(!APPS){APPS=[
+ {id:'ap1',facId:'f3',uid:'u9',ts:Date.now()-5*60000,text:'Знаю дороги Кордона, выживу везде. Возьмите в дело.',status:'pending'},
+ {id:'ap2',facId:'f2',uid:'u10',ts:Date.now()-3*60000,text:'Устала от бандитского беспредела. Хочу порядка и устава.',status:'pending'}
+];saveApps();}
+function saveApps(){try{localStorage.setItem(LSA,JSON.stringify(APPS));return true;}catch(e){return false;}}
+var N=Date.now();
+var LOGS=[
+ {id:'l1',ts:N-4*60000,uid:'u1',type:'Поднял предмет',detail:'АКМ · 3 магазина · аптечка',restorable:false,restored:false},
+ {id:'l2',ts:N-9*60000,uid:'u5',type:'Получил урон',detail:'Падение с высоты · −42 HP',restorable:false,restored:false},
+ {id:'l3',ts:N-16*60000,uid:'u4',type:'Потерял вещи',detail:'Смерть от огнестрела · рюкзак, АК-74, 1 200 ₽',restorable:true,restored:false},
+ {id:'l4',ts:N-22*60000,uid:'u3',type:'Сел в транспорт',detail:'UAZ-469 · борт 07',restorable:false,restored:false},
+ {id:'l5',ts:N-31*60000,uid:'u1',type:'Передача денег',detail:'−500 ₽ → Лис',restorable:true,restored:true},
+ {id:'l6',ts:N-38*60000,uid:'u2',type:'Убийство игрока',detail:'Цель: Борода · 41 м · АКМ',restorable:false,restored:false},
+ {id:'l7',ts:N-45*60000,uid:'u5',type:'Выбросил предмет',detail:'Бинт ×3 · фонарь',restorable:true,restored:false},
+ {id:'l8',ts:N-52*60000,uid:'u4',type:'Получил урон',detail:'Огнестрел · −78 HP · нападавший: Майор Титов',restorable:false,restored:false},
+ {id:'l9',ts:N-63*60000,uid:'u7',type:'Поднял предмет',detail:'Артефакт «Медуза» · передан «Чистому небу»',restorable:false,restored:false},
+ {id:'l10',ts:N-75*60000,uid:'u6',type:'Сел в транспорт',detail:'БТР-70 · борт 12',restorable:false,restored:false},
+ {id:'l11',ts:N-80*60000,uid:'u9',type:'Умер',detail:'Смерть от аномалии «Жарка»',restorable:false,restored:false},
+ {id:'l12',ts:N-82*60000,uid:'u9',type:'Возродился',detail:'Точка возрождения: лагерь новичков',restorable:false,restored:false},
+ {id:'l13',ts:N-85*60000,uid:'u3',type:'Переложил',detail:'АК-74 → тайник у дерева',restorable:true,restored:false}
+];
+var ALOGS=[
+ {ts:N-150*60000,who:'Командир КПП',whoId:'u0',act:'Выдана роль «Администратор»',target:'u2'},
+ {ts:N-120*60000,who:'Майор Титов',whoId:'u2',act:'БАН · RDM на спавне мирных · навсегда',target:'u4'},
+ {ts:N-95*60000,who:'Майор Титов',whoId:'u2',act:'Исключён из вайт-листа',target:'u9'},
+ {ts:N-60*60000,who:'Командир КПП',whoId:'u0',act:'Перезагрузка сервера',target:null}
+];
+var TYPE_CLR={'Поднял предмет':'#7fb861','Получил урон':'#c4523f','Потерял вещи':'#b6903c','Выбросил предмет':'#b6903c','Передача денег':'#5da8ba','Убийство игрока':'#c4523f','Сел в транспорт':'#9d9a83','Обнуление персонажа':'#c4523f','БАН':'#c4523f','Умер':'#c4523f','Возродился':'#7fb861','Переложил':'#b6903c'};
+var ALOG_CATS=['БАН','Разбан','Вайт-лист','Роль','Фракция','Лидерство','Баланс','Восстановление','Новости','Сервер','Персонаж','Другое'];
+function alogCat(act){var w={'БАН':'БАН','Разбан':'Разбан','вайт-лист':'Вайт-лист','Роль':'Роль','фракци':'Фракция','лидер':'Лидерство','аланс':'Баланс','осстановл':'Восстановление','овост':'Новости','ервер':'Сервер','ерсонаж':'Персонаж'};for(var k in w){if(act.indexOf(k)!==-1)return w[k];}return 'Другое';}
+var server={status:'online',ip:'185.189.255.14',port:'2001',map:'ChernobylZone',ver:'1.5.0',slots:64,players:47,started:Date.now()-137*60000};
+var lastPing=21;
+var session=null, selUid=null, viewUid=null, curView='home', leadView=null, leadTabCur='info', facSelId='f2';
+function $(id){return document.getElementById(id);}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function fmt$(n){return Number(n||0).toLocaleString('ru-RU')+' ₽';}
+function fmtT(ts){var d=new Date(ts),p=function(x){return String(x).padStart(2,'0');};return p(d.getDate())+'.'+p(d.getMonth()+1)+' '+p(d.getHours())+':'+p(d.getMinutes());}
+function fmtTS(ts){var d=new Date(ts),p=function(x){return String(x).padStart(2,'0');};return p(d.getDate())+'.'+p(d.getMonth()+1)+'.'+d.getFullYear()+' '+p(d.getHours())+':'+p(d.getMinutes());}
+function hhmm(){var d=new Date(),p=function(x){return String(x).padStart(2,'0');};return p(d.getHours())+':'+p(d.getMinutes());}
+function todayStr(){var d=new Date(),p=function(x){return String(x).padStart(2,'0');};return p(d.getDate())+'.'+p(d.getMonth()+1)+'.'+d.getFullYear();}
+function parseReg(s){var p=s.split('.');return new Date(+p[2],+p[1]-1,+p[0]).getTime();}
+function uname(id){if(id==='u0')return OWNER.charName;var u=USERS.find(function(x){return x.id===id;});return u?u.charName:'—';}
+function uget(id){return id==='u0'?OWNER:USERS.find(function(x){return x.id===id;});}
+function uav(id){var u=uget(id);return (u&&u.avatar&&u.avatar.url)||DEFAULT_AV;}
+function ubn(id){var u=uget(id);return (u&&u.banner)||DEFAULT_BANNER;}
+function isWL(u){return u.wl!==false;}
+function fac(id){return FACTIONS.find(function(f){return f.id===id;});}
+function isStaff(){return session&&(session.role==='admin'||session.role==='owner');}
+function isLeaderOf(u){return FACTIONS.find(function(f){return f.leaderId===(u?u.id:null);});}
+function ALLU(){return [OWNER].concat(USERS);}
+function uByName(n){return ALLU().find(function(x){return x.charName===n;});}
+function goProfileOf(id){viewUid=id;go('profile');}
+function nameLink(n,viaProfile){var u=n?uByName(n):null;if(!u)return esc(n||'—');
+ return '<b class="alog-link" onclick="'+(viaProfile?'goProfileOf':'openPlayer')+'(\''+u.id+'\')">'+esc(n)+'</b>';}
+function isOwnerUser(u){return !!u&&u.role==='owner';}
+function canEditUser(u){if(!u)return false;if(isOwnerUser(u))return !!(session&&session.role==='owner'&&session.uid===u.id);return isStaff();}
+function guardOwner(id){var u=uget(id);if(isOwnerUser(u)&&!canEditUser(u)){toast('Профиль Владельца может изменять только Владелец','err');return false;}return true;}
+function toast(msg,kind){var t=document.createElement('div');t.className='toast'+(kind==='err'?' err':kind==='warn'?' warn':'');t.textContent=msg;$('toasts').appendChild(t);setTimeout(function(){t.style.opacity=0;t.style.transition='.4s';setTimeout(function(){t.remove();},400);},4200);}
+function copyTxt(txt,msg){if(navigator.clipboard){navigator.clipboard.writeText(txt);}toast(msg||('Скопировано: '+txt));}
+var mCb=null;
+function confirmDlg(title,body,okTxt,cb){$('m-title').textContent=title;$('m-body').innerHTML=body;$('m-ok').textContent=okTxt;mCb=cb;$('modal').classList.add('on');}
+function closeModal(){$('modal').classList.remove('on');mCb=null;}
+$('m-ok').onclick=function(){var cb=mCb;closeModal();if(cb)cb();};
+function alog(act,target){ALOGS.unshift({ts:Date.now(),who:uname(session?session.uid:null)||'—',whoId:session?session.uid:null,act:act,target:target||null});if(curView==='admin')renderALogs();}
+function notify(uid,text,kind,extra){var u=uget(uid);if(!u)return;u.notifs=u.notifs||[];u.notifs.unshift({id:'nt'+Date.now()+Math.floor(Math.random()*999),ts:Date.now(),text:text,kind:kind||'ok',read:false,extra:extra||null});saveUsers();if(session&&session.uid===uid)renderBell();}
+function sanitize(html){var t=document.createElement('div');t.innerHTML=html;
+ t.querySelectorAll('script,style,iframe,object,embed,form,input,button,link,meta').forEach(function(e){e.remove();});
+ t.querySelectorAll('*').forEach(function(e){Array.prototype.slice.call(e.attributes).forEach(function(a){var n=a.name.toLowerCase();var v=(a.value||'').trim().toLowerCase();if(n.indexOf('on')===0||(n==='href'&&v.indexOf('javascript:')===0)||(n==='src'&&v.indexOf('javascript:')===0)){e.removeAttribute(a.name);}});});
+ return t.innerHTML;}
+function go(v){
+  if(v==='profile'&&!session){v='auth';}
+  if(v==='admin'&&!isStaff()){v='admin-login';}
+  if(v==='faction'){if(!session){v='auth';}else if(!isLeaderOf(uget(session.uid))&&!isStaff()){v='home';}}
+  document.querySelectorAll('.view').forEach(function(x){x.classList.remove('active');});
+  $('view-'+v).classList.add('active');curView=v;window.scrollTo(0,0);
+  var bd=$('bell-drop');if(bd)bd.classList.remove('on');
+  if(v==='home')renderHome();
+  if(v==='news')renderNewsPage();
+  if(v==='factions')renderFactions();
+  if(v==='faction')renderFaction();
+  if(v==='rules')renderRules();
+  if(v==='lore')renderLore();
+  if(v==='profile')renderProfile();
+  if(v==='admin')renderAdmin();
+  renderHeader();
+}
+function miniAv(id){return '<span class="mini-av"><img src="'+uav(id)+'" onerror="this.onerror=null;this.src=AV_FALLBACK" alt=""></span>';}
+function goSelf(){viewUid=null;go('profile');}
+function renderHeader(){
+  var role=session?session.role:null;
+  function nl(v,l){return '<a class="'+(curView===v?'cur':'')+'" onclick="go(\''+v+'\')">'+l+'</a>';}
+  var nav=nl('home','Главная')+nl('news','Новости')+nl('factions','Фракции')+nl('rules','Правила')+nl('lore','Лор');
+  if(session&&isLeaderOf(uget(session.uid)))nav+=nl('faction','Кабинет лидера');
+  if(role==='player')nav+=nl('profile','Мой пропуск');
+  if(isStaff())nav+=nl('admin','Панель');
+  $('nav-links').innerHTML=nav;
+  var bell='<span class="bell-wrap"><button class="bell" onclick="toggleBell(event)" title="Уведомления"><svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5S10.5 3.17 10.5 4v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg><i id="bell-cnt"></i></button><div class="bell-drop" id="bell-drop"></div></span>';
+  var user='';
+  if(!role){user='<a class="btn btn-primary btn-sm" onclick="go(\'auth\')">Вход</a>';}
+  else{user=bell+'<span class="user-chip" onclick="goSelf()" title="Открыть профиль">'+miniAv(session.uid)+'<b>'+esc(uname(session.uid))+'</b></span><a class="logout-q" onclick="logout()">выйти</a>';}
+  $('hdr-user').innerHTML=user;
+  if(session)renderBell();
+}
+function logout(){session=null;viewUid=null;leadView=null;toast('Вы вышли из профиля');go('home');}
+function renderBell(){var c=$('bell-cnt'),d=$('bell-drop');if(!c||!d||!session)return;
+ var u=uget(session.uid);var list=u.notifs||[];
+ var un=list.filter(function(x){return !x.read;}).length;
+ c.textContent=un||'';c.style.display=un?'flex':'none';
+ var html='<div class="bd-head"><span>Уведомления</span><button onclick="clearNotifs(event)">Очистить</button></div>';
+ if(list.length){html+=list.slice(0,50).map(function(n){
+   var app=(n.extra&&n.extra.appId)?APPS.find(function(a){return a.id===n.extra.appId;}):null;
+   var leadF=isLeaderOf(u);
+   var btns=(app&&app.status==='pending'&&(leadF&&leadF.id===app.facId||isStaff()))?'<div class="nt-btns"><button class="btn btn-phos btn-sm" onclick="event.stopPropagation();appAct(\''+app.id+'\',\'ok\')">Принять</button><button class="btn btn-danger btn-sm" onclick="event.stopPropagation();appAct(\''+app.id+'\',\'no\')">Отклонить</button></div>':'';
+   return '<div class="nt '+(n.read?'':'un ')+n.kind+'" onclick="ntGo(\''+n.id+'\')"><div class="nt-t">'+esc(n.text)+'</div><div class="nt-d">'+fmtT(n.ts)+'</div>'+btns+'</div>';
+ }).join('');}
+ else{html+='<div class="det-empty" style="padding:24px">уведомлений нет</div>';}
+ d.innerHTML=html;
+}
+function toggleBell(e){e.stopPropagation();var d=$('bell-drop');if(!d)return;
+ if(d.classList.contains('on')){d.classList.remove('on');markRead();}
+ else{d.classList.add('on');renderBell();}}
+function markRead(){if(!session)return;var u=uget(session.uid);(u.notifs||[]).forEach(function(x){x.read=true;});saveUsers();renderBell();}
+function clearNotifs(e){e.stopPropagation();if(!session)return;var u=uget(session.uid);u.notifs=[];saveUsers();renderBell();toast('Уведомления очищены');}
+function ntGo(id){if(!session)return;var u=uget(session.uid);var n=(u.notifs||[]).find(function(x){return x.id===id;});if(!n)return;
+ n.read=true;saveUsers();var d=$('bell-drop');if(d)d.classList.remove('on');
+ var g=(n.extra&&n.extra.go)||'profile';
+ if(g==='factions'){go('factions');}else if(g==='faction'){go('faction');}else{viewUid=null;go('profile');}}
+document.addEventListener('click',function(e){var d=$('bell-drop');if(d&&d.classList.contains('on')&&!e.target.closest('.bell-wrap')&&!e.target.closest('.hdr-userbox')){d.classList.remove('on');markRead();}});
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var el=e.target;el.classList.add('in');io.unobserve(el);setTimeout(function(){el.classList.remove('reveal','in');},1100);}});},{threshold:.1});
+function renderHome(){
+  updateSrvUI();
+  document.querySelectorAll('#view-home .reveal').forEach(function(el){el.classList.add('reveal');io.observe(el);});
+}
+function upStr(){if(server.status!=='online')return '—';var s=Math.floor((Date.now()-server.started)/1000);var h=Math.floor(s/3600),m=Math.floor(s%3600/60);s%=60;return [h,m,s].map(function(x){return String(x).padStart(2,'0');}).join(':');}
+function updateSrvUI(){
+  var on=server.status==='online';
+  var txt=on?'ОНЛАЙН':server.status==='restarting'?'ПЕРЕЗАГРУЗКА':'ОФФЛАЙН';
+  var col=on?'var(--phos)':server.status==='restarting'?'var(--amber)':'var(--red)';
+  if($('sc-ping')){$('sc-ping').textContent=on?(lastPing+' ms'):'OFFLINE';$('sc-ping').style.color=col;}
+  if($('sc-state')){$('sc-state').textContent=txt;$('sc-state').style.color=col;}
+  if($('sc-dot'))$('sc-dot').className='dot'+(on?'':' off');
+  if($('sc-players'))$('sc-players').textContent=on?server.players+' / '+server.slots:'0 / '+server.slots;
+  if($('srv-bar'))$('srv-bar').style.width=on?(server.players/server.slots*100)+'%':'0%';
+  if($('sc-map'))$('sc-map').textContent=server.map;
+  if($('sc-up'))$('sc-up').textContent=on?upStr():'—';
+  if($('sc-ip'))$('sc-ip').textContent=server.ip+':'+server.port;
+  if($('on-n'))$('on-n').innerHTML=(on?server.players:0)+' <span>/ '+server.slots+'</span>';
+  if($('on-time'))$('on-time').textContent='обновлено '+hhmm();
+  if(curView==='admin')renderServerTab();
+}
+setInterval(updateSrvUI,1000);
+setInterval(function(){if(server.status==='online'){lastPing=15+Math.floor(Math.random()*16);updateSrvUI();}},2500);
+function ytId(url){var m=String(url||'').match(/(?:youtu\.be\/|v=|\/embed\/|\/shorts\/)([\w-]{11})/);return m?m[1]:null;}
+function photosHTML(n){
+  var ph=(n.photos&&n.photos.length)?n.photos:(n.photo?[n.photo]:[]);
+  if(!ph.length)return '';
+  if(ph.length===1)return '<div class="news-ph"><img src="'+ph[0]+'" onerror="this.parentElement.style.display=\'none\'" alt=""></div>';
+  return '<div class="car" id="car-'+n.id+'" data-i="0"><div class="car-track">'+ph.map(function(p){return '<div class="car-sl"><img src="'+p+'" onerror="this.style.display=\'none\'"></div>';}).join('')+'</div><button class="car-btn l" onclick="carMove(\''+n.id+'\',-1)">‹</button><button class="car-btn r" onclick="carMove(\''+n.id+'\',1)">›</button><span class="car-cnt">1/'+ph.length+'</span></div>';
+}
+function carMove(id,d){var el=$('car-'+id);if(!el)return;var n=el.querySelector('.car-track').children.length;var i=(+el.dataset.i)+d;if(i<0)i=n-1;if(i>n-1)i=0;el.dataset.i=i;el.querySelector('.car-track').style.transform='translateX(-'+(i*100)+'%)';el.querySelector('.car-cnt').textContent=(i+1)+'/'+n;}
+function newsItemHTML(n){
+  var cls=TAG_CLS[n.tag]||'mute';
+  var body=n.html?'<div class="news-rich">'+n.html+'</div>':'<p>'+esc(n.text)+'</p>';
+  var vid=n.video?ytId(n.video):null;
+  var vidHTML=n.video?(vid?'<a class="vid-prev" href="'+esc(n.video)+'" target="_blank"><img src="https://i.ytimg.com/vi/'+vid+'/hqdefault.jpg" onerror="this.parentElement.style.display=\'none\'"><span class="vid-play">▶</span></a>':'<a class="btn btn-ghost btn-sm news-video" href="'+esc(n.video)+'" target="_blank">▶ Смотреть видео</a>'):'';
+  return '<div class="news-item">'+photosHTML(n)+'<div class="n-meta"><span class="chip '+cls+'">'+esc(n.tag)+'</span><span class="n-date">'+esc(n.date)+'</span><span class="chip mute">'+(DEST_LBL[n.dest]||'САЙТ+DISCORD')+'</span></div><h3>'+esc(n.title)+'</h3>'+body+vidHTML+'</div>';
+}
+function renderNewsPage(){$('news-list').innerHTML=NEWS.filter(function(n){return n.dest!=='discord';}).map(newsItemHTML).join('')||'<div class="det-empty">лента пуста</div>';}
+function renderLore(){
+  $('lore-meta').innerHTML='<span><b>'+LORE_CHAPTERS.length+'</b> глав</span><span>1986 — 2006</span><span>ред. <b>08.2026</b></span>';
+  var tl=$('tl');
+  tl.querySelectorAll('.tl-row').forEach(function(r){r.remove();});
+  var road=$('tl-road');if(road)road.innerHTML='';
+  LORE_CHAPTERS.forEach(function(c,i){
+    var card='<div class="tl-card"><span class="y">'+c.year+'</span><h3>'+c.title+'</h3><p>'+c.text+'</p></div>';
+    var img=c.img?'<div class="tl-img"><img src="'+c.img+'" onerror="this.parentElement.style.display=\'none\'" alt=""></div>':'<div class="tl-side empty"></div>';
+    var left=i%2===0?card:img;
+    var right=i%2===0?img:card;
+    var row=document.createElement('div');
+    row.className='tl-row';
+    row.innerHTML='<div class="tl-side">'+left+'</div><div class="tl-node">'+String(i+1).padStart(2,'0')+'</div><div class="tl-side">'+right+'</div>';
+    tl.appendChild(row);
+  });
+  requestAnimationFrame(function(){
+    var nodes=tl.querySelectorAll('.tl-node');
+    var tlTop=tl.getBoundingClientRect().top;
+    var ys=[];nodes.forEach(function(n){var r=n.getBoundingClientRect();ys.push(r.top-tlTop+r.height/2);});
+    var H=tl.offsetHeight;
+    var d='M120 '+ys[0];
+    for(var i=1;i<ys.length;i++){var my=(ys[i-1]+ys[i])/2;var dir=i%2===0?1:-1;var off=dir*45;d+=' C '+(120+off)+' '+my+', '+(120-off)+' '+my+', 120 '+ys[i];}
+    road.innerHTML='<svg viewBox="0 0 240 '+H+'" preserveAspectRatio="none" style="height:'+H+'px;width:240px"><path d="'+d+'" fill="none" stroke="var(--amber)" stroke-width="2" stroke-dasharray="2 9" stroke-linecap="round" opacity=".5"/></svg>';
+  });
+}
+function renderFactions(){
+  $('fac-grid').innerHTML=FACTIONS.map(function(f){
+    var leader=uget(f.leaderId);
+    var members=USERS.filter(function(u){return u.faction===f.id;}).length;
+    return '<div class="fac-card2" style="--fc:'+f.color+'">'+
+      '<div class="fc2-head" style="background:linear-gradient(180deg,'+f.color+'22,transparent)">'+
+        '<div class="fc2-logo"><img src="'+f.logo+'" onerror="this.outerHTML=\''+facLogo(f,72).replace(/'/g,'&#39;')+'\'" alt=""></div>'+
+        '<span class="chip" style="color:'+f.color+';border-color:'+f.color+'55">'+f.tag+'</span></div>'+
+      '<div class="fc2-body"><h3>'+f.name+'</h3><p>'+f.desc+'</p>'+
+      '<div class="fc2-meta"><span>👤 '+(leader?esc(leader.charName):'вакантно')+'</span><span>'+members+' / '+(f.limit||30)+'</span>'+(f.open===false?'<span class="chip bad">НАБОР ЗАКРЫТ</span>':'')+'</div>'+
+      '<div class="fc2-actions"><button class="btn btn-ghost btn-sm" onclick="openFacDossier(\''+f.id+'\')">Открыть досье</button></div></div></div>';
+  }).join('');
+}
+function openFacDossier(fid){
+  var f=fac(fid);if(!f)return;
+  var leader=uget(f.leaderId);
+  var members=USERS.filter(function(u){return u.faction===f.id;});
+  var me=session?uget(session.uid):null;
+  var isMember=me&&me.faction===f.id;
+  var isLeader=me&&f.leaderId===me.id;
+  var pending=me?APPS.find(function(a){return a.facId===f.id&&a.uid===me.id&&a.status==='pending';}):null;
+  var act='';
+  if(!session)act='<button class="btn btn-primary btn-sm" onclick="closeFacModal();go(\'auth\')">Войти, чтобы подать заявку</button>';
+  else if(isLeader)act='<button class="btn btn-primary btn-sm" onclick="closeFacModal();go(\'faction\')">▸ Кабинет лидера</button>';
+  else if(isMember)act='<span class="chip ok">Вы состоите во фракции</span>';
+  else if(pending)act='<span class="chip cy">Заявка на рассмотрении</span>';
+  else if(f.open===false)act='<span class="chip bad">НАБОР ЗАКРЫТ</span>';
+  else act='<div class="fld"><label>Текст заявки (коротко о себе)</label><textarea id="fac-app-text" placeholder="Пара слов о себе и своём персонаже..."></textarea></div><button class="btn btn-primary btn-sm" onclick="applyFac(\''+f.id+'\')">Подать заявку</button>';
+  $('fac-modal-body').innerHTML=
+   '<div style="display:flex;gap:16px;align-items:center;margin-bottom:14px">'+
+     '<span class="fc2-logo" style="--fc:'+f.color+';border-color:'+f.color+'"><img src="'+f.logo+'" style="width:82%;height:82%;object-fit:contain" onerror="this.outerHTML=\''+facLogo(f,64).replace(/'/g,'&#39;')+'\'" alt=""></span>'+
+     '<div style="flex:1"><div style="font-family:var(--disp);font-size:22px">'+f.name+'</div>'+
+     '<div style="font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:'+f.color+';margin-top:4px">'+f.tag+' · '+members.length+' / '+(f.limit||30)+'</div></div>'+
+     '<span class="chip" style="color:'+f.color+';border-color:'+f.color+'55">'+f.tag+'</span></div>'+
+   '<p style="color:var(--dim);font-size:13.5px;line-height:1.7;margin-bottom:16px">'+f.desc+'</p>'+
+   '<div class="kv"><span class="k">Лидер</span><span class="v">'+(leader?'<span class="leader-link" onclick="closeFacModal();viewProfileOther(\''+leader.id+'\')">'+miniAv(leader.id)+' '+esc(leader.charName)+'</span>':'вакантно')+'</span></div>'+
+   '<div class="kv"><span class="k">Заявок в очереди</span><span class="v">'+APPS.filter(function(a){return a.facId===f.id&&a.status==='pending';}).length+'</span></div>'+
+   '<div style="margin-top:18px">'+act+'</div>'+
+   '<div style="margin-top:14px"><button class="btn btn-ghost btn-sm" onclick="closeFacModal()">Закрыть</button></div>';
+  $('facmodal').classList.add('on');
+}
+function closeFacModal(){$('facmodal').classList.remove('on');}
+function viewProfileOther(id){if(!session){toast('Доступно после входа','warn');go('auth');return;}viewUid=id;go('profile');}
+function applyFac(fid){
+  if(!session){go('auth');return;}
+  var u=uget(session.uid);var f=fac(fid);
+  if(f.open===false){toast('Набор во фракцию закрыт','err');return;}
+  if(u.faction===fid){toast('Вы уже состоите в этой фракции','err');return;}
+  if(APPS.find(function(a){return a.facId===fid&&a.uid===u.id&&a.status==='pending';})){toast('Заявка уже на рассмотрении','warn');return;}
+  var el=$('fac-app-text');var text=el?el.value.trim():'';
+  var app={id:'a'+Date.now(),facId:fid,uid:u.id,ts:Date.now(),text:text,status:'pending'};
+  APPS.unshift(app);saveApps();
+  if(f.leaderId)notify(f.leaderId,'Новая заявка во фракцию «'+f.name+'»: '+u.charName,'app',{go:'faction',appId:app.id});
+  toast('Заявка отправлена лидеру фракции');closeFacModal();renderFactions();
+}
+function appAct(appId,act){
+  var a=APPS.find(function(x){return x.id===appId;});if(!a||a.status!=='pending')return;
+  var f=fac(a.facId);if(!f)return;
+  var leadOk=isLeaderOf(uget(session.uid))&&isLeaderOf(uget(session.uid)).id===a.facId;
+  if(!leadOk&&!isStaff()){toast('Заявки принимает лидер фракции','err');return;}
+  if(act==='ok'){a.status='ok';var u=uget(a.uid);
+    if(u){u.faction=a.facId;saveUsers();notify(a.uid,'Заявка одобрена — вы приняты во фракцию «'+f.name+'»','ok',{go:'factions'});}
+    toast('Игрок принят во фракцию');alog('Принят во фракцию «'+f.name+'»',a.uid);}
+  else{a.status='no';notify(a.uid,'Заявка во фракцию «'+f.name+'» отклонена','warn',{go:'factions'});toast('Заявка отклонена','warn');}
+  saveApps();renderBell();
+  if(curView==='factions')renderFactions();
+  if(curView==='faction')renderFaction();
+}
+function leadTabGo(t,btn){leadTabCur=t;
+ document.querySelectorAll('.lead-tab').forEach(function(x){x.classList.remove('on');});btn.classList.add('on');
+ ['info','rules','members','apps'].forEach(function(x){$('lp-'+x).classList.toggle('on',x===t);});}
+function renderFaction(){
+  if(!session){go('auth');return;}
+  var u=uget(session.uid);
+  var f=isLeaderOf(u);
+  var staff=isStaff();
+  if(!f&&staff){
+    $('lead-sel-wrap').style.display='block';
+    $('lead-sel').innerHTML=FACTIONS.map(function(x){return '<option value="'+x.id+'"'+(leadView===x.id?' selected':'')+'>'+x.name+'</option>';}).join('');
+    f=fac(leadView)||FACTIONS[0];leadView=f.id;
+  }else{$('lead-sel-wrap').style.display='none';leadView=f?f.id:null;}
+  if(!f){go('home');return;}
+  var leader=uget(f.leaderId);
+  var members=USERS.filter(function(x){return x.faction===f.id;});
+  $('lead-hero').innerHTML=
+    '<span class="fc-logo2" style="border-color:'+f.color+'66"><img src="'+f.logo+'" style="width:82%;height:82%;object-fit:contain" onerror="this.outerHTML=\''+facLogo(f,60).replace(/'/g,'&#39;')+'\'" alt=""></span>'+
+    '<div style="flex:1"><div style="font-family:var(--disp);font-size:20px">'+f.name+'</div>'+
+    '<div class="fc-lead" style="margin-top:4px">👤 Лидер: '+(leader?esc(leader.charName):'вакантно')+' · '+members.length+' / '+(f.limit||30)+' · '+f.tag+'</div></div>'+
+    (staff&&f.leaderId!==u.id?'<span class="chip warn">режим просмотра (админ)</span>':'');
+  $('lp-info').innerHTML='<div class="p-body"><div class="lbl" style="margin-bottom:10px">Описание фракции</div><p style="color:var(--dim);font-size:13.5px;line-height:1.7;margin-bottom:16px">'+f.desc+'</p>'+
+    '<div class="kv"><span class="k">Тег</span><span class="v" style="color:'+f.color+'">'+f.tag+'</span></div>'+
+    '<div class="kv"><span class="k">Лидер</span><span class="v">'+(leader?esc(leader.charName):'вакантно')+'</span></div>'+
+    '<div class="kv"><span class="k">Участников</span><span class="v">'+members.length+' / '+(f.limit||30)+'</span></div>'+
+    '<div class="kv"><span class="k">Набор</span><span class="v">'+(f.open===false?'<span class="chip bad">ЗАКРЫТ</span>':'<span class="chip ok">ОТКРЫТ</span>')+'</span></div>'+
+    '<div class="kv"><span class="k">Заявок в очереди</span><span class="v">'+APPS.filter(function(a){return a.facId===f.id&&a.status==='pending';}).length+'</span></div></div>';
+  var doc=(RULE_CATS.find(function(c){return c.id==='c5';}).docs.find(function(d){return d.t===f.name;}))||null;
+  $('lp-rules').innerHTML='<div class="p-body">'+(doc?doc.items.map(function(x,j){return '<div class="rule-item"><span class="ri-n">'+(j+1)+'.</span><span>'+x+'</span></div>';}).join(''):'<div class="det-empty">устав фракции не заполнен</div>')+'<div class="hint" style="margin-top:12px">Общие требования ко всем группировкам — в разделе «Правила → Правила группировок».</div></div>';
+  $('lp-members').innerHTML=members.length?members.map(function(m){return '<div class="mem-row">'+miniAv(m.id)+'<div><div class="nm">'+esc(m.charName)+'</div><div style="font-family:var(--mono);font-size:10px;color:var(--mut)">'+m.armaId+'</div></div><div class="mt">'+(m.banned?'<span class="chip bad">БАН</span>':'<span class="chip ok">WL</span>')+(m.id!==f.leaderId?'<button class="btn btn-danger btn-sm" onclick="kickFac(\''+m.id+'\')">Исключить</button>':'<span class="chip warn">ЛИДЕР</span>')+'</div></div>';}).join(''):'<div class="det-empty">во фракции пока нет участников</div>';
+  var apps=APPS.filter(function(a){return a.facId===f.id&&a.status==='pending';});
+  $('lp-apps').innerHTML=apps.length?apps.map(function(a){var ap=uget(a.uid);return '<div class="mem-row" style="align-items:flex-start">'+miniAv(a.uid)+'<div style="flex:1"><div class="nm">'+esc(ap?ap.charName:'—')+' <span style="font-family:var(--mono);font-size:9px;color:var(--mut)">'+fmtT(a.ts)+'</span></div><div style="font-size:12px;color:var(--dim);margin-top:4px">'+esc(a.text||'Без сопроводительного текста')+'</div></div><div class="mt"><button class="btn btn-phos btn-sm" onclick="appAct(\''+a.id+'\',\'ok\')">Принять</button><button class="btn btn-danger btn-sm" onclick="appAct(\''+a.id+'\',\'no\')">Отклонить</button></div></div>';}).join(''):'<div class="det-empty">новых заявок нет</div>';
+  var btn=document.querySelector('.lead-tab[onclick*="\''+leadTabCur+'\'"]');
+  document.querySelectorAll('.lead-tab').forEach(function(x){x.classList.remove('on');});
+  if(btn)btn.classList.add('on');
+  ['info','rules','members','apps'].forEach(function(x){$('lp-'+x).classList.toggle('on',x===leadTabCur);});
+}
+function renderRules(){
+  var q=($('rule-search')?$('rule-search').value:'').trim().toLowerCase();
+  $('rule-cats').innerHTML=RULE_CATS.map(function(c){return '<button class="rc-item '+(c.id===ruleCat?'on':'')+'" onclick="setRuleCat(\''+c.id+'\')"><span class="rc-ic">'+c.icon+'</span><span class="rc-t">'+c.title+'</span><span class="rc-cnt">'+c.docs.length+'</span></button>';}).join('');
+  var cat=RULE_CATS.find(function(c){return c.id===ruleCat;})||RULE_CATS[0];
+  var idx=RULE_CATS.indexOf(cat)+1;
+  var docs=cat.docs;
+  if(q)docs=docs.filter(function(d){return (d.t+' '+d.items.join(' ')).toLowerCase().indexOf(q)!==-1;});
+  $('rule-ic').textContent=cat.icon;
+  $('rule-crumb').textContent=cat.title.toUpperCase();
+  $('rule-title').textContent=cat.title.toUpperCase();
+  $('rule-docs-cnt').textContent=docs.length+' ДОКУМЕНТОВ';
+  $('rule-idx').textContent='РАЗДЕЛ '+idx+' ИЗ '+RULE_CATS.length;
+  $('rule-stats').textContent=RULE_CATS.length+' РАЗДЕЛОВ · '+RULE_CATS.reduce(function(s,c){return s+c.docs.length;},0)+' ДОКУМЕНТОВ · РЕД. 08.2026';
+  $('rule-docs').innerHTML=docs.length?docs.map(function(d,i){return '<details class="rd" '+(i===0&&!q?'open':'')+'><summary><span class="rd-num">'+String(i+1).padStart(2,'0')+'</span><span class="rd-t">'+d.t+'</span><span class="rd-arr">▾</span></summary><div class="rd-items">'+d.items.map(function(x,j){return '<div class="rule-item"><span class="ri-n">'+(i+1)+'.'+(j+1)+'</span><span>'+x+'</span></div>';}).join('')+'</div></details>';}).join(''):'<div class="det-empty">ничего не найдено по запросу «'+esc(q)+'»</div>';
+}
+function setRuleCat(id){ruleCat=id;renderRules();}
+function ruleExpand(all){document.querySelectorAll('#rule-docs details').forEach(function(d){d.open=all;});}
+function syncGame(u){u.game=u.game||{};u.game.sync=fmtTS(Date.now());saveUsers();}
+function doLogin(){
+  var id=$('li-id').value.trim(),p=$('li-pass').value;
+  if(!id||!p){toast('Заполните оба поля','err');return;}
+  var u=USERS.find(function(x){return [x.armaId,x.steamId,x.email].indexOf(id)!==-1&&x.pass===p;});
+  if(!u){toast('Пропуск не найден или пароль неверен','err');return;}
+  session={uid:u.id,role:u.role};viewUid=null;syncGame(u);
+  toast('Допуск подтверждён. Данные персонажа синхронизированы с сервером');go('profile');
+}
+var CALLS=['Ржавый','Туман','Клёпа','Шторм','Грей','Штиль','Крот','Вега'];
+function doRegister(){
+  var a=$('rg-arma').value.trim(),s=$('rg-steam').value.trim(),m=$('rg-mail').value.trim(),n=$('rg-name').value.trim(),d=$('rg-disc').value.trim(),p=$('rg-pass').value,p2=$('rg-pass2').value;
+  if(!/^\d{6,12}$/.test(a)){toast('Arma ID: от 6 до 12 цифр','err');return;}
+  if(!/^\d{15,20}$/.test(s)){toast('Steam ID: 15–20 цифр','err');return;}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(m)){toast('Укажите корректный email','err');return;}
+  if(n.length<3){toast('Имя персонажа: минимум 3 символа','err');return;}
+  if(!/^\d{17,20}$/.test(d)){toast('Discord: нужен цифровой ID (17–20 цифр)','err');return;}
+  if(p.length<4){toast('Пароль: минимум 4 символа','err');return;}
+  if(p!==p2){toast('Пароли не совпадают','err');return;}
+  if(USERS.find(function(x){return x.armaId===a||x.steamId===s||x.discord===d||x.email===m;})){toast('Один из указанных ID уже зарегистрирован','err');return;}
+  var u={id:'u'+Date.now(),charName:n,armaId:a,steamId:s,discord:d,email:m,pass:p,role:'player',faction:null,balance:0,reg:todayStr(),banned:null,wl:true,online:false,banHistory:[],avatar:{url:DEFAULT_AV},banner:DEFAULT_BANNER,socials:{tg:'',ds:'',vk:'',yt:''},game:{call:CALLS[Math.floor(Math.random()*CALLS.length)],h:170+Math.floor(Math.random()*21),w:65+Math.floor(Math.random()*31),sync:'—'},notifs:[]};
+  USERS.push(u);saveUsers();session={uid:u.id,role:'player'};viewUid=null;
+  toast('Пропуск оформлен, вайт-лист активен. Добро пожаловать в Зону, '+n);go('profile');
+}
+function doAdminLogin(){
+  var l=$('al-login').value.trim(),p=$('al-pass').value;
+  if(!l||!p){toast('Заполните оба поля','err');return;}
+  if(l===OWNER.login&&p===OWNER.pass){session={uid:'u0',role:'owner'};toast('Доступ Владельца подтверждён');go('admin');return;}
+  var u=USERS.find(function(x){return (x.armaId===l||x.charName===l||x.steamId===l||x.email===l)&&x.pass===p&&x.role==='admin';});
+  if(!u){toast('Отказано: учётная запись персонала не найдена','err');return;}
+  session={uid:u.id,role:'admin'};toast('Доступ Администратора подтверждён');go('admin');
+}
+function demoAs(r){
+  viewUid=null;leadView=null;
+  if(r==='guest'){session=null;go('home');}
+  if(r==='player'){session={uid:'u1',role:'player'};syncGame(uget('u1'));go('profile');}
+  if(r==='admin'){session={uid:'u2',role:'admin'};syncGame(uget('u2'));go('admin');}
+  if(r==='owner'){session={uid:'u0',role:'owner'};go('admin');}
+}
+var ED_OUT={avatar:{w:256,h:256},banner:{w:960,h:180},news:{w:640,h:360}};
+var ED={img:null,mode:'avatar',zoom:1,ox:0,oy:0,cb:null},iedDrag=null;
+function openImgEd(src,mode,cb){
+  var img=new Image();
+  img.onload=function(){ED.img=img;ED.mode=mode;ED.zoom=1;ED.ox=0;ED.oy=0;ED.cb=cb;
+    $('ied-zoom').value=100;$('ied-ox').value=0;$('ied-oy').value=0;
+    $('ied-title').textContent='РЕДАКТОР · '+({avatar:'АВАТАР',banner:'БАННЕР',news:'ФОТО НОВОСТИ'})[mode];
+    $('imgmodal').classList.add('on');drawEd();};
+  img.onerror=function(){toast('Не удалось загрузить изображение','err');};
+  img.src=src;
+}
+function drawEd(){
+  var c=$('ied-canvas');var o=ED_OUT[ED.mode];c.width=o.w;c.height=o.h;
+  var ctx=c.getContext('2d');
+  ctx.fillStyle='#0a0e07';ctx.fillRect(0,0,o.w,o.h);
+  var iw=ED.img.naturalWidth,ih=ED.img.naturalHeight;
+  var s=Math.max(o.w/iw,o.h/ih)*ED.zoom;
+  var dw=iw*s,dh=ih*s;
+  var dx=(o.w-dw)/2+(ED.ox/100)*((dw-o.w)/2);
+  var dy=(o.h-dh)/2+(ED.oy/100)*((dh-o.h)/2);
+  ctx.drawImage(ED.img,dx,dy,dw,dh);
+}
+function edZoom(v){ED.zoom=v/100;$('ied-zoom').value=Math.round(ED.zoom*100);drawEd();}
+function edOx(v){ED.ox=+v;drawEd();}
+function edOy(v){ED.oy=+v;drawEd();}
+(function(){
+  var c=$('ied-canvas');
+  c.addEventListener('mousedown',function(e){iedDrag={x:e.clientX,y:e.clientY,ox:ED.ox,oy:ED.oy};e.preventDefault();});
+  window.addEventListener('mousemove',function(e){if(!iedDrag)return;
+    ED.ox=Math.max(-100,Math.min(100,iedDrag.ox+(e.clientX-iedDrag.x)*0.6));
+    ED.oy=Math.max(-100,Math.min(100,iedDrag.oy+(e.clientY-iedDrag.y)*0.6));
+    $('ied-ox').value=Math.round(ED.ox);$('ied-oy').value=Math.round(ED.oy);drawEd();});
+  window.addEventListener('mouseup',function(){iedDrag=null;});
+  c.addEventListener('wheel',function(e){e.preventDefault();
+    ED.zoom=Math.max(1,Math.min(3,ED.zoom+(e.deltaY<0?0.1:-0.1)));
+    $('ied-zoom').value=Math.round(ED.zoom*100);drawEd();},{passive:false});
+})();
+function saveImgEd(){
+  var c=$('ied-canvas');var url;
+  try{url=c.toDataURL('image/jpeg',0.85);}catch(e){url=ED.img.src;}
+  $('imgmodal').classList.remove('on');
+  var cb=ED.cb;ED.cb=null;if(cb)cb(url);
+}
+function closeImgEd(){$('imgmodal').classList.remove('on');}
+function readFile(f,cb){
+  if(f.size>4000000){toast('Файл слишком большой (макс. 4 МБ)','err');return;}
+  var r=new FileReader();r.onload=function(e){cb(e.target.result);};r.readAsDataURL(f);
+}
+function renderProfile(){
+  if(!session){go('auth');return;}
+  var own=!viewUid||viewUid===session.uid;
+  var u=uget(own?session.uid:viewUid);if(!u){go('home');return;}
+  var wl=isWL(u);
+  var staff=isStaff();
+  var pub=!own&&!staff;
+  u.socials=u.socials||{tg:'',ds:'',vk:'',yt:''};u.game=u.game||{};
+  var f=fac(u.faction);
+  var leaderOf=isLeaderOf(u);
+  var facLine=leaderOf?('Лидер «'+leaderOf.name+'»'):(f?f.name:'Без фракции');
+  $('pf-banner').innerHTML=own?'':'<span>Просмотр профиля игрока: <b style="color:var(--amber)">'+esc(u.charName)+'</b></span><span style="display:flex;gap:8px">'+(staff?'<button class="btn btn-ghost btn-sm" onclick="selectPlayer(\''+u.id+'\');go(\'admin\')">К карточке</button><button class="btn btn-primary btn-sm" onclick="viewUid=null;go(\'admin\')">← В панель</button>':'<button class="btn btn-ghost btn-sm" onclick="viewUid=null;go(\'factions\')">← Назад</button>')+'</span>';
+  $('pf-bn-img').src=ubn(u.id);
+  $('pf-bn-btn').style.display=own?'':'none';
+  $('pf-ava-img').src=uav(u.id);
+  $('pf-av-btn').style.display=own?'':'none';
+  $('pf-name').textContent=u.charName;
+  $('pf-chips').innerHTML=(u.banned?'<span class="chip bad">ЗАБАНЕН</span>':'<span class="chip ok">ДОПУЩЕН</span>')+'<span class="chip '+(u.role==='admin'?'warn':u.role==='owner'?'bad':'mute')+'">'+ROLE_NAME[u.role].toUpperCase()+'</span><span class="chip '+(wl?'ok':'bad')+'">ВАЙТ-ЛИСТ: '+(wl?'АКТИВЕН':'НЕАКТИВЕН')+'</span>';
+  $('pf-sub').textContent='На проекте с '+(u.reg||'—')+' · '+facLine;
+  var wlNote=(wl||pub)?'':'<div class="nc-warn">⚠ Вы исключены из вайт-листа администрацией. Вход на сервер заблокирован, персонаж и данные сохранены. Апелляция — в Discord проекта.</div>';
+  if(staff&&(u.adminNotes||[]).length){
+    wlNote+='<div class="nc-warn" style="border-color:var(--amber);background:rgba(182,144,60,.06);margin-top:8px"><b style="color:var(--amber)">Комментарии администрации (скрыты от игроков):</b>'+u.adminNotes.map(function(n){return '<div class="note-item" style="margin-top:8px"><div class="nt-d">'+fmtT(n.ts)+' · '+nameLink(n.author,true)+'</div><div>'+esc(n.text)+'</div>'+(n.img?'<img src="'+n.img+'" style="max-width:140px;border-radius:8px;margin-top:6px;display:block">':'')+'</div>';}).join('')+'</div>';
+  }
+  $('pf-wl-note').innerHTML=wlNote;
+  if(pub){$('pf-ids').innerHTML='<div class="kv"><span class="k">Фракция</span><span class="v" style="'+((leaderOf||f)?('color:'+(leaderOf?leaderOf.color:f.color)):'')+'">'+facLine+'</span></div><div class="kv"><span class="k">На проекте с</span><span class="v">'+(u.reg||'—')+'</span></div>';}
+  else{$('pf-ids').innerHTML=
+    '<div class="kv"><span class="k">Arma ID</span><span class="v"><span>'+esc(u.armaId||'—')+'</span><button class="copy" onclick="copyTxt(\''+esc(u.armaId||'')+'\')">копи</button></span></div>'+
+    '<div class="kv"><span class="k">Steam ID</span><span class="v"><span>'+esc(u.steamId||'—')+'</span><button class="copy" onclick="copyTxt(\''+esc(u.steamId||'')+'\')">копи</button></span></div>'+
+    '<div class="kv"><span class="k">Email</span><span class="v"><span>'+esc(u.email||'—')+'</span><button class="copy" onclick="copyTxt(\''+esc(u.email||'')+'\')">копи</button></span></div>'+
+    '<div class="kv"><span class="k">Discord ID</span><span class="v"><span>'+esc(u.discord||'—')+'</span><button class="copy" onclick="copyTxt(\''+esc(u.discord||'')+'\')">копи</button></span></div>'+
+    '<div class="kv"><span class="k">Баланс</span><span class="v hi">'+(u.balance==null?'—':fmt$(u.balance))+'</span></div>'+
+    '<div class="kv"><span class="k">Фракция</span><span class="v" style="'+((leaderOf||f)?('color:'+(leaderOf?leaderOf.color:f.color)):'')+'">'+facLine+'</span></div>';}
+  var tabs='';
+  if(!pub)tabs+='<button class="pf-tab2 on" onclick="pfTab2(\'main\',this)">Основная информация</button>';
+  tabs+='<button class="pf-tab2 '+(pub?'on':'')+'" onclick="pfTab2(\'social\',this)">Соцсети</button>';
+  tabs+='<button class="pf-tab2" onclick="pfTab2(\'char\',this)">Персонаж</button>';
+  $('pf-tabs2').innerHTML=tabs;
+  pfTab2(pub?'social':'main',null);
+  fillSocial(u,own);fillChar(u);
+  var act='';
+  if(own){act='<button class="btn btn-ghost btn-sm" onclick="openPw()">🔑 Сменить пароль</button><button class="btn btn-danger btn-sm" onclick="openNewChar()">⟲ Создать нового персонажа</button><button class="btn btn-ghost btn-sm" onclick="logout()">Выйти из профиля</button>';}
+  else if(staff&&!canEditUser(u)){act='<span class="chip bad">ПРОФИЛЬ ВЛАДЕЛЬЦА · ИЗМЕНЕНИЕ НЕДОСТУПНО</span>';}
+  else if(staff){act='<button class="btn btn-danger btn-sm" onclick="adminDelAv(\''+u.id+'\')">🗑 Удалить аватар</button><button class="btn btn-danger btn-sm" onclick="adminDelBanner(\''+u.id+'\')">🗑 Удалить баннер</button>'+(u.banned?'<button class="btn btn-phos btn-sm" onclick="unban(\''+u.id+'\')">Разбанить</button>':'<button class="btn btn-danger btn-sm" onclick="banFromProfile(\''+u.id+'\')">Забанить</button>')+'<button class="btn '+(wl?'btn-danger':'btn-phos')+' btn-sm" onclick="toggleWL(\''+u.id+'\');renderProfile()">'+(wl?'Исключить из вайт-листа':'Вернуть в вайт-лист')+'</button>';}
+  $('pf-actions').innerHTML=act;
+}
+function pfTab2(t,btn){
+  document.querySelectorAll('.pf-tab2').forEach(function(x){x.classList.remove('on');});
+  if(btn)btn.classList.add('on');else{var b=document.querySelector('.pf-tab2');if(b)b.classList.add('on');}
+  ['main','social','char'].forEach(function(x){var el=$('pft-'+x);if(el)el.classList.toggle('on',x===t);});
+}
+function socRow(k,label,val){
+  if(!val)return '';
+  var isLink=String(val).indexOf('http')===0;
+  return '<div class="soc-row"><span class="sk">'+label+'</span>'+(isLink?'<a href="'+esc(val)+'" target="_blank">'+esc(val)+'</a>':'<span>'+esc(val)+'</span>')+'</div>';
+}
+function fillSocial(u,own){
+  var s=u.socials;
+  if(own){
+    $('pf-social').innerHTML='<div class="fld"><label>Telegram (ссылка или ник)</label><input id="so-tg" value="'+esc(s.tg||'')+'" placeholder="https://t.me/..."></div>'+
+      '<div class="fld"><label>Discord (тег)</label><input id="so-ds" value="'+esc(s.ds||'')+'" placeholder="wolf#0001"></div>'+
+      '<div class="fld"><label>VK</label><input id="so-vk" value="'+esc(s.vk||'')+'" placeholder="https://vk.com/..."></div>'+
+      '<div class="fld"><label>YouTube</label><input id="so-yt" value="'+esc(s.yt||'')+'" placeholder="https://youtube.com/@..."></div>'+
+      '<div class="hint" style="margin-bottom:12px">Заполняется по желанию. Добавленное видят все, кто открывает ваш профиль.</div>'+
+      '<button class="btn btn-primary btn-sm" onclick="saveSocial()">Сохранить соцсети</button>';
+  }else{
+    var rows=socRow('t','Telegram',s.tg)+socRow('d','Discord',s.ds)+socRow('v','VK',s.vk)+socRow('y','YouTube',s.yt);
+    $('pf-social').innerHTML=rows||'<div class="det-empty">игрок не добавил соцсети</div>';
+  }
+}
+function saveSocial(){
+  var u=uget(session.uid);
+  u.socials={tg:$('so-tg').value.trim(),ds:$('so-ds').value.trim(),vk:$('so-vk').value.trim(),yt:$('so-yt').value.trim()};
+  saveUsers();fillSocial(u,true);toast('Соцсети сохранены');
+}
+function fillChar(u){
+  var g=u.game||{};
+  $('pf-char').innerHTML='<div class="lbl" style="margin-bottom:8px">Данные игрового сервера · синхронизация при входе · '+esc(g.sync||'—')+'</div>'+
+   '<div class="soc-row"><span class="sk">Имя</span><span>'+esc(u.charName)+'</span></div>'+
+   '<div class="soc-row"><span class="sk">Позывной</span><span>'+esc(g.call||'—')+'</span></div>'+
+   '<div class="soc-row"><span class="sk">Рост</span><span>'+(g.h?g.h+' см':'—')+'</span></div>'+
+   '<div class="soc-row"><span class="sk">Вес</span><span>'+(g.w?g.w+' кг':'—')+'</span></div>';
+}
+function uploadAv(inp){var f=inp.files[0];inp.value='';if(!f)return;
+ readFile(f,function(src){openImgEd(src,'avatar',function(url){var u=uget(session.uid);u.avatar={url:url};
+  if(saveUsers()){renderProfile();renderHeader();toast('Аватар обновлён');}else{u.avatar={url:DEFAULT_AV};}});});}
+function uploadBanner(inp){var f=inp.files[0];inp.value='';if(!f)return;
+ readFile(f,function(src){openImgEd(src,'banner',function(url){var u=uget(session.uid);u.banner=url;
+  if(saveUsers()){renderProfile();toast('Баннер обновлён');}else{u.banner=DEFAULT_BANNER;}});});}
+function adminDelAv(id){
+  if(!guardOwner(id))return;
+  var u=uget(id);u.avatar={url:DEFAULT_AV};saveUsers();
+  alog('Аватар удалён и сброшен на стандартный',id);
+  notify(id,'Ваш аватар удалён администрацией и сброшен на стандартный','warn',{go:'profile'});
+  renderProfile();toast('Аватар сброшен на стандартный','warn');
+}
+function adminDelBanner(id){
+  if(!guardOwner(id))return;
+  var u=uget(id);u.banner=DEFAULT_BANNER;saveUsers();
+  alog('Баннер удалён и сброшен на стандартный',id);
+  notify(id,'Ваш баннер удалён администрацией и сброшен на стандартный','warn',{go:'profile'});
+  renderProfile();toast('Баннер сброшен на стандартный','warn');
+}
+var noteImgData='';
+function noteImgPick(inp){var f=inp.files[0];inp.value='';if(!f)return;readFile(f,function(src){noteImgData=src;toast('Изображение прикреплено к комментарию');});}
+function addNote(id){
+  if(!guardOwner(id))return;
+  var u=uget(id);var text=$('note-text').value.trim();var img=noteImgData;
+  if(!text&&!img){toast('Текст или изображение обязательно','err');return;}
+  u.adminNotes=u.adminNotes||[];u.adminNotes.unshift({id:'an'+Date.now(),ts:Date.now(),author:uname(session.uid),text:text,img:img||''});
+  saveUsers();noteImgData='';renderDetail();toast('Комментарий добавлен (скрыт от игроков)');
+}
+function delNote(id,nid){var u=uget(id);u.adminNotes=(u.adminNotes||[]).filter(function(n){return n.id!==nid;});saveUsers();renderDetail();toast('Комментарий удалён','warn');}
+function banFromProfile(id){
+  if(!guardOwner(id))return;
+  var r=prompt('Причина бана:');if(!r){toast('Причина не указана','err');return;}
+  var fore=confirm('Навсегда? (ОК — навсегда, Отмена — 180 минут)');
+  doBan(id,r,fore);
+  renderProfile();
+}
+function openPw(){$('pw-cur').value='';$('pw-new').value='';$('pw-new2').value='';$('pwmodal').classList.add('on');}
+function closePw(){$('pwmodal').classList.remove('on');}
+function savePw(){
+  var u=uget(session.uid);
+  if($('pw-cur').value!==u.pass){toast('Текущий пароль неверен','err');return;}
+  if($('pw-new').value.length<4){toast('Новый пароль: минимум 4 символа','err');return;}
+  if($('pw-new').value!==$('pw-new2').value){toast('Пароли не совпадают','err');return;}
+  u.pass=$('pw-new').value;saveUsers();closePw();toast('Пароль изменён');
+}
+var rc={email:null,code:null};
+function openRecovery(){rc={email:null,code:null};$('rc-step1').style.display='block';$('rc-step2').style.display='none';$('rc-email').value='';$('rcmodal').classList.add('on');}
+function closeRc(){$('rcmodal').classList.remove('on');}
+function rcSend(){
+  var m=$('rc-email').value.trim();
+  var u=USERS.find(function(x){return x.email===m;});
+  if(!u){toast('Аккаунт с такой почтой не найден','err');return;}
+  rc.code=String(Math.floor(100000+Math.random()*900000));rc.email=m;
+  toast('Письмо отправлено на '+m+'. Демо-код: '+rc.code,'warn');
+  $('rc-step1').style.display='none';$('rc-step2').style.display='block';
+}
+function rcSave(){
+  if($('rc-code').value.trim()!==rc.code){toast('Код подтверждения неверен','err');return;}
+  if($('rc-pass').value.length<4){toast('Пароль: минимум 4 символа','err');return;}
+  if($('rc-pass').value!==$('rc-pass2').value){toast('Пароли не совпадают','err');return;}
+  var u=USERS.find(function(x){return x.email===rc.email;});if(!u){toast('Аккаунт не найден','err');return;}
+  u.pass=$('rc-pass').value;saveUsers();closeRc();toast('Пароль восстановлен. Войдите с новым паролем');
+}
+var ncPending=null;
+function openNewChar(){var u=uget(session.uid);$('nc-old').textContent='«'+u.charName+'»';$('nc-last').value='';$('nc-first').value='';$('nc-consent').checked=false;$('ncmodal').classList.add('on');}
+function closeNc(){$('ncmodal').classList.remove('on');}
+function ncContinue(){
+  var last=$('nc-last').value.trim(),first=$('nc-first').value.trim();
+  if(last.length<2||first.length<2){toast('Укажите имя и фамилию нового персонажа','err');return;}
+  if(!$('nc-consent').checked){toast('Необходимо согласие на обнуление текущего персонажа','err');return;}
+  ncPending=first+' '+last;closeNc();
+  confirmDlg('Подтверждение','Действительно ли вы хотите <b>обнулить старого персонажа</b> и создать нового? Отменить это действие будет невозможно.','Да, обнулить и создать',doNewChar);
+}
+function doNewChar(){
+  var u=uget(session.uid);var old=u.charName;
+  u.charName=ncPending;u.balance=0;u.faction=null;
+  u.game={call:CALLS[Math.floor(Math.random()*CALLS.length)],h:170+Math.floor(Math.random()*21),w:65+Math.floor(Math.random()*31),sync:'—'};
+  saveUsers();
+  LOGS.unshift({id:'l'+Date.now(),ts:Date.now(),uid:u.id,type:'Обнуление персонажа',detail:'Игрок обнулил «'+old+'» и создал нового: '+ncPending,restorable:false,restored:false});
+  renderProfile();renderHeader();toast('Старый персонаж обнулён. Новый: '+ncPending,'warn');
+}
+/* ===== АДМИН ===== */
+function renderAdmStats(){
+  var el=$('adm-stats');if(!el)return;
+  var on=server.status==='online';
+  var all=ALLU();
+  var wlN=all.filter(isWL).length;
+  var banN=all.filter(function(u){return u.banned;}).length;
+  var onN=all.filter(function(u){return u.online&&!u.banned;}).length;
+  el.innerHTML='<button class="stat-chip '+(on?'ok':'bad')+'" onclick="admTab(\'server\',document.querySelector(\'.adm-tab[data-tab=server]\'))"><span class="dot '+(on?'':'off')+'"></span>'+(on?'СЕРВЕР: ОНЛАЙН':'СЕРВЕР: ОФФЛАЙН')+'</button>'+
+   '<button class="stat-chip" onclick="goSub(\'online\')">НА СЕРВЕРЕ: '+onN+'</button>'+
+   '<button class="stat-chip" onclick="goSub(\'all\')">В БД: '+all.length+'</button>'+
+   '<button class="stat-chip ok" onclick="goSub(\'wl\')">ВАЙТ-ЛИСТ: '+wlN+'</button>'+
+   '<button class="stat-chip bad" onclick="goSub(\'ban\')">БАНЫ: '+banN+'</button>';
+}
+function goSub(s){admTab('players',document.querySelector('.adm-tab[data-tab=players]'));$('pl-sub').value=s;renderPlayersTable();}
+function admTab(t,btn){document.querySelectorAll('.adm-tab').forEach(function(x){x.classList.remove('on');});btn.classList.add('on');
+ document.querySelectorAll('.adm-panel').forEach(function(x){x.classList.remove('on');});$('tab-'+t).classList.add('on');
+ if(t==='history'){renderTypeChips();renderLogs();}
+ if(t==='restore')renderRestore();
+ if(t==='alogs')renderALogs();
+ if(t==='server')renderServerTab();
+ if(t==='news')renderNewsAdmin();
+ if(t==='factions')renderFactionsAdmin();
+ if(t==='players')renderPlayersTable();
+}
+function renderAdmin(){
+  if(!isStaff()){go('admin-login');return;}
+  var isOwner=session.role==='owner';
+  var av=$('adm-op-av');av.src=uav(session.uid);av.onerror=function(){this.onerror=null;this.src=AV_FALLBACK;};
+  $('adm-op-name').textContent=uname(session.uid);
+  $('adm-op-role').textContent=ROLE_NAME[session.role].toUpperCase();
+  $('adm-op-role').className='chip '+(isOwner?'bad':'warn');
+  var tA=$('adm-t-alogs'),tS=$('adm-t-server'),tF=$('adm-t-factions');
+  if(!isOwner){[tA,tS].forEach(function(t){t.classList.add('lock');t.onclick=function(){toast('Раздел доступен только Владельцу','err');};});
+    tF.classList.remove('lock');tF.onclick=function(){admTab('factions',tF);};}
+  else{[tA,tS,tF].forEach(function(t){t.classList.remove('lock');});
+    tA.onclick=function(){admTab('alogs',tA);};tS.onclick=function(){admTab('server',tS);};tF.onclick=function(){admTab('factions',tF);};}
+  var saved=localStorage.getItem('unnamed_adm_cols');
+  if(saved){var cols=$('adm-players-cols');if(cols)cols.style.gridTemplateColumns=saved+'% 8px 1fr';}
+  renderAdmStats();renderPlayersTable();renderDetail();renderLogFilters();renderTypeChips();renderLogs();renderRestore();renderALogs();renderServerTab();renderNewsAdmin();renderFactionsAdmin();nwThumbs();
+}
+(function(){
+  var r=$('adm-resizer');if(!r)return;var drag=null;
+  r.addEventListener('mousedown',function(e){drag=e.clientX;e.preventDefault();});
+  window.addEventListener('mousemove',function(e){if(drag==null)return;var cols=$('adm-players-cols');var rect=cols.getBoundingClientRect();var left=e.clientX-rect.left;var pct=Math.max(25,Math.min(70,left/rect.width*100));cols.style.gridTemplateColumns=pct+'% 8px 1fr';localStorage.setItem('unnamed_adm_cols',String(Math.round(pct)));});
+  window.addEventListener('mouseup',function(){drag=null;});
+})();
+var facEditId=null,facLogoData='';
+function renderFactionsAdmin(){
+  var isOwner=session&&session.role==='owner';
+  var chip=$('fac-tab-chip');if(chip){chip.textContent=isOwner?'полный доступ':'админ: только набор и состав';chip.className='chip '+(isOwner?'bad':'warn');}
+  var nb=$('fac-new-btn');if(nb)nb.style.display=isOwner?'':'none';
+  var ed=$('fac-editor');if(ed)ed.style.display=isOwner?'':'none';
+  $('fac-adm-list').innerHTML=FACTIONS.map(function(f){return '<div class="nw-item"><span class="chip" style="color:'+f.color+';border-color:'+f.color+'55">'+f.tag+'</span><span class="t">'+f.name+'</span><span class="lbl">лимит '+(f.limit||30)+'</span>'+(f.open===false?'<span class="chip bad">ЗАКРЫТ</span>':'<span class="chip ok">НАБОР</span>')+'<button class="btn '+(f.open===false?'btn-phos':'btn-ghost')+' btn-sm" onclick="facToggleOpen(\''+f.id+'\')">'+(f.open===false?'Открыть набор':'Закрыть набор')+'</button><button class="btn btn-ghost btn-sm" onclick="facMembers(\''+f.id+'\')">Состав</button>'+(isOwner?'<button class="btn btn-ghost btn-sm" onclick="facEdit(\''+f.id+'\')">✎</button>':'')+'</div>';}).join('');
+  facMembers(facSelId);
+}
+function facToggleOpen(id){var f=fac(id);if(!f)return;if(!isStaff()){toast('Доступно только администрации','err');return;}f.open=f.open===false?true:false;alog((f.open===false?'Закрыт набор во фракцию':'Открыт набор во фракцию')+' «'+f.name+'»');renderFactionsAdmin();renderFactions();toast(f.open===false?'Набор закрыт':'Набор открыт');}
+function facMembers(id){
+  facSelId=id;var f=fac(id);if(!f)return;
+  $('fac-mem-head').textContent='СОСТАВ: '+f.name.toUpperCase();
+  var members=USERS.filter(function(u){return u.faction===id;});
+  $('fac-mem-list').innerHTML=members.length?members.map(function(m){return '<div class="mem-row">'+miniAv(m.id)+'<div><b class="alog-link" onclick="openPlayer(\''+m.id+'\')">'+esc(m.charName)+'</b><div style="font-family:var(--mono);font-size:9px;color:var(--mut)">'+m.armaId+'</div></div><div class="mt">'+(m.id===f.leaderId?'<span class="chip warn">ЛИДЕР</span><button class="btn btn-danger btn-sm" onclick="unsetLeader(\''+m.id+'\')">Снять лидерство</button>':'<button class="btn btn-phos btn-sm" onclick="setLeader(\''+m.id+'\')">★ Сделать лидером</button>')+'<button class="btn btn-danger btn-sm" onclick="kickFac(\''+m.id+'\')">Исключить</button></div></div>';}).join(''):'<div class="det-empty">во фракции нет участников</div>';
+}
+function facNew(){facEditId=null;facLogoData='';$('fac-name').value='';$('fac-tag').value='';$('fac-color').value='#7fb861';$('fac-limit').value=30;$('fac-lore').value='';$('fac-logo-prev').innerHTML='<span style="color:var(--mut);font-size:10px">нет</span>';$('fac-del').style.display='none';$('fac-ed-head').textContent='НОВАЯ ФРАКЦИЯ';}
+function facEdit(id){var f=fac(id);if(!f)return;facEditId=id;facLogoData=f.logo||'';$('fac-name').value=f.name;$('fac-tag').value=f.tag;$('fac-color').value=f.color;$('fac-limit').value=f.limit||30;$('fac-lore').value=f.desc;$('fac-logo-prev').innerHTML='<img src="'+f.logo+'" style="width:82%;height:82%;object-fit:contain" onerror="this.outerHTML=\'—\'">';$('fac-del').style.display='';$('fac-ed-head').textContent='ПРАВКА: '+f.name;}
+function facLogoPick(inp){var f=inp.files[0];inp.value='';if(!f)return;readFile(f,function(src){facLogoData=src;$('fac-logo-prev').innerHTML='<img src="'+src+'" style="width:82%;height:82%;object-fit:contain">';});}
+function facSave(){
+  if(session.role!=='owner'){toast('Только Владелец','err');return;}
+  var name=$('fac-name').value.trim(),tag=$('fac-tag').value.trim(),color=$('fac-color').value,limit=parseInt($('fac-limit').value)||30,desc=$('fac-lore').value.trim();
+  if(!name||!tag){toast('Название и тег обязательны','err');return;}
+  if(facEditId){var f=fac(facEditId);f.name=name;f.tag=tag;f.color=color;f.limit=limit;if(desc)f.desc=desc;if(facLogoData)f.logo=facLogoData;alog('Изменена фракция «'+name+'»');toast('Фракция обновлена');}
+  else{FACTIONS.push({id:'f'+Date.now(),tag:tag,name:name,color:color,members:0,leaderId:null,limit:limit,open:true,logo:facLogoData||'',desc:desc||'Описание не указано.'});alog('Создана фракция «'+name+'»');toast('Фракция создана');}
+  renderFactionsAdmin();renderFactions();
+}
+function facDel(){
+  if(session.role!=='owner'){toast('Только Владелец','err');return;}
+  var f=fac(facEditId);if(!f)return;
+  confirmDlg('Удаление фракции','Фракция <b>«'+esc(f.name)+'»</b> будет удалена. Игроки останутся без фракции.','Удалить',function(){
+    USERS.forEach(function(u){if(u.faction===f.id)u.faction=null;});saveUsers();
+    FACTIONS.splice(FACTIONS.indexOf(f),1);alog('Удалена фракция «'+f.name+'»');
+    facNew();renderFactionsAdmin();renderFactions();toast('Фракция удалена','warn');});
+}
+function rowHTML(u){
+  var f=fac(u.faction),wl=isWL(u);
+  var lead=isLeaderOf(u);
+  var own=isOwnerUser(u);
+  return '<tr class="'+(selUid===u.id?'sel':'')+'" onclick="selectPlayer(\''+u.id+'\')">'+
+  '<td><div style="display:flex;align-items:center;gap:9px">'+miniAv(u.id)+'<div><b style="font-family:var(--body);font-size:13px'+(own?';color:var(--amber)':'')+'">'+esc(u.charName)+'</b><div style="font-size:10px;color:var(--mut)">'+esc(u.armaId||'—')+'</div></div></div></td>'+
+  '<td>'+(own?'<span class="chip bad">ВЛАДЕЛЕЦ</span>':u.role==='admin'?'<span class="chip warn">АДМИН</span>':'<span class="chip mute">ИГРОК</span>')+'</td>'+
+  '<td>'+(lead?'<span style="color:'+lead.color+'">ЛИДЕР '+lead.tag+'</span>':(f?'<span style="color:'+f.color+'">'+f.tag+'</span>':'—'))+'</td>'+
+  '<td>'+(own?'<span class="chip warn">—</span>':wl?'<span class="chip ok">WL</span>':'<span class="chip bad">—</span>')+'</td>'+
+  '<td>'+(u.balance==null?'—':fmt$(u.balance))+'</td>'+
+  '<td>'+(u.banned?'<span class="chip bad">БАН</span>':(u.online?'<span class="chip ok">ОНЛАЙН</span>':'<span class="chip mute">ОФФ</span>'))+'</td></tr>';
+}
+function renderPlayersTable(){
+  renderAdmStats();
+  var sub=$('pl-sub').value;
+  var q=($('pl-search').value||'').trim().toLowerCase();
+  var from=$('pl-from').value,to=$('pl-to').value;
+  var list=ALLU();
+  if(sub==='online')list=list.filter(function(u){return u.online&&!u.banned;});
+  if(sub==='wl')list=list.filter(function(u){return isWL(u);});
+  if(sub==='ban')list=list.filter(function(u){return u.banned;});
+  if(q)list=list.filter(function(u){return (u.charName+' '+(u.armaId||'')+' '+(u.steamId||'')+' '+(u.discord||'')).toLowerCase().indexOf(q)!==-1;});
+  if(from)list=list.filter(function(u){return u.reg&&parseReg(u.reg)>=new Date(from).getTime();});
+  if(to)list=list.filter(function(u){return u.reg&&parseReg(u.reg)<=new Date(to).getTime()+86400000;});
+  $('pl-count').textContent=list.length+' из '+ALLU().length;
+  $('adm-tbody').innerHTML=list.map(rowHTML).join('')||'<tr><td colspan="6" style="text-align:center;color:var(--mut);padding:30px">никого не найдено</td></tr>';
+}
+function selectPlayer(id){selUid=id;renderPlayersTable();renderDetail();}
+function openPlayer(id){selUid=id;admTab('players',document.querySelector('.adm-tab[data-tab=players]'));renderPlayersTable();renderDetail();}
+function setLeader(id){if(!guardOwner(id))return;var u=uget(id);if(!u.faction){toast('Игрок без фракции — сначала назначьте фракцию','err');return;}
+  var f=fac(u.faction);f.leaderId=u.id;
+  alog('Назначен лидером «'+f.name+'»',id);
+  notify(id,'Вы назначены лидером фракции «'+f.name+'»','ok',{go:'faction'});
+  renderPlayersTable();renderDetail();renderFactionsAdmin();toast(u.charName+' теперь лидер '+f.name);}
+function unsetLeader(id){var u=uget(id);var f=isLeaderOf(u);if(!f)return;
+  f.leaderId=null;alog('Снят с лидерства «'+f.name+'»',id);
+  notify(id,'Вы сняты с лидерства фракции «'+f.name+'»','warn',{go:'factions'});
+  renderPlayersTable();renderDetail();renderFactionsAdmin();toast('Лидерство снято','warn');}
+function renderDetail(){
+  var box=$('adm-detail');var u=uget(selUid);
+  if(!u){box.innerHTML='<div class="det-empty">▸ выберите игрока в реестре слева</div>';return;}
+  if(isOwnerUser(u)){
+    var oHead='<div class="det-head"><span class="nm-link" onclick="viewUid=\''+u.id+'\';go(\'profile\')">'+esc(u.charName)+'</span><span class="edge"><span class="chip bad">ВЛАДЕЛЕЦ</span></span></div>';
+    var oBody='<div class="det-sec"><span class="lbl">Профиль Владельца</span>'+
+     '<div class="hint" style="margin:0 0 12px">Карточка доступна только для просмотра. Изменять профиль Владельца может исключительно сам Владелец — через свою страницу профиля.</div>'+
+     '<div class="kv"><span class="k">Роль</span><span class="v hi">Владелец</span></div>'+
+     '<div class="kv"><span class="k">Позывной</span><span class="v">'+esc((u.game&&u.game.call)||'—')+'</span></div>'+
+     '<div class="kv"><span class="k">Email</span><span class="v">'+esc(u.email||'—')+'</span></div>'+
+     '<div class="kv"><span class="k">Синхронизация</span><span class="v">'+esc((u.game&&u.game.sync)||'—')+'</span></div>'+
+     '<div class="det-row small" style="margin-top:12px"><button class="btn btn-ghost btn-sm" onclick="viewUid=\''+u.id+'\';go(\'profile\')">▸ Открыть профиль</button></div></div>';
+    box.innerHTML=oHead+oBody;return;
+  }
+  var isOwner=session.role==='owner';var f=fac(u.faction);var wl=isWL(u);var lead=isLeaderOf(u);
+  var head='<div class="det-head"><span class="nm-link" onclick="viewUid=\''+u.id+'\';go(\'profile\')">'+esc(u.charName)+'</span>'+
+   '<button class="btn '+(wl?'btn-danger':'btn-phos')+' btn-sm" onclick="toggleWL(\''+u.id+'\')">'+(wl?'− WL':'+ WL')+'</button>'+
+   '<span class="edge"><span class="chip '+(u.online?'ok':'mute')+'">'+(u.online?'ОНЛАЙН':'ОФФЛАЙН')+'</span><span class="chip '+(u.banned?'bad':'ok')+'">'+(u.banned?'В БАНЕ':'ДОПУЩЕН')+'</span></span></div>';
+  var bal='<div class="det-sec"><span class="lbl">Баланс</span><div class="det-bal">'+fmt$(u.balance)+'</div>'+
+   '<div class="det-row small"><input id="bal-in" type="number" placeholder="сумма ₽"><button class="btn btn-ghost btn-sm" onclick="setBal(\''+u.id+'\',\'set\')">Уст.</button><button class="btn btn-phos btn-sm" onclick="setBal(\''+u.id+'\',\'add\')">Выдать</button><button class="btn btn-ghost btn-sm" onclick="setBal(\''+u.id+'\',\'take\')">Изъять</button></div></div>';
+  var facBl='<div class="det-sec"><span class="lbl">Фракция</span><div class="det-fac" style="color:'+((f)?f.color:'var(--mut)')+'">'+(f?f.name:'Без фракции')+'</div>'+
+   '<div class="det-row small"><select id="fac-sel" title="Фракция для смены">'+FACTIONS.map(function(x){return '<option value="'+x.id+'">'+x.tag+' · '+x.name+'</option>';}).join('')+'</select><button class="btn btn-ghost btn-sm" onclick="setFac(\''+u.id+'\')">Сменить</button></div>'+
+   (lead?'<div class="det-row small" style="margin-top:8px"><span class="chip warn">ЛИДЕР '+lead.tag+'</span><button class="btn btn-danger btn-sm" onclick="unsetLeader(\''+u.id+'\')">Снять лидерство</button></div>':(u.faction?'<div class="det-row small" style="margin-top:8px"><button class="btn btn-phos btn-sm" onclick="setLeader(\''+u.id+'\')">★ Сделать лидером</button></div>':''))+'</div>';
+  var restoreBl='<div class="det-sec"><span class="lbl">Восстановление</span><div class="det-row small"><button class="btn btn-ghost btn-sm" onclick="goRestoreFor(\''+u.id+'\')">♻ Меню восстановления вещей</button></div></div>';
+  var resetBl='<div class="det-row small" style="margin-top:8px"><button class="btn btn-danger btn-sm" onclick="resetChar(\''+u.id+'\')">⟲ Обнуление персонажа</button></div>';
+  var banHist='<div class="det-sec"><span class="lbl">История блокировок</span>'+((u.banHistory&&u.banHistory.length)?u.banHistory.map(function(h){return '<div class="note-item"><div class="nt-d">'+fmtT(h.ts)+' · '+nameLink(h.by)+'</div><div>'+esc(h.act)+': '+esc(h.reason)+' · '+esc(h.until)+'</div></div>';}).join(''):'<div class="hint">Блокировок не было.</div>')+'</div>';
+  var banBlock='<div class="det-sec"><span class="lbl">Блокировка</span>'+(u.banned?'<div class="ban-box"><div style="font-size:12.5px;margin-bottom:10px">Причина: <b>'+esc(u.banned.reason)+'</b><br>Срок: <b>'+u.banned.until+'</b> · выдал: '+nameLink(u.banned.by)+'</div><button class="btn btn-phos btn-sm" onclick="unban(\''+u.id+'\')">▸ Разбанить</button></div>':'<div class="fld" style="margin:0"><label>Причина бана *</label><input id="ban-reason" placeholder="например: RDM на спавне"></div><div class="det-row small" style="margin-top:8px"><input id="ban-min" type="number" min="1" placeholder="минуты"><label style="display:flex;gap:7px;align-items:center;font-family:var(--mono);font-size:10px;color:var(--dim);cursor:pointer"><input type="checkbox" id="ban-forever" style="width:auto">навсегда</label><button class="btn btn-danger btn-sm" onclick="ban(\''+u.id+'\')">Забанить</button></div>')+'</div>';
+  var roleBl=isOwner?'<div class="det-sec"><span class="lbl">Роль на проекте (только Владелец)</span><div class="det-row small"><select id="role-sel"><option value="player" '+(u.role==='player'?'selected':'')+'>Игрок</option><option value="admin" '+(u.role==='admin'?'selected':'')+'>Администратор</option></select><button class="btn btn-ghost btn-sm" onclick="setRole(\''+u.id+'\')">Применить</button></div></div>':'';
+  var notes='<div class="det-sec"><span class="lbl">Комментарии администрации (скрыты от игроков)</span>'+
+   ((u.adminNotes&&u.adminNotes.length)?u.adminNotes.map(function(n){return '<div class="note-item"><div class="nt-d">'+fmtT(n.ts)+' · '+nameLink(n.author)+'</div><div>'+esc(n.text)+'</div>'+(n.img?'<img src="'+n.img+'" style="max-width:140px;border-radius:8px;margin-top:6px;display:block">':'')+'<button class="btn btn-ghost btn-sm" style="margin-top:6px" onclick="delNote(\''+u.id+'\',\''+n.id+'\')">Удалить</button></div>';}).join(''):'<div class="hint">Комментариев нет.</div>')+
+   '<div class="fld" style="margin-top:8px"><textarea id="note-text" placeholder="Текст комментария..."></textarea></div>'+
+   '<div class="det-row small"><button class="btn btn-ghost btn-sm" onclick="noteImgPick(document.getElementById(\'note-img\'))">📎 Картинка</button><input type="file" id="note-img" hidden accept="image/*" onchange="noteImgPick(this)"><button class="btn btn-primary btn-sm" onclick="addNote(\''+u.id+'\')">Добавить</button></div></div>';
+  var dataBl='<div class="det-sec"><span class="lbl">Данные игрока</span>'+
+   '<div class="kv"><span class="k">Arma ID</span><span class="v">'+u.armaId+'</span></div>'+
+   '<div class="kv"><span class="k">Steam ID</span><span class="v">'+u.steamId+'</span></div>'+
+   '<div class="kv"><span class="k">Discord ID</span><span class="v">'+u.discord+'</span></div>'+
+   '<div class="kv"><span class="k">Email</span><span class="v">'+esc(u.email||'—')+'</span></div>'+
+   '<div class="kv"><span class="k">Регистрация</span><span class="v">'+(u.reg||'—')+'</span></div></div>';
+  box.innerHTML=head+bal+facBl+roleBl+restoreBl+resetBl+banHist+banBlock+notes+dataBl;
+}
+function goRestoreFor(id){$('rs-search').value=uname(id);admTab('restore',document.querySelector('.adm-tab[data-tab=restore]'));renderRestore();}
+function toggleWL(id){if(!guardOwner(id))return;var u=uget(id);var wl=isWL(u);u.wl=wl?false:true;saveUsers();
+ alog(wl?'Исключён из вайт-листа':'Возвращён в вайт-лист',id);
+ notify(id,wl?'Вы исключены из вайт-листа':'Вы возвращены в вайт-лист',wl?'bad':'ok',{go:'profile'});
+ renderPlayersTable();renderDetail();renderAdmStats();toast(wl?'Игрок исключён из вайт-листа':'Игрок возвращён в вайт-лист',wl?'warn':'ok');}
+function setRole(id){if(!guardOwner(id))return;var u=uget(id);
+ if(session.role!=='owner'){toast('Роли персонала меняет только Владелец','err');return;}
+ var r=$('role-sel').value;
+ u.role=r;saveUsers();alog('Выдана роль «'+ROLE_NAME[r]+'»',id);
+ notify(id,'Ваша роль на проекте изменена: '+ROLE_NAME[r],r==='admin'?'ok':'warn',{go:'profile'});
+ renderPlayersTable();renderDetail();toast('Роль обновлена');}
+function setFac(id){if(!guardOwner(id))return;var u=uget(id);var f=fac($('fac-sel').value);u.faction=f.id;saveUsers();alog('Смена фракции на «'+f.name+'»',id);notify(id,'Ваша фракция изменена на «'+f.name+'»','ok',{go:'factions'});renderPlayersTable();renderDetail();toast('Фракция изменена на '+f.tag);}
+function kickFac(id){if(!guardOwner(id))return;var u=uget(id);if(!u.faction)return;var f=fac(u.faction);
+ var leadOk=isLeaderOf(uget(session.uid))&&isLeaderOf(uget(session.uid)).id===u.faction;
+ if(!leadOk&&!isStaff()){toast('Исключать может только лидер фракции или администрация','err');return;}
+ if(id===session.uid){toast('Нельзя исключить себя','err');return;}
+ u.faction=null;saveUsers();alog('Исключён из фракции «'+f.name+'»',id);
+ notify(id,'Вы исключены из фракции «'+f.name+'»','warn',{go:'factions'});
+ renderPlayersTable();renderDetail();renderFactionsAdmin();if(curView==='faction')renderFaction();toast('Исключён из фракции','warn');}
+function setBal(id,mode){if(!guardOwner(id))return;var u=uget(id);var v=parseInt($('bal-in').value);if(isNaN(v)){toast('Введите сумму','err');return;}
+ var sign='';
+ if(mode==='set'){sign='установлен '+v.toLocaleString('ru-RU');u.balance=v;}
+ else if(mode==='add'){sign='+'+v.toLocaleString('ru-RU');u.balance+=v;}
+ else{sign='−'+v.toLocaleString('ru-RU');u.balance=Math.max(0,u.balance-v);}
+ saveUsers();alog('Изменён баланс: '+sign+' ₽ → итого '+u.balance.toLocaleString('ru-RU')+' ₽',id);
+ renderPlayersTable();renderDetail();toast('Баланс обновлён');}
+function resetChar(id){if(!guardOwner(id))return;var u=uget(id);
+ var r=prompt('Причина обнуления персонажа (обязательно, попадёт в логи администрации):');
+ if(!r){toast('Причина не указана — обнуление отменено','err');return;}
+ confirmDlg('Обнуление персонажа','Персонаж <b>«'+esc(u.charName)+'»</b> будет полностью обнулён. Причина: «'+esc(r)+'». Действие необратимо.','Обнулить',function(){
+  u.balance=0;saveUsers();
+  LOGS.unshift({id:'l'+Date.now(),ts:Date.now(),uid:id,type:'Обнуление персонажа',detail:'Причина: '+r,restorable:false,restored:false});
+  alog('Обнуление персонажа · '+r,id);renderPlayersTable();renderDetail();renderLogs();toast('Персонаж обнулён','warn');});}
+function doBan(id,reason,forever){
+  if(!guardOwner(id))return;
+  var u=uget(id);var until=forever?'Навсегда':fmtTS(Date.now()+180*60000);
+  u.banned={reason:reason,until:until,by:uname(session.uid)};
+  u.banHistory=u.banHistory||[];u.banHistory.unshift({ts:Date.now(),act:'БАН',reason:reason,until:until,by:uname(session.uid)});
+  saveUsers();
+  LOGS.unshift({id:'l'+Date.now(),ts:Date.now(),uid:id,type:'БАН',detail:reason+' · '+(forever?'навсегда':'180 мин'),restorable:false,restored:false});
+  alog('БАН · '+reason+' · '+(forever?'навсегда':'180 мин'),id);
+  notify(id,'Вы забанены: '+reason+' · '+(forever?'навсегда':'180 мин'),'bad',{go:'profile'});
+  renderPlayersTable();renderDetail();renderAdmStats();toast('Игрок заблокирован','warn');
+}
+function ban(id){var r=$('ban-reason').value.trim();var forever=$('ban-forever').checked;
+ if(!r){toast('Укажите причину бана','err');return;}
+ doBan(id,r,forever);}
+function unban(id){if(!guardOwner(id))return;var u=uget(id);var reason=u.banned?u.banned.reason:'—';u.banned=null;
+ u.banHistory=u.banHistory||[];u.banHistory.unshift({ts:Date.now(),act:'Разбан',reason:reason,until:'—',by:uname(session.uid)});
+ saveUsers();alog('Разбан',id);notify(id,'Ваша блокировка снята','ok',{go:'profile'});renderPlayersTable();renderDetail();renderAdmStats();toast('Блокировка снята');}
+function gotoItems(id){selUid=id;$('fl-search').value=uname(id);admTab('history',document.querySelector('.adm-tab[data-tab=history]'));toast('История отфильтрована по игроку');}
+var nwEditId=null, nwPhotos=[];
+function edCmd(cmd,val){$('nw-ed').focus();document.execCommand(cmd,false,val||null);}
+function nwThumbs(){
+  $('nw-thumbs').innerHTML=nwPhotos.map(function(p,i){return '<span class="nw-th"><img src="'+p+'"><button onclick="nwPhotos.splice('+i+',1);nwThumbs()">✕</button></span>';}).join('')+
+   (nwPhotos.length<5?'<span class="nw-th add" onclick="document.getElementById(\'nw-photo\').click()">+</span>':'');
+}
+function renderNewsAdmin(){
+  $('nw-list').innerHTML=NEWS.map(function(n){return '<div class="nw-item"><span class="chip '+(TAG_CLS[n.tag]||'mute')+'">'+esc(n.tag)+'</span><span class="t">'+esc(n.title)+'</span><span class="chip '+(n.dest==='discord'?'cy':n.dest==='site'?'ok':'warn')+'">'+(DEST_LBL[n.dest]||'САЙТ+DISCORD')+'</span><span class="lbl">'+esc(n.date)+'</span><button class="btn btn-ghost btn-sm" onclick="nwEdit(\''+n.id+'\')">✎</button><button class="btn btn-danger btn-sm" onclick="nwDel(\''+n.id+'\')">🗑</button></div>';}).join('')||'<div class="det-empty">лента пуста</div>';
+}
+function nwNew(){nwEditId=null;nwPhotos=[];
+ $('nw-tag').value='ПАТЧ';$('nw-title').value='';$('nw-video').value='';$('nw-dest').value='both';
+ $('nw-ed').innerHTML='';
+ nwThumbs();
+ $('nw-head').textContent='РЕДАКТОР · НОВАЯ';$('nw-save').textContent='Опубликовать';$('nw-cancel').style.display='none';}
+function nwEdit(id){var n=NEWS.find(function(x){return x.id===id;});if(!n)return;
+ nwEditId=id;nwPhotos=(n.photos&&n.photos.length)?n.photos.slice():(n.photo?[n.photo]:[]);
+ $('nw-tag').value=n.tag;$('nw-title').value=n.title;$('nw-video').value=n.video||'';$('nw-dest').value=n.dest||'both';
+ $('nw-ed').innerHTML=n.html||('<p>'+esc(n.text)+'</p>');
+ nwThumbs();
+ $('nw-head').textContent='РЕДАКТОР · ПРАВКА';$('nw-save').textContent='Сохранить';$('nw-cancel').style.display='';}
+function nwDel(id){var n=NEWS.find(function(x){return x.id===id;});if(!n)return;
+ confirmDlg('Удаление новости','Новость <b>«'+esc(n.title)+'»</b> будет удалена. Продолжить?','Удалить',function(){
+  NEWS=NEWS.filter(function(x){return x.id!==id;});saveNews();renderNewsAdmin();alog('Удалена новость «'+n.title+'»');toast('Новость удалена','warn');});}
+function nwPhotoPick(inp){var f=inp.files[0];inp.value='';if(!f)return;
+ if(nwPhotos.length>=5){toast('Максимум 5 изображений','err');return;}
+ readFile(f,function(src){openImgEd(src,'news',function(url){if(nwPhotos.length>=5){toast('Максимум 5 изображений','err');return;}nwPhotos.push(url);nwThumbs();toast('Фото добавлено в карусель');});});}
+function nwSave(){
+  var tag=$('nw-tag').value,title=$('nw-title').value.trim(),video=$('nw-video').value.trim(),dest=$('nw-dest').value;
+  var html=sanitize($('nw-ed').innerHTML);
+  var text=$('nw-ed').textContent.trim();
+  if(!title||!text){toast('Заполните заголовок и текст','err');return;}
+  if(video&&video.indexOf('http')!==0){toast('Ссылка на видео должна начинаться с http','err');return;}
+  var photos=nwPhotos.slice(0,5);
+  if(nwEditId){var n=NEWS.find(function(x){return x.id===nwEditId;});if(n){n.tag=tag;n.title=title;n.text=text;n.video=video;n.photos=photos;n.dest=dest;n.html=html;
+    alog('Отредактирована новость «'+title+'»');toast('Новость обновлена');}}
+  else{NEWS.unshift({id:'n'+Date.now(),date:todayStr(),tag:tag,title:title,html:html,text:text,video:video,photos:photos,dest:dest});
+    alog('Опубликована новость «'+title+'» ('+(DEST_LBL[dest])+')');toast('Новость опубликована');}
+  if(dest!=='site'){toast('Embed отправлен в Discord (демо)','warn');alog('Новость «'+title+'» → Discord');}
+  saveNews();nwNew();renderNewsAdmin();
+}
+/* ===== ИСТОРИЯ ===== */
+function renderLogFilters(){
+  var el=$('fl-player');if(!el)return;
+  el.innerHTML='<option value="">Все игроки</option>'+USERS.map(function(u){return '<option value="'+u.id+'">'+esc(u.charName)+'</option>';}).join('');
+}
+var logTypes=[];
+function renderTypeChips(){
+  if(!$('fl-types'))return;
+  var types=Array.from(new Set(LOGS.map(function(l){return l.type;})));
+  logTypes=logTypes.filter(function(t){return types.indexOf(t)!==-1;});
+  $('fl-types').innerHTML='<span class="lbl">событие:</span>'+
+   '<button class="fchip all'+(logTypes.length?'':' on')+'" onclick="logTypesAll()">Все события</button>'+
+   types.map(function(t){return '<button class="fchip'+(logTypes.indexOf(t)!==-1?' on':'')+'" data-t="'+esc(t)+'" onclick="toggleLogType(this.dataset.t)">'+esc(t)+'</button>';}).join('');
+}
+function toggleLogType(t){var i=logTypes.indexOf(t);if(i===-1)logTypes.push(t);else logTypes.splice(i,1);renderTypeChips();renderLogs();}
+function logTypesAll(){logTypes=[];renderTypeChips();renderLogs();}
+function inDateRange(ts,from,to){if(from&&ts<new Date(from).getTime())return false;if(to&&ts>new Date(to).getTime()+86400000)return false;return true;}
+function renderLogs(){
+  var p=$('fl-player')?$('fl-player').value:'';
+  var q=($('fl-search')?$('fl-search').value:'').trim().toLowerCase();
+  var from=$('fl-from').value,to=$('fl-to').value;
+  var checked=logTypes.slice();
+  var list=LOGS.slice().sort(function(a,b){return b.ts-a.ts;});
+  if(q){var ids=USERS.filter(function(u){return (u.charName+' '+u.armaId+' '+u.steamId+' '+u.discord).toLowerCase().indexOf(q)!==-1;}).map(function(u){return u.id;});
+    list=list.filter(function(l){return ids.indexOf(l.uid)!==-1;});}
+  if(p)list=list.filter(function(l){return l.uid===p;});
+  if(checked.length)list=list.filter(function(l){return checked.indexOf(l.type)!==-1;});
+  list=list.filter(function(l){return inDateRange(l.ts,from,to);});
+  $('lg-count').textContent=list.length+' записей';
+  $('log-tbody').innerHTML=list.map(function(l){
+    var c=TYPE_CLR[l.type]||'#9d9a83';
+    return '<tr style="cursor:default"><td style="white-space:nowrap">'+fmtT(l.ts)+'</td><td><b class="alog-link" onclick="openPlayer(\''+l.uid+'\')">'+esc(uname(l.uid))+'</b></td><td><span class="log-type" style="color:'+c+';border-color:'+c+'44">'+l.type+'</span></td><td style="color:var(--dim);font-family:var(--body);font-size:12.5px">'+esc(l.detail)+'</td><td>'+(l.restorable?(l.restored?'<span class="rest-chip done">✓ ВОССТАНОВЛЕНО</span>':'<button class="btn btn-primary btn-sm" onclick="restore(\''+l.id+'\')">Восстановить</button>'):'<span class="rest-chip no">—</span>')+'</td></tr>';}).join('')
+   ||'<tr><td colspan="5" style="text-align:center;color:var(--mut);padding:30px">записей не найдено</td></tr>';
+}
+function renderRestore(){
+  var q=($('rs-search')?$('rs-search').value:'').trim().toLowerCase();
+  var from=$('rs-from').value,to=$('rs-to').value;
+  var list=LOGS.slice().sort(function(a,b){return b.ts-a.ts;}).filter(function(l){return l.restorable&&!l.restored;});
+  if(q){var ids=USERS.filter(function(u){return (u.charName+' '+u.armaId+' '+u.steamId+' '+u.discord).toLowerCase().indexOf(q)!==-1;}).map(function(u){return u.id;});
+    list=list.filter(function(l){return ids.indexOf(l.uid)!==-1;});}
+  list=list.filter(function(l){return inDateRange(l.ts,from,to);});
+  $('rs-tbody').innerHTML=list.map(function(l){
+    var c=TYPE_CLR[l.type]||'#9d9a83';
+    return '<tr style="cursor:default"><td style="white-space:nowrap">'+fmtT(l.ts)+'</td><td><b class="alog-link" onclick="openPlayer(\''+l.uid+'\')">'+esc(uname(l.uid))+'</b></td><td><span class="log-type" style="color:'+c+';border-color:'+c+'44">'+l.type+'</span></td><td style="color:var(--dim);font-family:var(--body);font-size:12.5px">'+esc(l.detail)+'</td><td><button class="btn btn-primary btn-sm" onclick="restore(\''+l.id+'\')">Восстановить</button></td></tr>';}).join('')
+   ||'<tr><td colspan="5" style="text-align:center;color:var(--mut);padding:30px">нет вещей, доступных к восстановлению</td></tr>';
+}
+function restore(id){var l=LOGS.find(function(x){return x.id===id;});if(!l||!l.restorable||l.restored)return;
+ l.restored=true;alog('Восстановление вещей · '+l.detail,l.uid);renderLogs();renderRestore();toast('Вещи восстановлены и возвращены игроку');}
+var alogCats=[];
+function renderALogChips(){
+  if(!$('al-types'))return;
+  $('al-types').innerHTML='<span class="lbl">действие:</span>'+
+   '<button class="fchip all'+(alogCats.length?'':' on')+'" onclick="alogCatsAll()">Все действия</button>'+
+   ALOG_CATS.map(function(c){return '<button class="fchip'+(alogCats.indexOf(c)!==-1?' on':'')+'" data-c="'+esc(c)+'" onclick="toggleAlogCat(this.dataset.c)">'+esc(c)+'</button>';}).join('');
+}
+function toggleAlogCat(c){var i=alogCats.indexOf(c);if(i===-1)alogCats.push(c);else alogCats.splice(i,1);renderALogChips();renderALogs();}
+function alogCatsAll(){alogCats=[];renderALogChips();renderALogs();}
+function renderALogs(){
+  if(!$('alog-tbody'))return;
+  renderALogChips();
+  var who=($('al-who')?$('al-who').value:'').trim().toLowerCase();
+  var tgt=($('al-target')?$('al-target').value:'').trim().toLowerCase();
+  var from=$('al-from').value,to=$('al-to').value;
+  var list=ALOGS.slice();
+  if(who)list=list.filter(function(a){return a.who.toLowerCase().indexOf(who)!==-1;});
+  if(tgt)list=list.filter(function(a){return a.target&&uname(a.target).toLowerCase().indexOf(tgt)!==-1;});
+  if(alogCats.length)list=list.filter(function(a){return alogCats.indexOf(alogCat(a.act))!==-1;});
+  list=list.filter(function(a){return inDateRange(a.ts,from,to);});
+  $('alog-tbody').innerHTML=list.map(function(a){
+    var act=esc(a.act);
+    var whoLink=(a.whoId&&uget(a.whoId))?'<b class="alog-link" onclick="openPlayer(\''+a.whoId+'\')">'+esc(a.who)+'</b>':'<b>'+esc(a.who)+'</b>';
+    var t=(a.target&&uget(a.target))?'<b class="alog-link" onclick="openPlayer(\''+a.target+'\')">'+esc(uname(a.target))+'</b>':'—';
+    return '<tr style="cursor:default"><td style="white-space:nowrap">'+fmtT(a.ts)+'</td><td>'+whoLink+'</td><td>'+t+'</td><td style="font-family:var(--body);font-size:12.5px;color:var(--dim)">'+act+'</td></tr>';}).join('')
+   ||'<tr><td colspan="4" style="text-align:center;color:var(--mut);padding:30px">записей не найдено</td></tr>';
+}
+var conLines=[];
+function conAdd(txt,cls){conLines.push({txt:txt,cls:cls||''});var c=$('sp-console');if(c){c.innerHTML=conLines.map(function(x){return '<div class="'+x.cls+'">'+x.txt+'</div>';}).join('');c.scrollTop=c.scrollHeight;}}
+function renderServerTab(){
+  var on=server.status==='online',isOwner=session?session.role==='owner':false;
+  $('sp-status').textContent=on?'ОНЛАЙН':server.status==='restarting'?'ПЕРЕЗАГРУЗКА...':'ОФФЛАЙН';
+  $('sp-status').style.color=on?'var(--phos)':server.status==='restarting'?'var(--amber)':'var(--red)';
+  $('sp-uptime').textContent=upStr();$('sp-players').textContent=on?server.players+' / '+server.slots:'0 / '+server.slots;
+  $('srv-dot2').className='dot'+(on?'':' off');
+  $('pwr-start').classList.toggle('dis',on||!isOwner);
+  $('pwr-restart').classList.toggle('dis',!on||!isOwner);
+  $('pwr-stop').classList.toggle('dis',!on||!isOwner);
+  if(!isOwner)$('pwr-note').innerHTML='🔒 Управление питанием доступно <b>только Владельцу</b>. Администратор видит состояние в режиме наблюдения.';
+  if(!conLines.length){conAdd('[SYS] Панель управления подключена к хосту '+server.ip+':'+server.port,'sys');conAdd('[SYS] Манипулятор сервера Unnamed RP: готов','sys');}
+}
+function power(act){
+  if(!session||session.role!=='owner'){toast('Команды питания принимает только Владелец','err');return;}
+  if(act==='start'&&server.status==='online')return;
+  if(act==='stop'&&server.status!=='online')return;
+  if(act==='restart'&&server.status!=='online')return;
+  var label={start:'Включение сервера',stop:'Выключение сервера',restart:'Перезагрузка сервера'}[act];
+  confirmDlg(label,'Команда будет отправлена на выделенную машину проекта. Подтверждаете выполнение?',label,function(){
+    alog(label);conAdd('[OPS] '+uname(session.uid)+': команда '+act.toUpperCase(),'warn');
+    if(act==='start'){server.status='online';server.started=Date.now();server.players=3;
+      conAdd('[SYS] Инициализация мира ChernobylZone... OK');conAdd('[SYS] Загрузка миссии... OK');conAdd('[SYS] Сервер принимает подключения','sys');toast('Сервер включён');}
+    if(act==='stop'){conAdd('[SYS] Сохранение данных игроков...','sys');conAdd('[SYS] Закрытие сессий...','sys');
+      setTimeout(function(){server.status='offline';server.players=0;conAdd('[ERR] Сервер остановлен','err');updateSrvUI();},900);toast('Сервер выключен','warn');}
+    if(act==='restart'){server.status='restarting';conAdd('[SYS] Подготовка к перезагрузке...','warn');
+      setTimeout(function(){server.status='offline';conAdd('[SYS] Процесс остановлен','err');updateSrvUI();},1400);
+      setTimeout(function(){server.status='online';server.started=Date.now();conAdd('[SYS] Запуск... OK');conAdd('[SYS] Сервер снова в строю','sys');updateSrvUI();toast('Перезагрузка завершена');},4200);}
+    updateSrvUI();
+  });
+}
+renderHeader();renderHome();
+</script>
+</body>
+</html>
+
+
