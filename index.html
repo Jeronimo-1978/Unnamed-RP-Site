@@ -14,7 +14,7 @@ body{background:var(--bg);color:var(--paper);font-family:var(--body);font-size:1
 ::selection{background:var(--amber);color:#11150d}
 ::-webkit-scrollbar{width:10px;height:10px}::-webkit-scrollbar-track{background:#0d120a}::-webkit-scrollbar-thumb{background:#2c3a22;border:2px solid #0d120a}
 .bg-photo,.bg-shade,.bg-grain,.bg-vig{position:fixed;inset:0;pointer-events:none}
-.bg-photo{z-index:0;background:#0b0f09 url('stalker_bg.jpg') center/cover no-repeat;filter:saturate(.75) contrast(1.05) brightness(.5)}
+.bg-photo{z-index:0;background:#0b0f09 url('assets/images/stalker_bg.jpg') center/cover no-repeat;filter:saturate(.75) contrast(1.05) brightness(.5)}
 .bg-shade{z-index:0;background:linear-gradient(180deg,rgba(8,11,6,.88),rgba(8,11,6,.7) 42%,rgba(8,11,6,.92))}
 .bg-grain{z-index:0;opacity:.22;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0.6 0 0 0 0 0.62 0 0 0 0 0.5 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E")}
 .bg-vig{z-index:0;background:radial-gradient(ellipse at 50% 20%,transparent 40%,rgba(4,7,3,.65) 100%)}
@@ -22,7 +22,7 @@ body{background:var(--bg);color:var(--paper);font-family:var(--body);font-size:1
 .boot-box{font-family:var(--mono);font-size:13px;color:var(--phos);width:min(500px,86vw)}.boot-box .bl{opacity:0;animation:bootline .05s forwards}
 .boot-box .bl:nth-child(1){animation-delay:.1s}.boot-box .bl:nth-child(2){animation-delay:.45s}.boot-box .bl:nth-child(3){animation-delay:.8s}.boot-box .bl:nth-child(4){animation-delay:1.1s;color:var(--amber)}
 @keyframes bootline{to{opacity:1}}
-header{position:sticky;top:0;z-index:50;padding:10px 22px;background:linear-gradient(180deg,rgba(9,12,6,.94),rgba(9,12,6,.8));backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+header{position:sticky;top:0;z-index:50;padding:10px 22px;background:linear-gradient(180deg,rgba(9,12,6,0.35),rgba(9,12,6,0.2));backdrop-filter:blur(8px);border-bottom:1px solid rgba(36,46,27,0.35)}
 .hdr-row{display:flex;align-items:center;justify-content:space-between;gap:16px}
 .hdr-logo{display:flex;align-items:center;gap:10px;cursor:pointer;flex:none}
 .hdr-logo .emb{width:34px;height:34px;border:1px solid var(--line2);border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:var(--disp);font-size:12px;color:var(--amber)}
@@ -77,7 +77,7 @@ input[type=date]{width:auto}
 .kv .k{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--mut)}.kv .v{font-family:var(--mono);font-size:12.5px;display:flex;align-items:center;gap:8px;word-break:break-all}.kv .v.hi{color:var(--amber)}
 .home-sec{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;padding:90px 0 70px}.home-sec.sec-1{align-items:flex-start;padding:36px 0 70px}
 .sec-bg{position:absolute;inset:-6%;background-color:#0a0d08;background-position:center;background-size:cover;background-repeat:no-repeat;filter:saturate(.8) contrast(1.05) brightness(.55);animation:kbsec 42s ease-in-out infinite alternate}
-.sec-1 .sec-bg{background-image:url('stalker_bg.jpg')}.sec-2 .sec-bg{background-image:url('home_bg2.jpg');animation-duration:50s}.sec-3 .sec-bg{background-image:url('home_bg3.jpg');animation-duration:58s}
+.sec-1 .sec-bg{background-image:url('assets/images/stalker_bg.jpg')}.sec-2 .sec-bg{background-image:url('assets/images/home_bg2.jpg');animation-duration:50s}.sec-3 .sec-bg{background-image:url('assets/images/home_bg3.jpg');animation-duration:58s}
 @keyframes kbsec{from{transform:scale(1.03)}to{transform:scale(1.15) translate(-2.2%,1.6%)}}
 .sec-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,10,6,.66),rgba(8,10,6,.42) 45%,rgba(8,10,6,.82))}
 .sec-1 .sec-shade{animation:glowpulse 6s ease-in-out infinite}@keyframes glowpulse{0%,100%{opacity:1}50%{opacity:.78}}
@@ -160,14 +160,29 @@ input[type=date]{width:auto}
 .fac-grid2{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px;margin-top:26px}
 .fac-card2{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:rgba(9,12,6,.78);backdrop-filter:blur(6px);transition:transform .25s,border-color .25s;display:flex;flex-direction:column}
 .fac-card2:hover{transform:translateY(-5px);border-color:var(--fc)}
-.fc2-head{position:relative;padding:26px 20px 34px;display:flex;align-items:center;justify-content:center}
-.fc2-head .chip{position:absolute;top:12px;right:12px}
-.fc2-logo{width:88px;height:88px;border-radius:50%;border:2px solid var(--fc);background:#0e130a;display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+.fc2-banner{position:relative;height:124px;border-bottom:1px solid var(--line);overflow:hidden}
+.fc2-banner img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.8) contrast(1.08) brightness(.75)}
+.fc2-banner::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(9,12,6,.18),rgba(9,12,6,.7))}
+.fc2-head{position:relative;padding:0 20px 0;margin-top:-32px;display:flex;align-items:center;justify-content:space-between;z-index:1}
+.fc2-head .chip{position:static}
+.fc2-logo{width:88px;height:88px;border-radius:50%;border:2px solid var(--fc);background:#0e130a;display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.5);flex:none}
 .fc2-logo img{width:82%;height:82%;object-fit:contain}
+.fc2-slogan{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin-top:12px}
 .fc2-body{padding:0 20px 20px;display:flex;flex-direction:column;gap:10px;flex:1}
 .fc2-body h3{font-family:var(--disp);font-size:18px}.fc2-body p{font-size:12.5px;color:var(--mut);line-height:1.6;flex:1}
-.fc2-meta{display:flex;gap:14px;font-family:var(--mono);font-size:10px;color:var(--dim);letter-spacing:.08em}
+.fc2-meta{display:flex;gap:14px;font-family:var(--mono);font-size:10px;color:var(--dim);letter-spacing:.08em;flex-wrap:wrap}
 .fc2-actions{display:flex;gap:8px}
+.fac-modal-hero{position:relative;height:168px;border-radius:12px;overflow:hidden;border:1px solid var(--line);margin-bottom:16px}
+.fac-modal-hero img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.75) contrast(1.05) brightness(.72)}
+.fac-modal-hero::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(9,12,6,.18),rgba(9,12,6,.8))}
+.fac-modal-hero-inner{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:space-between;gap:12px;padding:18px;z-index:1}
+.fac-modal-hero-inner .fc2-logo{width:72px;height:72px;border-width:2px}
+.fac-modal-title{font-family:var(--disp);font-size:22px;letter-spacing:.05em}
+.fac-modal-slogan{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin:6px 0 10px}
+.fac-rule-list{margin-top:18px;display:grid;gap:12px}
+.fac-rule-box{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:rgba(12,16,8,.45)}
+.fac-rule-box h4{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin-bottom:8px}
+.fac-rule-box ul{padding-left:18px;color:var(--dim);font-size:12.5px;line-height:1.7}
 .lead-wrap{max-width:1100px;margin:0 auto;padding:34px 28px 70px}
 .lead-hero{display:flex;gap:20px;align-items:center;padding:22px;border-radius:14px}
 .fc-logo2{border-radius:50%;background:#0e130a;border:2px solid var(--line2);display:flex;align-items:center;justify-content:center;overflow:hidden;width:72px;height:72px;flex:none}
@@ -258,9 +273,46 @@ input[type=date]{width:auto}
 @keyframes scan{from{top:-30px}to{top:110%}}
 .pf-ava{width:164px;flex:none}.pf-info{flex:1;min-width:260px}
 .pf-name{font-family:var(--disp);font-size:26px;letter-spacing:.03em}.pf-sub{color:var(--mut);font-size:13px;margin-top:6px}
-.pf-ids{display:grid;grid-template-columns:1fr 1fr;gap:0 30px;padding:6px 22px 12px}
-.pf-actions{display:flex;gap:10px;flex-wrap:wrap;padding:6px 22px 24px;border-top:1px dashed var(--line2)}
-.pf-tabs2{display:flex;gap:6px;padding:0 22px;flex-wrap:wrap}
+.prof-wrap{max-width:1280px;margin:0 auto;padding:12px 0 40px}
+#view-profile{background:linear-gradient(180deg,#0a0d09,#070a07);min-height:100vh}
+.pf-banner{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;border:1px solid var(--line2);background:rgba(17,20,17,.88);padding:10px 14px;margin-bottom:0;border-radius:0;border-bottom:none;font-size:13px}
+.pf-bannerimg{position:relative;height:230px;background:#0a0e07;border:1px solid var(--line2);border-bottom:none;overflow:hidden;display:flex;align-items:center;justify-content:center;box-shadow:inset 0 -120px 110px rgba(0,0,0,.66)}
+.pf-bannerimg img{width:100%;height:100%;object-fit:cover;object-position:center;filter:saturate(.8) contrast(1.06) brightness(.82)}
+.pf-bannerimg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,13,8,.16),rgba(10,12,7,.54) 72%,rgba(8,10,6,.8));pointer-events:none}
+.pf-bannerimg .bn-btn{position:absolute;right:14px;bottom:14px;z-index:2}
+.pf-cover-ui{display:grid;grid-template-columns:142px minmax(0,1fr) auto;gap:18px;align-items:flex-end;padding:0 18px 14px;margin-top:-52px;position:relative;z-index:2}
+.ava-frame{width:120px;height:120px;position:relative;overflow:hidden;border:3px solid rgba(13,17,11,.95);border-radius:16px;background:#0e130a;box-shadow:0 20px 38px rgba(0,0,0,.52)}
+.ava-frame img{width:100%;height:100%;object-fit:cover;filter:saturate(.8) contrast(1.04)}
+.ava-scan{position:absolute;left:0;right:0;height:30px;background:linear-gradient(180deg,transparent,rgba(127,184,97,.18),transparent);animation:scan 3.2s linear infinite;pointer-events:none}
+@keyframes scan{0%{transform:translateY(-24px);opacity:0}15%{opacity:1}50%{transform:translateY(90px);opacity:.8}100%{transform:translateY(120px);opacity:0}}
+.pf-ava-wrap{display:flex;flex-direction:column;align-items:center}
+.pf-user-main{min-width:0;padding-top:18px}
+.pf-name{font-family:var(--disp);font-size:22px;letter-spacing:.04em;color:var(--paper);text-shadow:0 2px 12px rgba(0,0,0,.7);line-height:1.1}
+.pf-sub{color:var(--mut);font-size:11px;margin-top:8px;letter-spacing:.06em}
+.pf-social-strip{display:flex;align-items:flex-end;justify-content:flex-end;gap:8px;flex-wrap:wrap;padding-bottom:10px;min-height:48px;min-width:120px}
+.pf-social-icon{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;border:1px solid rgba(127,184,97,.28);background:rgba(9,12,6,.7);color:var(--paper);text-decoration:none;font-family:var(--mono);font-size:11px;font-weight:700;transition:.2s}.pf-social-icon:hover{transform:translateY(-2px);border-color:var(--amber);box-shadow:0 8px 18px rgba(0,0,0,.25)}
+.pf-social-icon.tg{color:#39a0ff}.pf-social-icon.dc{color:#7986ff}.pf-social-icon.vk{color:#5aa9ff}.pf-social-icon.yt{color:#ff5d5d}
+.pf-stats{display:grid;grid-template-columns:repeat(2,minmax(170px,1fr));gap:10px;padding:8px 0 0;margin-top:14px;max-width:560px}
+.pf-stat{padding:10px 12px;border:1px solid var(--line2);border-radius:10px;background:linear-gradient(180deg,rgba(182,144,60,.04),rgba(12,16,8,.42));min-height:74px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:inset 0 0 0 1px rgba(182,144,60,.03)}
+.pf-stat .l{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--mut)}
+.pf-stat .v{font-family:var(--disp);font-size:16px;color:var(--paper);letter-spacing:.04em;line-height:1.2}
+.pf-stat .v small{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-top:6px}
+.pf-main-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(260px,.9fr);gap:20px;padding:12px 20px 6px;align-items:start}
+.pf-ids{display:grid;grid-template-columns:1fr;gap:0;padding:0;align-content:start}
+.kv{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 0;border-bottom:1px dashed var(--line);font-size:13px}
+.kv:last-child{border-bottom:none}
+.kv .k{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--mut)}
+.kv .v{font-family:var(--mono);font-size:12.5px;display:flex;align-items:center;gap:8px;word-break:break-all;white-space:nowrap}
+.kv .v.hi{color:var(--amber)}
+.pf-brief{border:1px solid var(--line2);border-radius:10px;background:linear-gradient(180deg,rgba(17,24,17,.52),rgba(9,12,6,.7));padding:14px 16px;min-height:160px;border-left:2px solid rgba(182,144,60,.28)}
+.pf-brief-head{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);margin-bottom:10px}
+.pf-brief-body{color:var(--dim);font-size:13px;line-height:1.7;min-height:132px}
+.pf-actions{display:flex;gap:10px;flex-wrap:wrap;padding:10px 20px 20px;border-top:1px dashed var(--line2)}
+.pf-tabs2{display:flex;gap:6px;padding:0 20px;flex-wrap:wrap}
+.pf-tab2{font-family:var(--mono);font-size:10px;letter-spacing:.14em;padding:10px 14px;background:rgba(10,12,7,.66);border:1px solid var(--line);border-bottom:none;color:var(--mut);cursor:pointer;transition:.2s;text-transform:uppercase}
+.pf-tab2.on{color:var(--phos);background:rgba(18,24,15,.95);border-color:rgba(127,184,97,.45);box-shadow:inset 0 2px 0 rgba(127,184,97,.7)}
+.pf-panel2{display:none;border-top:1px solid var(--line)}
+.pf-panel2.on{display:block;animation:viewin .3s}
 .pf-tab2{font-family:var(--disp);font-size:11px;letter-spacing:.1em;padding:11px 18px;background:rgba(9,12,6,.7);border:1px solid var(--line);border-bottom:none;color:var(--mut);cursor:pointer;transition:.2s;text-transform:uppercase}
 .pf-tab2.on{color:var(--amber);background:var(--panel2);border-color:var(--line2);box-shadow:inset 0 2px 0 var(--amber)}
 .pf-panel2{display:none;border-top:1px solid var(--line)}.pf-panel2.on{display:block;animation:viewin .3s}
@@ -562,29 +614,32 @@ window.addEventListener('error',function(e){var d=document.getElementById('jserr
   <div class="prof-wrap">
     <div class="sec-kicker">Личная карточка допуска · Unnamed RP</div>
     <div id="pf-banner"></div>
-    <div class="panel">
+    <div class="panel pf-shell">
       <div class="pf-bannerimg">
         <img id="pf-bn-img" alt="баннер" onerror="this.onerror=null;this.src=BN_FALLBACK">
         <button class="btn btn-ghost btn-sm bn-btn" id="pf-bn-btn" onclick="document.getElementById('bn-file').click()">✎ Загрузить баннер</button>
         <input type="file" id="bn-file" accept="image/*" hidden onchange="uploadBanner(this)">
       </div>
-      <div class="pf-top">
-        <div class="pf-ava">
+      <div class="pf-cover-ui">
+        <div class="pf-ava-wrap">
           <div class="ava-frame"><img id="pf-ava-img" alt="аватар" onerror="this.onerror=null;this.src=AV_FALLBACK"><span class="ava-scan"></span></div>
           <button class="btn btn-ghost btn-sm" id="pf-av-btn" style="width:100%;margin-top:8px" onclick="document.getElementById('av-file').click()">✎ Загрузить своё фото</button>
           <input type="file" id="av-file" accept="image/*" hidden onchange="uploadAv(this)">
         </div>
-        <div class="pf-info">
+        <div class="pf-user-main">
           <div class="pf-name" id="pf-name">—</div>
-          <div id="pf-chips" style="display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 4px"></div>
           <div class="pf-sub" id="pf-sub"></div>
-          <div id="pf-wl-note" style="margin-top:10px"></div>
+          <div id="pf-chips" style="display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 4px"></div>
+          <div class="pf-stats" id="pf-stats"></div>
         </div>
+        <div class="pf-social-strip" id="pf-social-strip"></div>
       </div>
+      <div id="pf-wl-note" style="margin:0 20px 10px"></div>
       <div class="pf-tabs2" id="pf-tabs2"></div>
       <div id="pft-main" class="pf-panel2"><div class="pf-ids" id="pf-ids"></div></div>
       <div id="pft-social" class="pf-panel2"><div class="p-body" id="pf-social"></div></div>
       <div id="pft-char" class="pf-panel2"><div class="p-body" id="pf-char"></div></div>
+      <div id="pft-settings" class="pf-panel2"><div class="p-body"><div class="det-empty">Настройки профиля скоро будут доступны.</div></div></div>
       <div class="pf-actions" id="pf-actions"></div>
     </div>
   </div>
@@ -856,23 +911,23 @@ window.addEventListener('error',function(e){var d=document.getElementById('jserr
 </div></div>
 <script>
 var LS='unnamed_users_v23', LSN='unnamed_news_v8', LSA='unnamed_apps_v3';
-var DEFAULT_AV='stalker_avatar.jpg', DEFAULT_BANNER='default_banner.jpg';
+var DEFAULT_AV='assets/images/stalker_avatar.jpg', DEFAULT_BANNER='assets/images/default_banner.jpg';
 var AV_FALLBACK='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96"><rect width="96" height="96" fill="%23141b10"/><text x="48" y="62" font-family="monospace" font-size="30" fill="%23b6903c" text-anchor="middle">UR</text></svg>';
 var BN_FALLBACK='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="960" height="180"><rect width="960" height="180" fill="%23101508"/><g stroke="%2326301a" stroke-width="1" fill="none"><path d="M0 40 C 160 10 320 70 480 40 S 800 10 960 45"/><path d="M0 90 C 160 60 320 120 480 90 S 800 60 960 95"/><path d="M0 140 C 160 110 320 170 480 140 S 800 110 960 145"/></g><text x="24" y="105" font-family="monospace" font-size="20" fill="%23565c45">UNNAMED RP · CHERNOBYLZONE</text></svg>';
 var FACTIONS=[
- {id:'f2',tag:'ДЛГ',name:'«Долг»',color:'#c4523f',members:18,leaderId:'u2',limit:30,open:true,logo:'https://image.qwenlm.ai/public_source/9f9305d6-182a-4e71-bdd6-e30f43537233/1de045fe8-917a-4a2f-92f0-5ef03d0aecb25750.png',desc:'Военизированная организация, считающая Зону ошибкой природы, которую необходимо уничтожить. Держит блокпосты на Периметре, охраняет конвои и зачищает логова мутантов. Жёсткая иерархия, устав и комендантский час на базе.'},
- {id:'f3',tag:'СВБ',name:'«Свобода»',color:'#7fb861',members:19,leaderId:'u1',limit:30,open:true,logo:'https://image.qwenlm.ai/public_source/9f9305d6-182a-4e71-bdd6-e30f43537233/2de045fe8-917a-4a2f-92f0-5ef03d0aecb26357.png',desc:'Анархистское движение сталкеров: Зона должна быть открыта для всех. Контролирует исследовательские лагеря и свободную торговлю хабаром. Атмосфера неформальная, но при тревоге каждый берёт оружие.'},
- {id:'f4',tag:'БНД',name:'Бандиты',color:'#b6903c',members:11,leaderId:'u4',limit:30,open:true,logo:'https://image.qwenlm.ai/public_source/9f9305d6-182a-4e71-bdd6-e30f43537233/5de045fe8-917a-4a2f-92f0-5ef03d0aecb27327.png',desc:'Мелкие банды и контрабандисты Кордона. Живут по понятиям: «тряска» на дорогах, налёты на склады, передел сфер влияния. Держатся группами и не любят чужаков на своей территории.'},
- {id:'f5',tag:'НМК',name:'Наёмники',color:'#5da8ba',members:9,leaderId:'u5',limit:30,open:true,logo:'https://image.qwenlm.ai/public_source/9f9305d6-182a-4e71-bdd6-e30f43537233/1de045fe8-917a-4a2f-92f0-5ef03d0aecb27017.png',desc:'Профессиональные солдаты удачи. Выполняют контракты: сопровождение грузов, охрана учёных, «деликатные» задачи. Нейтральны ко всем, пока контракт оплачен.'},
- {id:'f6',tag:'ВС',name:'Военные',color:'#8aa0b8',members:14,leaderId:'u6',limit:30,open:true,logo:'https://image.qwenlm.ai/public_source/9f9305d6-182a-4e71-bdd6-e30f43537233/4de045fe8-917a-4a2f-92f0-5ef03d0aecb28517.png',desc:'Регулярные подразделения на Периметре: блокпосты, патрули, охрана вывоза и режимных объектов. Действуют по уставу и приказу; контакты со сталкерами — только по протоколу досмотра.'},
- {id:'f7',tag:'ЧН',name:'«Чистое небо»',color:'#7ecbe8',members:8,leaderId:'u8',limit:30,open:true,logo:'https://image.qwenlm.ai/public_source/9f9305d6-182a-4e71-bdd6-e30f43537233/4de045fe8-917a-4a2f-92f0-5ef03d0aecb29447.png',desc:'Научная группировка, изучающая аномалии и природу выбросов. Держит исследовательский лагерь у Дуги, скупает артефакты по повышенному курсу и оплачивает охрану экспедиций.'}
+ {id:'f2',tag:'ДЛГ',name:'«Долг»',color:'#c4523f',members:18,leaderId:'u2',limit:30,open:true,logo:'https://image.qwenlm.ai/public_source/9f9305d6-182a-4e71-bdd6-e30f43537233/1de045fe8-917a-4a2f-92f0-5ef03d0aecb25750.png',banner:'assets/images/stalker_bg.jpg',slogan:'Нельзя дать Зоне мародерствовать',desc:'Военизированная организация, считающая Зону ошибкой природы, которую необходимо уничтожить. Держит блокпосты на Периметре, охраняет конвои и зачищает логова мутантов. Жёсткая иерархия, устав и комендантский час на базе.',rules:[{title:'Устав',items:['Никакой самодеятельности на блокпостах и в районах вылета.','Любой артефакт и трофей проходит учёт и складской учёт.','Лидеру подчиняются все отряды в зоне ответственности.']},{title:'Правила',items:['Запрещены вольные рейды на территории Долга без приказа.','Нельзя брать в рейд новичков без сопровождающего командира.','Патрульные проверки обязательны при каждом пересечении Периметра.']} ]},
+ {id:'f3',tag:'СВБ',name:'«Свобода»',color:'#7fb861',members:19,leaderId:'u1',limit:30,open:true,logo:'https://image.qwenlm.ai/public_source/9f9305d6-182a-4e71-bdd6-e30f43537233/2de045fe8-917a-4a2f-92f0-5ef03d0aecb26357.png',banner:'assets/images/home_bg2.jpg',slogan:'Зона должна быть открыта всем',desc:'Анархистское движение сталкеров: Зона должна быть открыта для всех. Контролирует исследовательские лагеря и свободную торговлю хабаром. Атмосфера неформальная, но при тревоге каждый берёт оружие.',rules:[{title:'Устав',items:['Свобода выбора и открытого маршрута в пределах безопасных зон.','Решения принимаются по общему собранию, но в бою действует командир отряда.','Охрана научных групп и торговых караванов для всех желающих.']},{title:'Правила',items:['Запрещено нападать на вынужденных или безоружных сталкеров.','Любой экипаж должен вешать маркер о маршруте и цели.','Нельзя мешать чужим экспедициям без причин для самозащиты.']} ]},
+ {id:'f4',tag:'БНД',name:'Бандиты',color:'#b6903c',members:11,leaderId:'u4',limit:30,open:true,logo:'https://image.qwenlm.ai/public_source/9f9305d6-182a-4e71-bdd6-e30f43537233/5de045fe8-917a-4a2f-92f0-5ef03d0aecb27327.png',banner:'assets/images/home_bg3.jpg',slogan:'Тот, кто не держит ружьё, держит тыл',desc:'Мелкие банды и контрабандисты Кордона. Живут по понятиям: «тряска» на дорогах, налёты на склады, передел сфер влияния. Держатся группами и не любят чужаков на своей территории.',rules:[{title:'Понятия',items:['Своё — не трогаем, чужое — можно взять, если не видно глаза.','У каждого отряда свой маршрут и зона влияния.','При переговорах с захватом груза действует правило: размен без лишних слов.']},{title:'Правила',items:['Нельзя вести стрельбу по безоружным без прямого приказа лидера.','Закон на дороге — удар первым и уход в тень.','Контрабанда и налёты только по схеме кланового маршрута.']} ]},
+ {id:'f5',tag:'НМК',name:'Наёмники',color:'#5da8ba',members:9,leaderId:'u5',limit:30,open:true,logo:'https://image.qwenlm.ai/public_source/9f9305d6-182a-4e71-bdd6-e30f43537233/1de045fe8-917a-4a2f-92f0-5ef03d0aecb27017.png',banner:'assets/images/news_tech.jpg',slogan:'Контракт не зависит от морали',desc:'Профессиональные солдаты удачи. Выполняют контракты: сопровождение грузов, охрана учёных, «деликатные» задачи. Нейтральны ко всем, пока контракт оплачен.',rules:[{title:'Контракты',items:['Никаких задач без оплаты аванса и согласованного маршрута.','Каждый контракт уходит в журнал с точкой выгрузки и галочкой цели.','Служба безопасности защищает персонал, но не гарантирует выживание без плана.']},{title:'Правила',items:['Нельзя открывать огонь без команды или прямой угрозы.','Команда действует по контракту и не вмешивается в чужие планы.','При конфликте с религией или бандитами — работа по выкупу.']} ]},
+ {id:'f6',tag:'ВС',name:'Военные',color:'#8aa0b8',members:14,leaderId:'u6',limit:30,open:true,logo:'https://image.qwenlm.ai/public_source/9f9305d6-182a-4e71-bdd6-e30f43537233/4de045fe8-917a-4a2f-92f0-5ef03d0aecb28517.png',banner:'assets/images/news_sky.jpg',slogan:'Порядок важнее страха',desc:'Регулярные подразделения на Периметре: блокпосты, патрули, охрана вывоза и режимных объектов. Действуют по уставу и приказу; контакты со сталкерами — только по протоколу досмотра.',rules:[{title:'Устав',items:['Любой проход через Периметр согласуется с командиром поста.','Постановление об эвакуации включает выделенные коридоры и сроки.','Санкции за RDM, самовольный выстрел и несогласованную группу.']},{title:'Правила',items:['Перед контактом с сталкерами ведут документирование и идентификацию.','Личный состав не вмешивается в гражданские конфликты без приказа.','Приостанавливать огонь возможно только по приказу офицера.']} ]},
+ {id:'f7',tag:'ЧН',name:'«Чистое небо»',color:'#7ecbe8',members:8,leaderId:'u8',limit:30,open:true,logo:'https://image.qwenlm.ai/public_source/9f9305d6-182a-4e71-bdd6-e30f43537233/4de045fe8-917a-4a2f-92f0-5ef03d0aecb29447.png',banner:'assets/images/stalker_bg_1.jpg',slogan:'Познание Зоны — путь к выживанию',desc:'Научная группировка, изучающая аномалии и природу выбросов. Держит исследовательский лагерь у Дуги, скупает артефакты по повышенному курсу и оплачивает охрану экспедиций.',rules:[{title:'Лаборатория',items:['Личный состав обязан фиксировать аномалии и отчёт по маршруту.','Все артефакты проходят проверку на содержание примесей.','Эвакуация группы допускается только по сигналу «Белый лист».']},{title:'Правила',items:['Поиск и верификация артефактов только в сопровождении инженера.','Нельзя приводить к базе неизвестные объекты без анализатора.','Связь с наёмниками, бандами и Долгом проводится только через командира экспедиции.']} ]}
 ];
 function facLogo(f,s){s=s||64;return '<svg width="'+s+'" height="'+s+'" viewBox="0 0 64 64"><path d="M32 3 56 12 v20 c0 14-10 24-24 29 C18 56 8 46 8 32 V12 Z" fill="'+f.color+'1a" stroke="'+f.color+'" stroke-width="2"/><text x="32" y="41" font-size="24" text-anchor="middle" fill="'+f.color+'" font-family="monospace">✦</text></svg>';}
 var SEED_NEWS=[
- {id:'n0',date:'12.08.2026',tag:'ВАЖНОЕ',title:'Разоблачение Мальбороса',text:'Служба безопасности разоблачила игрока «Мальборос»: продажа вайт-листа «вне очереди» и «артефактов за донат». Аккаунт забанен навсегда. Вайт-лист выдаётся только через портал и бесплатно.',html:'',video:'https://www.youtube.com/watch?v=nKd9IHfCPms',photos:['news_expose.jpg'],dest:'both'},
- {id:'n1',date:'11.08.2026',tag:'ПАТЧ',title:'Обновление 1.5.0 «Холодный фронт»',text:'Переработаны спавны фракций, новая техника на Кордоне, исправлены вылеты при посадке в транспорт.',html:'',video:'',photos:['news_tech.jpg'],dest:'both'},
- {id:'n2',date:'10.08.2026',tag:'СОБЫТИЕ',title:'«Чистое небо» выходит в Зону',text:'Научная группировка открывает исследовательский лагерь у Дуги: скупка артефактов, охрана экспедиций — через Наёмников.',html:'',video:'',photos:['news_sky.jpg','news_tech.jpg'],dest:'both'},
- {id:'n3',date:'09.08.2026',tag:'НАБОР',title:'«Долг» открывает набор',text:'Требуются бойцы для патрулей Периметра. Собеседования в Discord ежедневно с 19:00 МСК.',html:'',video:'',photos:['news_duty.jpg'],dest:'site'},
+ {id:'n0',date:'12.08.2026',tag:'ВАЖНОЕ',title:'Разоблачение Мальбороса',text:'Служба безопасности разоблачила игрока «Мальборос»: продажа вайт-листа «вне очереди» и «артефактов за донат». Аккаунт забанен навсегда. Вайт-лист выдаётся только через портал и бесплатно.',html:'',video:'https://www.youtube.com/watch?v=nKd9IHfCPms',photos:['assets/images/news_expose.jpg'],dest:'both'},
+ {id:'n1',date:'11.08.2026',tag:'ПАТЧ',title:'Обновление 1.5.0 «Холодный фронт»',text:'Переработаны спавны фракций, новая техника на Кордоне, исправлены вылеты при посадке в транспорт.',html:'',video:'',photos:['assets/images/news_tech.jpg'],dest:'both'},
+ {id:'n2',date:'10.08.2026',tag:'СОБЫТИЕ',title:'«Чистое небо» выходит в Зону',text:'Научная группировка открывает исследовательский лагерь у Дуги: скупка артефактов, охрана экспедиций — через Наёмников.',html:'',video:'',photos:['assets/images/news_sky.jpg','assets/images/news_tech.jpg'],dest:'both'},
+ {id:'n3',date:'09.08.2026',tag:'НАБОР',title:'«Долг» открывает набор',text:'Требуются бойцы для патрулей Периметра. Собеседования в Discord ежедневно с 19:00 МСК.',html:'',video:'',photos:['assets/images/news_duty.jpg'],dest:'site'},
  {id:'n4',date:'08.08.2026',tag:'ТЕХРАБОТЫ',title:'Профилактика 14.08 в 03:00 МСК',text:'Плановая перезагрузка и зачистка тестовых построек на Свалке. Сервер недоступен ~40 минут.',html:'',video:'',photos:[],dest:'discord'},
  {id:'n5',date:'05.08.2026',tag:'БАНЫ',title:'Итоги недели: 12 нарушителей',text:'Основные причины: RDM, метагейминг, обход блокировки. Апелляции — в канале #апелляции.',html:'',video:'',photos:[],dest:'both'}
 ];
@@ -882,15 +937,15 @@ function saveNews(){try{localStorage.setItem(LSN,JSON.stringify(NEWS));return tr
 var TAG_CLS={'ПАТЧ':'ok','НАБОР':'warn','ТЕХРАБОТЫ':'cy','БАНЫ':'bad','СОБЫТИЕ':'warn','ВАЖНОЕ':'bad','БАГ':'bad','ИЗМЕНЕНИЯ':'cy','ОПОВЕЩЕНИЕ':'warn'};
 var DEST_LBL={both:'САЙТ + DISCORD',site:'САЙТ',discord:'DISCORD'};
 var LORE_CHAPTERS=[
- {year:'1986',title:'Истоки катастрофы',img:'lore_1.jpg',text:'О Чернобыле слышал каждый. В ночь на 26 апреля 1986 года четвёртый энергоблок взорвался, и мир выучил слово «фон». Припять опустела за несколько дней, а вокруг станции на карту легла закрытая черта. Для большинства этим история Чернобыля и заканчивалась. Считалось, что за периметром просто опасно: радиация, военные, колючая проволока. Со временем тишина начала рождать слухи.'},
- {year:'1986–1989',title:'После аварии',img:'lore_1b.jpg',text:'Первые странные истории принесли ликвидаторы. Техника, которая глохла без причины. Связь, обрывавшаяся в «чистых» секторах. Тяжёлое самочувствие там, где дозиметр показывал ноль. Мистикой это не называли: странное списывали на болезнь и усталость. В конце восьмидесятых со стороны закрытой территории иногда слышали стрельбу. Лишних вопросов не задавали.'},
- {year:'1990-е',title:'Зона пускает людей',img:'lore_2.jpg',text:'После распада Союза Зону стало некому охранять. Посты сокращали, военные месяцами ждали снабжения — и Зона начала пускать людей. Сначала заходили местные: из покинутых деревень выносили всё, что можно продать. Потом появились те, кто уходил дальше. И те, кто не возвращался. Иногда кто-то возвращался через недели — измученный и молчаливый. Им не верили.'},
- {year:'1990-е',title:'Слухи',img:'lore_3b.jpg',text:'В девяностые Чернобыль стал кормом жёлтой прессы. Животные невероятных размеров, свечение над Припятью, люди, «оставшиеся жить» в мёртвом городе. Большая часть была выдумкой. Правда тонула в фантазиях. Того, кто утверждал, что видел сам, просили доказать. Обычно всё заканчивалось людьми в погонах.'},
- {year:'Конец 1990-х',title:'Люди у периметра',img:'lore_3.jpg',text:'Со временем возле Зоны появились проводники. Контакт шёл через бывших военных, охотников, контрабандистов. Одни действительно знали, как обойти посты. Другие забирали деньги и заводили в лес. Третьи сдавали клиентов военным. У каждого была своя причина идти внутрь.'},
- {year:'Начало 2000-х',title:'Эпоха форумов',img:'lore_4.jpg',text:'С интернетом слухи получили вторую жизнь. Дорога, которая выводит к одному и тому же зданию, как ни иди. Собака, которая движется «неправильно». Компас, перестающий работать. Такие темы мгновенно становились спором. Иногда темы удаляли. Некоторые были уверены: темы убирают по требованию военных.'},
- {year:'2003',title:'Как искали путь внутрь',img:'lore_6.jpg',text:'К 2003 году в сети появились люди, обещавшие провести через периметр. Почти все открытые предложения были мошенничеством. Настоящие контакты передавались через закрытые форумы и ICQ. Человека проверяли неделями. Место перехода сообщали в последний момент. Опытные отвечали: снаряжение не спасёт того, кто не знает дороги.'},
- {year:'2006',title:'Жизнь внутри',img:'lore_5b.jpg',text:'К лету 2006 года отрицать было уже трудно: за периметр регулярно проникали люди. Только в узких кругах говорили, что внутри постоянно находятся сотни нелегалов. Единого сообщества не существовало. Никто не знал Зону целиком. Каждый знал только несколько дорог и пару безопасных мест.'},
- {year:'Июль 2006',title:'Свечение над Припятью',img:'lore_5.jpg',text:'В июль у периметра стало больше военных машин. Ночью над Припятью несколько раз видели слабое свечение. Кто-то слышал продолжительный гул, хотя грозы не было. Официальных сообщений не появилось. Те, кто был внутри, позже писали иное. Но их темы не жили и суток.'}
+ {year:'1986',title:'Истоки катастрофы',img:'assets/images/lore_1.jpg',text:'О Чернобыле слышал каждый. В ночь на 26 апреля 1986 года четвёртый энергоблок взорвался, и мир выучил слово «фон». Припять опустела за несколько дней, а вокруг станции на карту легла закрытая черта. Для большинства этим история Чернобыля и заканчивалась. Считалось, что за периметром просто опасно: радиация, военные, колючая проволока. Со временем тишина начала рождать слухи.'},
+ {year:'1986–1989',title:'После аварии',img:'assets/images/lore_1b.jpg',text:'Первые странные истории принесли ликвидаторы. Техника, которая глохла без причины. Связь, обрывавшаяся в «чистых» секторах. Тяжёлое самочувствие там, где дозиметр показывал ноль. Мистикой это не называли: странное списывали на болезнь и усталость. В конце восьмидесятых со стороны закрытой территории иногда слышали стрельбу. Лишних вопросов не задавали.'},
+ {year:'1990-е',title:'Зона пускает людей',img:'assets/images/lore_2.jpg',text:'После распада Союза Зону стало некому охранять. Посты сокращали, военные месяцами ждали снабжения — и Зона начала пускать людей. Сначала заходили местные: из покинутых деревень выносили всё, что можно продать. Потом появились те, кто уходил дальше. И те, кто не возвращался. Иногда кто-то возвращался через недели — измученный и молчаливый. Им не верили.'},
+ {year:'1990-е',title:'Слухи',img:'assets/images/lore_3b.jpg',text:'В девяностые Чернобыль стал кормом жёлтой прессы. Животные невероятных размеров, свечение над Припятью, люди, «оставшиеся жить» в мёртвом городе. Большая часть была выдумкой. Правда тонула в фантазиях. Того, кто утверждал, что видел сам, просили доказать. Обычно всё заканчивалось людьми в погонах.'},
+ {year:'Конец 1990-х',title:'Люди у периметра',img:'assets/images/lore_3.jpg',text:'Со временем возле Зоны появились проводники. Контакт шёл через бывших военных, охотников, контрабандистов. Одни действительно знали, как обойти посты. Другие забирали деньги и заводили в лес. Третьи сдавали клиентов военным. У каждого была своя причина идти внутрь.'},
+ {year:'Начало 2000-х',title:'Эпоха форумов',img:'assets/images/lore_4.jpg',text:'С интернетом слухи получили вторую жизнь. Дорога, которая выводит к одному и тому же зданию, как ни иди. Собака, которая движется «неправильно». Компас, перестающий работать. Такие темы мгновенно становились спором. Иногда темы удаляли. Некоторые были уверены: темы убирают по требованию военных.'},
+ {year:'2003',title:'Как искали путь внутрь',img:'assets/images/lore_6.jpg',text:'К 2003 году в сети появились люди, обещавшие провести через периметр. Почти все открытые предложения были мошенничеством. Настоящие контакты передавались через закрытые форумы и ICQ. Человека проверяли неделями. Место перехода сообщали в последний момент. Опытные отвечали: снаряжение не спасёт того, кто не знает дороги.'},
+ {year:'2006',title:'Жизнь внутри',img:'assets/images/lore_5b.jpg',text:'К лету 2006 года отрицать было уже трудно: за периметр регулярно проникали люди. Только в узких кругах говорили, что внутри постоянно находятся сотни нелегалов. Единого сообщества не существовало. Никто не знал Зону целиком. Каждый знал только несколько дорог и пару безопасных мест.'},
+ {year:'Июль 2006',title:'Свечение над Припятью',img:'assets/images/lore_5.jpg',text:'В июль у периметра стало больше военных машин. Ночью над Припятью несколько раз видели слабое свечение. Кто-то слышал продолжительный гул, хотя грозы не было. Официальных сообщений не появилось. Те, кто был внутри, позже писали иное. Но их темы не жили и суток.'}
 ];
 var RULE_CATS=[
  {id:'c1',icon:'📜',title:'Общие правила',docs:[
@@ -1141,12 +1196,13 @@ function renderFactions(){
     var leader=uget(f.leaderId);
     var members=USERS.filter(function(u){return u.faction===f.id;}).length;
     return '<div class="fac-card2" style="--fc:'+f.color+'">'+
-      '<div class="fc2-head" style="background:linear-gradient(180deg,'+f.color+'22,transparent)">'+
-        '<div class="fc2-logo"><img src="'+f.logo+'" onerror="this.outerHTML=\''+facLogo(f,72).replace(/'/g,'&#39;')+'\'" alt=""></div>'+
-        '<span class="chip" style="color:'+f.color+';border-color:'+f.color+'55">'+f.tag+'</span></div>'+
-      '<div class="fc2-body"><h3>'+f.name+'</h3><p>'+f.desc+'</p>'+
-      '<div class="fc2-meta"><span>👤 '+(leader?esc(leader.charName):'вакантно')+'</span><span>'+members+' / '+(f.limit||30)+'</span>'+(f.open===false?'<span class="chip bad">НАБОР ЗАКРЫТ</span>':'')+'</div>'+
-      '<div class="fc2-actions"><button class="btn btn-ghost btn-sm" onclick="openFacDossier(\''+f.id+'\')">Открыть досье</button></div></div></div>';
+     '<div class="fc2-banner"><img src="'+(f.banner||DEFAULT_BANNER)+'" onerror="this.onerror=null;this.src=BN_FALLBACK" alt=""></div>'+
+     '<div class="fc2-head" style="background:linear-gradient(180deg,'+f.color+'22,transparent)">'+
+       '<div class="fc2-logo"><img src="'+f.logo+'" onerror="this.outerHTML=\''+facLogo(f,72).replace(/'/g,'&#39;')+'\'" alt=""></div>'+
+       '<span class="chip" style="color:'+f.color+';border-color:'+f.color+'55">'+f.tag+'</span></div>'+
+     '<div class="fc2-body"><h3>'+f.name+'</h3><div class="fc2-slogan">'+esc(f.slogan||'Имя говорит само за себя')+'</div><p>'+f.desc+'</p>'+
+     '<div class="fc2-meta"><span>👤 '+(leader?esc(leader.charName):'вакантно')+'</span><span>'+members+' / '+(f.limit||30)+'</span>'+(f.open===false?'<span class="chip bad">НАБОР ЗАКРЫТ</span>':'')+'</div>'+
+     '<div class="fc2-actions"><button class="btn btn-ghost btn-sm" onclick="openFacDossier(\''+f.id+'\')">Открыть досье</button></div></div></div>';
   }).join('');
 }
 function openFacDossier(fid){
@@ -1157,6 +1213,9 @@ function openFacDossier(fid){
   var isMember=me&&me.faction===f.id;
   var isLeader=me&&f.leaderId===me.id;
   var pending=me?APPS.find(function(a){return a.facId===f.id&&a.uid===me.id&&a.status==='pending';}):null;
+  var ruleGroups=(f.rules||[]).map(function(group){
+   return '<div class="fac-rule-box"><h4>'+esc(group.title||'Правило')+'</h4><ul>'+ (group.items||[]).map(function(item){return '<li>'+esc(item)+'</li>';}).join('') +'</ul></div>';
+  }).join('');
   var act='';
   if(!session)act='<button class="btn btn-primary btn-sm" onclick="closeFacModal();go(\'auth\')">Войти, чтобы подать заявку</button>';
   else if(isLeader)act='<button class="btn btn-primary btn-sm" onclick="closeFacModal();go(\'faction\')">▸ Кабинет лидера</button>';
@@ -1165,14 +1224,15 @@ function openFacDossier(fid){
   else if(f.open===false)act='<span class="chip bad">НАБОР ЗАКРЫТ</span>';
   else act='<div class="fld"><label>Текст заявки (коротко о себе)</label><textarea id="fac-app-text" placeholder="Пара слов о себе и своём персонаже..."></textarea></div><button class="btn btn-primary btn-sm" onclick="applyFac(\''+f.id+'\')">Подать заявку</button>';
   $('fac-modal-body').innerHTML=
-   '<div style="display:flex;gap:16px;align-items:center;margin-bottom:14px">'+
+   '<div class="fac-modal-hero"><img src="'+(f.banner||DEFAULT_BANNER)+'" onerror="this.onerror=null;this.src=BN_FALLBACK" alt=""><div class="fac-modal-hero-inner">'+
      '<span class="fc2-logo" style="--fc:'+f.color+';border-color:'+f.color+'"><img src="'+f.logo+'" style="width:82%;height:82%;object-fit:contain" onerror="this.outerHTML=\''+facLogo(f,64).replace(/'/g,'&#39;')+'\'" alt=""></span>'+
-     '<div style="flex:1"><div style="font-family:var(--disp);font-size:22px">'+f.name+'</div>'+
-     '<div style="font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:'+f.color+';margin-top:4px">'+f.tag+' · '+members.length+' / '+(f.limit||30)+'</div></div>'+
-     '<span class="chip" style="color:'+f.color+';border-color:'+f.color+'55">'+f.tag+'</span></div>'+
-   '<p style="color:var(--dim);font-size:13.5px;line-height:1.7;margin-bottom:16px">'+f.desc+'</p>'+
+     '<div style="flex:1"><div class="fac-modal-title">'+f.name+'</div><div class="fac-modal-slogan">'+esc(f.slogan||'Имя говорит само за себя')+'</div></div>'+
+     '<span class="chip" style="color:'+f.color+';border-color:'+f.color+'55">'+f.tag+'</span></div></div>'+
+   '<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px"><div style="font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:'+f.color+';text-transform:uppercase">'+members.length+' / '+(f.limit||30)+' участников</div><div class="chip '+(f.open===false?'bad':'ok')+'">'+(f.open===false?'Набор закрыт':'Набор открыт')+'</div></div>'+
+   '<p style="color:var(--dim);font-size:13.5px;line-height:1.7;margin:0 0 16px">'+f.desc+'</p>'+
    '<div class="kv"><span class="k">Лидер</span><span class="v">'+(leader?'<span class="leader-link" onclick="closeFacModal();viewProfileOther(\''+leader.id+'\')">'+miniAv(leader.id)+' '+esc(leader.charName)+'</span>':'вакантно')+'</span></div>'+
    '<div class="kv"><span class="k">Заявок в очереди</span><span class="v">'+APPS.filter(function(a){return a.facId===f.id&&a.status==='pending';}).length+'</span></div>'+
+   '<div class="fac-rule-list">'+ruleGroups+'</div>'+
    '<div style="margin-top:18px">'+act+'</div>'+
    '<div style="margin-top:14px"><button class="btn btn-ghost btn-sm" onclick="closeFacModal()">Закрыть</button></div>';
   $('facmodal').classList.add('on');
@@ -1364,23 +1424,58 @@ function renderProfile(){
   $('pf-name').textContent=u.charName;
   $('pf-chips').innerHTML=(u.banned?'<span class="chip bad">ЗАБАНЕН</span>':'<span class="chip ok">ДОПУЩЕН</span>')+'<span class="chip '+(u.role==='admin'?'warn':u.role==='owner'?'bad':'mute')+'">'+ROLE_NAME[u.role].toUpperCase()+'</span><span class="chip '+(wl?'ok':'bad')+'">ВАЙТ-ЛИСТ: '+(wl?'АКТИВЕН':'НЕАКТИВЕН')+'</span>';
   $('pf-sub').textContent='На проекте с '+(u.reg||'—')+' · '+facLine;
+  $('pf-stats').innerHTML=
+    '<div class="pf-stat"><div class="l">Роль</div><div class="v">'+esc(ROLE_NAME[u.role]||'Игрок')+'<small>'+esc(u.role==='owner'?'владелец':u.role==='admin'?'персонал':'стандарт')+'</small></div></div>'+
+    '<div class="pf-stat"><div class="l">Фракция</div><div class="v" style="color:'+((leaderOf||f)?(leaderOf?leaderOf.color:f.color):'var(--paper)')+'">'+esc(facLine||'Без фракции')+'<small>'+(f?('Тег '+f.tag):'нет статуса')+'</small></div></div>'+
+    '<div class="pf-stat"><div class="l">Баланс</div><div class="v">'+esc((u.balance==null?'—':fmt$(u.balance)))+'<small>депозит</small></div></div>'+
+    '<div class="pf-stat"><div class="l">Статус</div><div class="v" style="color:'+(u.banned?'var(--red)':'var(--phos)')+'">'+(u.banned?'Запрет':'Активен')+'<small>'+(u.online?'онлайн':'офлайн')+'</small></div></div>';
+  var s=u.socials||{};
+  var socialEntries=[
+    {k:'tg', label:'T', url:s.tg, cls:'tg'},
+    {k:'ds', label:'D', url:s.ds, cls:'dc'},
+    {k:'vk', label:'VK', url:s.vk, cls:'vk'},
+    {k:'yt', label:'YT', url:s.yt, cls:'yt'}
+  ];
+  $('pf-social-strip').innerHTML=socialEntries.filter(function(x){return x.url && x.url.trim();}).map(function(x){
+    var href=x.url.trim();
+    if(href && href.indexOf('http')!==0){href='https://'+href;}
+    return '<a class="pf-social-icon '+x.cls+'" href="'+esc(href)+'" target="_blank" rel="noreferrer" title="'+esc(x.k.toUpperCase())+'">'+x.label+'</a>';
+  }).join('') || '<span class="chip mute">соцсети не указаны</span>';
   var wlNote=(wl||pub)?'':'<div class="nc-warn">⚠ Вы исключены из вайт-листа администрацией. Вход на сервер заблокирован, персонаж и данные сохранены. Апелляция — в Discord проекта.</div>';
   if(staff&&(u.adminNotes||[]).length){
     wlNote+='<div class="nc-warn" style="border-color:var(--amber);background:rgba(182,144,60,.06);margin-top:8px"><b style="color:var(--amber)">Комментарии администрации (скрыты от игроков):</b>'+u.adminNotes.map(function(n){return '<div class="note-item" style="margin-top:8px"><div class="nt-d">'+fmtT(n.ts)+' · '+nameLink(n.author,true)+'</div><div>'+esc(n.text)+'</div>'+(n.img?'<img src="'+n.img+'" style="max-width:140px;border-radius:8px;margin-top:6px;display:block">':'')+'</div>';}).join('')+'</div>';
   }
   $('pf-wl-note').innerHTML=wlNote;
-  if(pub){$('pf-ids').innerHTML='<div class="kv"><span class="k">Фракция</span><span class="v" style="'+((leaderOf||f)?('color:'+(leaderOf?leaderOf.color:f.color)):'')+'">'+facLine+'</span></div><div class="kv"><span class="k">На проекте с</span><span class="v">'+(u.reg||'—')+'</span></div>';}
-  else{$('pf-ids').innerHTML=
-    '<div class="kv"><span class="k">Arma ID</span><span class="v"><span>'+esc(u.armaId||'—')+'</span><button class="copy" onclick="copyTxt(\''+esc(u.armaId||'')+'\')">копи</button></span></div>'+
-    '<div class="kv"><span class="k">Steam ID</span><span class="v"><span>'+esc(u.steamId||'—')+'</span><button class="copy" onclick="copyTxt(\''+esc(u.steamId||'')+'\')">копи</button></span></div>'+
-    '<div class="kv"><span class="k">Email</span><span class="v"><span>'+esc(u.email||'—')+'</span><button class="copy" onclick="copyTxt(\''+esc(u.email||'')+'\')">копи</button></span></div>'+
-    '<div class="kv"><span class="k">Discord ID</span><span class="v"><span>'+esc(u.discord||'—')+'</span><button class="copy" onclick="copyTxt(\''+esc(u.discord||'')+'\')">копи</button></span></div>'+
-    '<div class="kv"><span class="k">Баланс</span><span class="v hi">'+(u.balance==null?'—':fmt$(u.balance))+'</span></div>'+
-    '<div class="kv"><span class="k">Фракция</span><span class="v" style="'+((leaderOf||f)?('color:'+(leaderOf?leaderOf.color:f.color)):'')+'">'+facLine+'</span></div>';}
+  var bio=(u.bio||u.about||'Игрок пока не заполнил описание профиля. Добавьте пару строк о себе, стиле игры и целях на проекте.');
+  var infoRows = [
+    {k:'Сейчас онлайн', v:u.online?'Да':'Нет'},
+    {k:'Часов на сервере', v:(u.hours!=null?u.hours+' ч':'0 ч')},
+    {k:'Уважение', v:(u.rep!=null?u.rep:'0')},
+    {k:'Достижения', v:(u.medals!=null?u.medals:'0')},
+    {k:'Фракция', v:facLine||'Без фракции'},
+    {k:'Роль', v:esc(ROLE_NAME[u.role]||'Игрок')}
+  ];
+  var rowsHtml = infoRows.map(function(item){
+    var value = String(item.v || '—');
+    return '<div class="kv"><span class="k">'+esc(item.k)+'</span><span class="v" style="'+((item.k==='Фракция'&&(leaderOf||f))?('color:'+(leaderOf?leaderOf.color:f.color)):'')+'">'+esc(value)+'</span></div>';
+  }).join('');
+  $('pft-main').innerHTML='<div class="pf-main-grid"><div class="pf-ids" id="pf-ids">'+rowsHtml+'</div><div class="pf-brief"><div class="pf-brief-head">О себе</div><div class="pf-brief-body">'+esc(bio).replace(/\n/g,'<br>')+'</div></div></div>';
+  if(pub){
+    $('pf-ids').innerHTML = rowsHtml;
+  }else{
+    $('pf-ids').innerHTML =
+      '<div class="kv"><span class="k">Arma ID</span><span class="v"><span>'+esc(u.armaId||'—')+'</span><button class="copy" onclick="copyTxt(\''+esc(u.armaId||'')+'\')">копи</button></span></div>'+
+      '<div class="kv"><span class="k">Steam ID</span><span class="v"><span>'+esc(u.steamId||'—')+'</span><button class="copy" onclick="copyTxt(\''+esc(u.steamId||'')+'\')">копи</button></span></div>'+
+      '<div class="kv"><span class="k">Email</span><span class="v"><span>'+esc(u.email||'—')+'</span><button class="copy" onclick="copyTxt(\''+esc(u.email||'')+'\')">копи</button></span></div>'+
+      '<div class="kv"><span class="k">Discord ID</span><span class="v"><span>'+esc(u.discord||'—')+'</span><button class="copy" onclick="copyTxt(\''+esc(u.discord||'')+'\')">копи</button></span></div>'+
+      '<div class="kv"><span class="k">Баланс</span><span class="v hi">'+(u.balance==null?'—':fmt$(u.balance))+'</span></div>'+
+      '<div class="kv"><span class="k">Фракция</span><span class="v" style="'+((leaderOf||f)?('color:'+(leaderOf?leaderOf.color:f.color)):'')+'">'+facLine+'</span></div>';
+  }
   var tabs='';
-  if(!pub)tabs+='<button class="pf-tab2 on" onclick="pfTab2(\'main\',this)">Основная информация</button>';
+  if(!pub)tabs+='<button class="pf-tab2 on" onclick="pfTab2(\'main\',this)">Пользователь</button>';
   tabs+='<button class="pf-tab2 '+(pub?'on':'')+'" onclick="pfTab2(\'social\',this)">Соцсети</button>';
   tabs+='<button class="pf-tab2" onclick="pfTab2(\'char\',this)">Персонаж</button>';
+  tabs+='<button class="pf-tab2" onclick="pfTab2(\'settings\',this)">Настройки</button>';
   $('pf-tabs2').innerHTML=tabs;
   pfTab2(pub?'social':'main',null);
   fillSocial(u,own);fillChar(u);
@@ -1393,7 +1488,7 @@ function renderProfile(){
 function pfTab2(t,btn){
   document.querySelectorAll('.pf-tab2').forEach(function(x){x.classList.remove('on');});
   if(btn)btn.classList.add('on');else{var b=document.querySelector('.pf-tab2');if(b)b.classList.add('on');}
-  ['main','social','char'].forEach(function(x){var el=$('pft-'+x);if(el)el.classList.toggle('on',x===t);});
+  ['main','social','char','settings'].forEach(function(x){var el=$('pft-'+x);if(el)el.classList.toggle('on',x===t);});
 }
 function socRow(k,label,val){
   if(!val)return '';
@@ -1871,3 +1966,5 @@ renderHeader();renderHome();
 </script>
 </body>
 </html>
+
+
